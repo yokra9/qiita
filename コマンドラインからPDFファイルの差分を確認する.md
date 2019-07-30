@@ -1,3 +1,5 @@
+# コマンドラインからPDFファイルの差分を確認する
+
 初投稿です。PDFファイルの差分を確認したいときちょくちょくってありますよね。PDFで提供されるマニュアルの改訂版を確認するとき、どこが改訂されたのかがわからず困ってしまいます。そんなあなたにおすすめなのが [diff-pdf](https://vslavik.github.io/diff-pdf/) です。PDFの差分をテキスト・画像の両面から知ることができます。GUIで表示することも、コマンドラインで実行して結果をPDFファイルとして出力することもできます。便利ですね！
 
 ![スクリーンショット](https://vslavik.github.io/diff-pdf/screenshot.png)
@@ -5,11 +7,11 @@
 
 クロスプラットフォーム対応で、Windows版はバイナリとしても提供されています。本稿では Linux 版のコンパイル方法を中心に記載していきます。
 
-# コンパイル編
+## コンパイル編
 
 CentOS 7 を想定しています。
 
-## 前提：依存性を解消する
+### 前提：依存性を解消する
 
 Development Tools および GTK2,  poppler をインストールします。GTK2 は wxWidgets が、poppler は diff-pdf が依存しているパッケージです。
 
@@ -20,7 +22,7 @@ sudo yum install -y gtk2 gtk2-devel poppler-glib poppler-glib-devel
 
 もしgitが入ってない場合、ついでにインストールしておきましょう。
 
-## wxWidgetsをインストールする
+### wxWidgetsをインストールする
 
 wxWidgetsはクロスプラットフォームなGUIライブラリです（[参考](https://qiita.com/496_/items/3c2929bc296d39ce708c)）。diff-pdf も wxWidgets3 を利用していますが、yum からインストールできるのは wxWidgets2 なので、ソースからコンパイルする必要があります。
 
@@ -52,7 +54,7 @@ echo /usr/local/lib  | sudo tee -a /etc/ld.so.conf
 sudo ldconfig
 </pre>
 
-## diff-pdf をコンパイルする
+### diff-pdf をコンパイルする
 
 1. `git clone` する
 
@@ -75,21 +77,21 @@ cd diff-pdf
 make
 </pre>
 
-# 使い方編
+## 使い方編
 
-## CLI
+### CLI
 
 <pre>
 diff-pdf --output-diff=差分.pdf 比較元.pdf 比較先.pdf
 </pre>
 
-## GUI
+### GUI
 
 <pre>
 diff-pdf --view 比較元.pdf 比較先.pdf
 </pre>
 
-# 参照
+## 参照
 
 * [wxWidgetsの紹介](https://qiita.com/496_/items/3c2929bc296d39ce708c)
 * [Automakeでmakeする](http://www.02.246.ne.jp/~torutk/cxx/automake/automake.html)
