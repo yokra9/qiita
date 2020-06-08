@@ -8,13 +8,13 @@
 npm config https-proxy http://<user>:<pass>@<host>:<port>
 ```
 
-こういうときはやっぱりプロキシのせいでした。あれ？ でも npm のプロキシ設定なんてとっくの昔に済ませていたような……
+こういうときはやっぱりプロキシのせいでした。あれ？　でも npm のプロキシ設定なんてとっくの昔に済ませていたような……。
 
 ## 原因
 
 同じ箇所でハマっておられる先人がいらっしゃって助かりました。
 
-[npm config -g でプロキシの設定をしているのに electron-quick-start や electron-prebuilt でコケる](https://aquasoftware.net/blog/?p=927) によると…
+[npm config -g でプロキシの設定をしているのに electron-quick-start や electron-prebuilt でコケる](https://aquasoftware.net/blog/?p=927) によると、
 
 
 >electron-prebuilt のコードを見てみると、 どうやら electron-download というパッケージを使って electron のビルド済zip をダウンロードしているらしい。

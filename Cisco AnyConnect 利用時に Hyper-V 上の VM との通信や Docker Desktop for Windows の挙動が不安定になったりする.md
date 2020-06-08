@@ -7,7 +7,7 @@
 
 ## Cisco AnyConnect 利用時に Hyper-V 上の VM との通信や Docker Desktop for Windows の挙動が不安定になったりする理由
 
-Cisco AnyConnect は VPN クライアントソフトウェアです。一般ユーザが利用する端末にインストールし、SSL-VPN 接続を利用します。一方、企業側に設置され VPN サーバとして稼働するのが Cisco のファイアウォール製品である Cisco Adaptive Security Appliance 5500 シリーズ および 5500-X シリーズ（以下 Cisco ASA ）です。Cisco ASA の SSL-VPN 接続は**デフォルトでローカル LAN 宛てのトラフィックを遮断します。**[^1]
+Cisco AnyConnect は VPN クライアントソフトウェアです。一般ユーザが利用する端末にインストールし、SSL-VPN 接続を利用します。一方、企業側に設置され VPN サーバとして稼働するのが Cisco のファイアウォール製品である Cisco Adaptive Security Appliance 5500 シリーズおよび 5500-X シリーズ（以下 Cisco ASA）です。Cisco ASA の SSL-VPN 接続は**デフォルトでローカル LAN 宛てのトラフィックを遮断します。**[^1]
 
 [^1]: インターネット宛てのトラフィックをトンネリングするだけでなくローカル LAN 接続に制限を与えているのは情報持ち出し等のセキュリティリスクを低減させるためでしょうか？
 
@@ -21,9 +21,9 @@ Cisco サポートの [VPN クライアントと AnyConnect クライアント�
 
 ## 管理者に怒られてもローカル LAN アクセスがしたいとき
 
-許されていないことを**無理に**実行しようとした場合、一般的に怒られが発生します。しかし、それでもローカル LAN アクセスがしたいひとはいるかもしれません。私は試していませんが、解決法となるかもしれない情報を見つけましたので共有しておきます。
+許されていないことを**無理に**実行しようとした場合、一般的に怒られが発生します。しかし、それでもローカル LAN アクセスがしたいひとはいるかもしれません。私は試していませんが、解決法となりうる情報を見つけましたので共有しておきます。
 
-SuperUser に [How to allow local LAN access while connected to Cisco VPN?](https://superuser.com/questions/284709/how-to-allow-local-lan-access-while-connected-to-cisco-vpn) というトピックがあり、Cisco AnyConnect の代替として OSS の VPN クライアントである [OpenConnect VPN client](https://www.infradead.org/openconnect/) を利用するという提案がありました:
+SuperUser に [How to allow local LAN access while connected to Cisco VPN?](https://superuser.com/questions/284709/how-to-allow-local-lan-access-while-connected-to-cisco-vpn) というトピックがあり、Cisco AnyConnect の代替として OSS の VPN クライアントである [OpenConnect VPN client](https://www.infradead.org/openconnect/) を利用するという提案がありました：
 
 >For those looking to maintain control of their routing table when using a Cisco AnyConnect SSL VPN, check out OpenConnect. It both supports the Cisco AnyConnect SSL VPN and doesn't attempt to disrupt or 'secure' routing table entries. @Vadzim alludes to this in a comment above.
 >
@@ -31,11 +31,11 @@ SuperUser に [How to allow local LAN access while connected to Cisco VPN?](http
 >
 >I use OpenConnect on Windows but it also supports Linux, BSD, and macOS (among other platforms) according to the project page.
 
-参考和訳です:
+参考和訳です：
 
 >Cisco AnyConnect SSL VPN の使用時にルーティングテーブルの制御を維持したい場合は、OpenConnect を調べてみてください。 同様に Cisco AnyConnect SSL VPN をサポートしますが、ルーティングテーブルエントリをさまたげたり、「保護」したりしようとしません。 @Vadzimは、上記のコメントでこれを暗示しています。
 >
->AnyConnect Secure Mobility Client にパッチを適用する以外のすべての方法を試した後、Windows で OpenConnect GUI を使用して正常に置換することができました。 これによってローカルリソースへの接続を維持できました（そしてルーティングテーブルを更新しました）。
+>AnyConnect Secure Mobility Client にパッチを適用する以外のすべての方法を試した後、Windows で OpenConnect GUI を使用して正常に置換できました。 これによってローカルリソースへの接続を維持できました（そしてルーティングテーブルを更新しました）。
 >
 >私は Windows で OpenConnect を使用していますが、プロジェクトページによると、Linux、BSD、macOS（他のプラットフォームの中でも）もサポートしています。
 

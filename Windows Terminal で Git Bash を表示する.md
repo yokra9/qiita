@@ -1,6 +1,6 @@
 # Windows Terminal で Git Bash を表示する
 
-[Windows Terminal](https://github.com/microsoft/terminal) は Build 2019 で発表された Windows 向けの新たなターミナルです。マルチタブが導入されており、複数の PowerShell やコマンドプロンプトなどを切り替えながら利用することができます。また、Windows10 v1809 から Unix / Linux 互換の擬似コンソール [ConPTY](https://devblogs.microsoft.com/commandline/windows-command-line-introducing-the-windows-pseudo-console-conpty/) が導入されたため Bash on Ubuntu on WSL などの Linux シェルを表示することも可能です。せっかくなので [Git Bash](https://gitforwindows.org/) も利用できるように設定してみました。
+[Windows Terminal](https://github.com/microsoft/terminal) は Build 2019 で発表された Windows 向けの新たなターミナルです。マルチタブが導入されており、複数の PowerShell やコマンドプロンプトなどを切り替えながら利用できます。また、Windows10 v1809 から UNIX / Linux 互換の擬似コンソール [ConPTY](https://devblogs.microsoft.com/commandline/windows-command-line-introducing-the-windows-pseudo-console-conpty/) が導入されたため Bash on Ubuntu on WSL などの Linux シェルを表示することも可能です。せっかくなので [Git Bash](https://gitforwindows.org/) も利用できるように設定してみました。
 
 ![git-bash-on-windows-terminal.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/463374/24ab28df-45f3-a57a-65bf-af896cbdff15.png)
 
@@ -41,7 +41,7 @@
 
 ![git-bash-added-selection.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/463374/8ff677e8-7b96-cfb6-84ee-d96b47c1da47.png)
 
-※ここでは同様の手順で [PowerShell Core 6](https://aka.ms/pscore6) も 追加しています。
+※ここでは同様の手順で [PowerShell Core 6](https://aka.ms/pscore6) も追加しています。
 
 ## 日本語対応
 

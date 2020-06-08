@@ -2,7 +2,7 @@
 
 ## userChromeJS とは
 
-[userChromeJS](http://userchromejs.mozdev.org/) は任意のユーザスクリプトを導入することで Firefox の Chrome[^1] をカスタマイズするための拡張機能**でした**。この拡張機能は Firefox Quantum （Firefox v57以降）には対応していません。[userChromeJS Mozillazine thread](http://forums.mozillazine.org/viewtopic.php?f=48&t=1006795) で開発が行われていましたが、現在はスレッドがクローズされています。
+[userChromeJS](http://userchromejs.mozdev.org/) は任意のユーザスクリプトを導入することで Firefox の Chrome[^1] をカスタマイズするための拡張機能**でした**。この拡張機能は Firefox Quantum（Firefox v57以降）には対応していません。[userChromeJS Mozillazine thread](http://forums.mozillazine.org/viewtopic.php?f=48&t=1006795) で開発が行われていましたが、現在はスレッドがクローズされています。
 
 [^1]: Firefox の GUI 部分。[クロムめっき](https://en.wikipedia.org/wiki/Chrome_plating)（英: *Chrome Plating* または単に *Chrome*）が語源であるのか、そして Google Chrome の名付けに影響があったかについては諸説あります。
 
@@ -12,16 +12,16 @@
 
 ----
 
-上記スレの末尾で言及されていますが、[nuchi](https://github.com/nuchi/) さんが [firefox-quantum-userchromejs](https://github.com/nuchi/firefox-quantum-userchromejs) レポジトリに userChromeJS の後継案を公開しています。拡張機能ではなく、ファイルを指定のディレクトリに配置して利用します。詳細な利用法は [ReadMe](https://github.com/nuchi/firefox-quantum-userchromejs/blob/master/README.md) に譲りますが、以下に簡単な説明を記載します。
+上記スレの末尾で言及されていますが、[nuchi](https://github.com/nuchi/) さんが [firefox-quantum-userchromejs](https://github.com/nuchi/firefox-quantum-userchromejs) リポジトリに userChromeJS の後継案を公開しています。拡張機能ではなく、ファイルを指定のディレクトリに配置して利用します。詳細な利用法は [ReadMe](https://github.com/nuchi/firefox-quantum-userchromejs/blob/master/README.md) に譲りますが、以下に簡単な説明を記載します。
 
 ### `userChrome.css` と `userChrome.xml` を入手する
 
-上記のレポジトリから以下のファイルを入手してください；
+上記のリポジトリから以下のファイルを入手してください：
 
 * [userChrome.xml](https://raw.githubusercontent.com/nuchi/firefox-quantum-userchromejs/master/userChrome.xml)
 * [userChrome.css](https://raw.githubusercontent.com/nuchi/firefox-quantum-userchromejs/master/userChrome.css)
 
-なお Firefox のアップデートに従って随時更新されていくので、導入後に動作が怪しくなった場合はレポジトリに更新がないか確認してください。
+なお Firefox のアップデートに従って随時更新されていくので、導入後に動作が怪しくなった場合はリポジトリに更新がないか確認してください。
 
 ### 使用中のプロファイルの場所を見つける
 
@@ -40,7 +40,7 @@
 
 ## 動作原理
 
-Firefox は既定で `chrome/userChrome.css` を読み込みます。今回追記した `userChrome.css` は、 `-moz-binding` 要素を利用して `userChrome.xml` の id が `js` な要素を Firefox の UI 要素（執筆時のバージョンでは `toolbarbutton#alltabs-button` ）にバインドします。そしてこの `userChrome.xml` の該当箇所には `userChrome.js` を読み込み、動作させるための JS が記述されています。JS を XML の中に仕込んで CSS から無理矢理読み込ませているのは発想の勝利という感があります……。こういう仕組みなので Firefox 側の UI 要素の名前が変わったりすると対応が必要になります。
+Firefox はデフォルトで `chrome/userChrome.css` を読み込みます。今回追記した `userChrome.css` は、 `-moz-binding` 要素を利用して `userChrome.xml` の id が `js` な要素を Firefox の UI 要素（執筆時のバージョンでは `toolbarbutton#alltabs-button`）にバインドします。そしてこの `userChrome.xml` の該当箇所には `userChrome.js` を読み込み、動作させるための JS が記述されています。JS を XML の中に仕込んで CSS から無理矢理読み込ませているのは発想の勝利という感があります……。こういう仕組みなので Firefox 側の UI 要素の名前が変わったりすると対応が必要になります。
 
 ## 参考リンク
 

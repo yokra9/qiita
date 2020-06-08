@@ -8,7 +8,7 @@ PowerShell には  `su` コマンドおよび `sudo` コマンドがありませ
 
 ## TL;DR
 
-[こちら](https://github.com/yokra9/sudo)の Git Repositry から  `git clone` するなり `Download ZIP` するなりしたファイル群を任意の場所に配置し、ルートディレクトリ（下図の場合は `C:\Scripts` ）にパスを通して下さい。
+[こちら](https://github.com/yokra9/sudo)の Git Repositry から  `git clone` するなり `Download ZIP` するなりしたファイル群を任意の場所に配置し、ルートディレクトリ（下図の場合は `C:\Scripts`）にパスを通して下さい。
 
 <pre>
 C:\Scripts\
@@ -55,7 +55,7 @@ PowerShell で以下のコマンドを実行すると、管理者権限をもっ
 PS> sudo < コマンド | ファイル名.ps1 > [オプション...]
 </pre>
 
-なおファイル名やオプションに `` " `` （ダブルクォーテーション）を入力したい場合は `` ` `` （バッククォート）でエスケープする必要があります（ PowerShell は `` "  " `` の内側を文字列として解釈するため）：
+なおファイル名やオプションに `` " ``（ダブルクォーテーション）を入力したい場合は `` ` ``（バッククォート）でエスケープする必要があります（PowerShell は `` "  " `` の内側を文字列として解釈するため）：
 
 <pre>
 PS> sudo Start-VM `"CentOS 7`"
@@ -77,7 +77,7 @@ REM .\sudo\main.ps1にエスケープ済みの引数を渡す。
 powershell -ExecutionPolicy Unrestricted -File "%~dp0sudo\main.ps1" "%replacedArg%"
 ```
 
-ExecutionPolicy に怒られないように `sudo.bat` を経由しています。バッチファイル内で ` " ` を渡す際にはエスケープシーケンスとして ` \ ` をつけなければなりません。コマンドプロンプトと PowerShell と挙動が違うのがめんどくさいですね。
+ExecutionPolicy に怒られないように `sudo.bat` を経由しています。バッチファイル内で ` " ` を渡す際にはエスケープシーケンスとして ` \ ` をつけなければなりません。コマンドプロンプトと PowerShell と挙動が違ってめんどくさいですね。
 
 ```powershell:sudo\main.ps1
 # 確認
@@ -153,4 +153,4 @@ Start-Process powershell -ArgumentList $argument_list -Verb runas -Wait
 
 `Start-Process powershell -Command <コマンド> [オプション]` を呼び出す際に `` " `` を `` `\ `` でエスケープしています。PowerShell のエスケープシーケンスは `` ` `` ですが、 `-Command` オプションではコマンドプロンプトと同様のエスケープ処理が走るため `` \ `` も追加する必要があるようです。[^2]
 
-[^2]: `conhost.exe` （cmd や powershell などが利用するコンソールホスト）によるエスケープが働くためという説があります。詳細は[こちら](https://blog.shibata.tech/entry/2016/03/30/195726)の記事をご覧ください。
+[^2]: `conhost.exe`（cmd や powershell などが利用するコンソールホスト）によるエスケープが働くためという説があります。詳細は[こちら](https://blog.shibata.tech/entry/2016/03/30/195726)の記事をご覧ください。

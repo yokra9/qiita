@@ -21,7 +21,7 @@ CMD ["sh","/bin/run.sh"]
 tail -f /dev/null
 ```
 
-はたして、crontab に記載した通りに動きません。シェルにログインして確認してみましょう：
+はたして、crontab へ記載した通りに動きません。シェルにログインして確認してみましょう：
 
 ```shell
 # ps -aef | grep cron
@@ -133,7 +133,7 @@ test
 
 ```
 
-大丈夫そうですね！ ちなみに、以下のように crontab をインラインで記載することで構成をシンプルにすることができます：
+大丈夫そうですね！　ちなみに、以下のように crontab をインラインで記載して構成をシンプルにできます：
 
 ```shell
 (crontab -l; echo " * * * * * echo 'test' >> /var/tmp/test") | crontab
@@ -152,7 +152,7 @@ deb http://security.debian.org/debian-security stretch/updates main
 deb http://deb.debian.org/debian stretch-updates main
 ```
 
-ベースにしているDockerイメージを変更した場合、ソースリストに違いがあってインストールに失敗するパターンもあります。上記の場合、`main` レポジトリのみが有効化されおり、公式にサポートされるソフトウェア以外はインストールできなくなっています。サポート外のソフトウェアをインストールしたいときは、`universe` レポジトリを有効化してあげる必要がありますね。Dockerfile を修正しておきましょう：
+ベースにしているDockerイメージを変更した場合、ソースリストに違いがあってインストールに失敗するパターンもあります。上記の場合、`main` リポジトリのみが有効化されおり、公式にサポートされるソフトウェア以外はインストールできなくなっています。サポート外のソフトウェアをインストールしたいときは、`universe` リポジトリを有効化してあげる必要がありますね。Dockerfile を修正しておきましょう：
 
 ```Dockerfile
 FROM tomcat

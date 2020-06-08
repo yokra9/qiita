@@ -6,7 +6,7 @@
 
 ## debian 用 Apache の場合
 
-二つのモジュールを有効化する必要があります。HTTPのリバースプロキシを担当する `proxy_http` と WebSocket のリバースプロキシを担当する `proxy_wstunnel` です：
+2つのモジュールを有効化する必要があります。HTTPのリバースプロキシを担当する `proxy_http` と WebSocket のリバースプロキシを担当する `proxy_wstunnel` です：
 
 ```shell
 a2enmod proxy_http proxy_wstunnel
@@ -27,7 +27,7 @@ a2enmod proxy_http proxy_wstunnel
 </VirtualHost>
 ```
 
-ポイントは、設定を記載する順番です。制限が厳しい順に記すルールになっていますので、アプリ本体より API のエンドポイントを先に記載しなければなりません。エンドポイントの URL は ` ws://localhost:8025/api/v2/websocket/` ではないので注意しましょう。
+ポイントは、設定を記載する順番です。制限が厳しい順で記すルールになっていますので、アプリ本体より API のエンドポイントを先に記載しなければなりません。エンドポイントの URL は ` ws://localhost:8025/api/v2/websocket/` でないので注意しましょう。
 
 ## おまけ：Dockerfile
 

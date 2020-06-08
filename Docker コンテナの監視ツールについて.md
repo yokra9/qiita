@@ -23,11 +23,11 @@ CONTAINER ID        NAME                 CPU %               MEM USAGE / LIMIT  
 $ while true; do docker stats -a --no-stream >> stats.txt; done
 </pre>
 
-用途によってはこれでも十分かもとは思いますが、いろいろと<del>味気がない</del>分かりづらいので何かしらの可視化ツールが欲しくなりますね。
+用途によってはこれでも十分かもしれませんが、いろいろと<del>味気がない</del>分かりづらいので何かしらの可視化ツールが欲しくなりますね。
 
 ## [Dockerコンテナの監視を行うサービス](https://thinkit.co.jp/article/9318)を使う
 
-すぐさまZabbixなど既存の監視ツールとかを使いたくなってくるのですが、そう上手くはいきません。だいぶ古めの資料ですが……
+すぐさまZabbixなど既存の監視ツールとかを使いたくなってくるのですが、そう上手くはいきません。だいぶ古めの資料ですが、以下のような記述があります：
 
 > 既存の監視ツールはサーバが固定で存在することを前提としており、Immutable（Disposable） Computing環境のように生成と廃棄を繰り返す状態は想定していない。
 > クラスタリングのために同一サーバを廃棄後に生成した場合は監視を継続する必要があるが、コンテナの場合はIPアドレスも変わるため、どのコンテナを継続監視すべきかの判定を行う必要がある。
@@ -45,7 +45,7 @@ $ while true; do docker stats -a --no-stream >> stats.txt; done
 7.	[Scout Monitoring](https://www.scoutapp.com/)
 8.	[Mackerel](https://mackerel.io/ja/)
 
-とはいえ SaaS に投げるコストが惜しかったり、そもそも外部に投げちゃいけなかったりする場合のほうが多いかもしれません。僕自身も利用できたことはありません。ということで、Docker コンテナの可視化に最適化されたツールをセルフホスティングしよう！という方向になってきます。
+とはいえ SaaS に投げるコストが惜しかったり、そもそも外部に投げちゃいけなかったりする場合のほうが多いかもしれません。僕自身も利用できたことはありません。ということで、Docker コンテナの可視化に最適化されたツールをセルフホスティングしよう！　という方向になってきます。
 
 ## Zabbix + [Zabbix Docker Monitoring](https://github.com/monitoringartist/dockbix-agent-xxl) を使う
 
@@ -81,7 +81,7 @@ $ docker run \
   google/cadvisor:latest
 </pre>
 
-Docker ホストのポート 8080 にアクセスすると cAdvisor の WebUI が表示され、リソースの消費状況を確認することができます。cAdvisor の欠点としてデータを RAM 上にしか保持しないため、データ永続化には他ツールとの併用が必要になります。
+Docker ホストのポート 8080 にアクセスすると cAdvisor の Web UI が表示され、リソースの消費状況を確認できます。cAdvisor の欠点としてデータを RAM 上にしか保持しないため、データ永続化には他ツールとの併用が必要になります。
 
 ## cAdvisor + [InfluxDB](https://www.influxdata.com/time-series-platform/) を使う
 
@@ -100,7 +100,7 @@ $ docker exec -it influxdb bash # InfluxDB コンテナに入る
 > CREATE DATABASE cadvisor      # cAdvisor 用の DB を作成
 </pre>
 
-なお、DB 作成は[API リファレンス](https://docs.influxdata.com/influxdb/v1.7/tools/api/)を参考に WebAPI 経由で行うこともできます。
+なお、DB 作成は[API リファレンス](https://docs.influxdata.com/influxdb/v1.7/tools/api/)を参考に Web API 経由で行うこともできます。
 
 次に、cAdvisor コンテナにオプションを添えて起動します：
 
@@ -121,7 +121,7 @@ $ docker run -d \
   --storage_driver_secure=False
 </pre>
 
-InfluxDB の WebAPI を叩けば、cAdvisor が保存したリソース消費状況の履歴が確認できるはずです。
+InfluxDB の Web API を叩けば、cAdvisor が保存したリソース消費状況の履歴が確認できるはずです。
 
 ## cAdvisor + InfluxDB + [Grafana](https://grafana.com/docs/installation/docker/) を使う
 
@@ -131,7 +131,7 @@ InfluxDB の WebAPI を叩けば、cAdvisor が保存したリソース消費状
 $ docker run -d -p 3000:3000 grafana/grafana
 </pre>
 
-Docker ホストのポート 3000 にアクセスすると Grafana の WebUI が表示されます。データソースとして `http://[influxDB コンテナの IP アドレス]:8086` を指定すると可視化できます。
+Docker ホストのポート 3000 にアクセスすると Grafana の Web UI が表示されます。データソースとして `http://[influxDB コンテナの IP アドレス]:8086` を指定すると可視化できます。
 
 [cAdvisor with InfluxDB](https://grafana.com/grafana/dashboards/4637/) をダッシュボードにインポートすれば、すぐにリソース監視に入ることができるでしょう。
 

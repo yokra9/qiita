@@ -20,7 +20,7 @@ sudo yum groupinstall "Development Tools"
 sudo yum install -y gtk2 gtk2-devel poppler-glib poppler-glib-devel
 </pre>
 
-もしgitが入ってない場合、ついでにインストールしておきましょう。
+もしGitが入ってない場合、ついでにインストールしておきましょう。
 
 ### wxWidgetsをインストールする
 

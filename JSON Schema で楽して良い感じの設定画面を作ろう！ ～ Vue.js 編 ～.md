@@ -1,4 +1,4 @@
-# JSON Schema で楽して良い感じの設定画面を作ろう！ ～ Vue.js 編 ～
+# JSON Schema で楽して良い感じの設定画面を作ろう！　～ Vue.js 編 ～
 
 ## TL;DR
 
@@ -11,11 +11,11 @@
 ![](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/463374/2ac9ae22-c3e2-1ba8-f48e-8bb3535d4d15.jpeg)
 
 
-## はじめよう！ JSON Schema
+## はじめよう！　JSON Schema
 
 [JSON Schema](https://json-schema.org/) は JSON 形式のドキュメントにアノテーションとバリデーションの仕組みを与えるスキーマ言語です。近年では設定ファイルなどで利用されることも多い JSON ですが、[JSON にはコメントを書くことができません。](https://qiita.com/yokra9/items/1ac03876415d7fd47a65) そのため、JSON Schema による補完が魅力的な選択肢になりえます。
 
-[LoopBack 3](https://loopback.io/doc/en/lb3/index.html) を例に考えてみましょう。LoopBack は IBM の提供する Node.js フレームワークで、JSON ファイルで定義することで REST API を 手軽に構築できます。ここでは、[簡単なモデル定義の例](https://loopback.io/doc/en/lb3/Model-definition-JSON-file.html)を表します:
+[LoopBack 3](https://loopback.io/doc/en/lb3/index.html) を例に考えてみましょう。LoopBack は IBM の提供する Node.js フレームワークで、JSON ファイルで定義することで REST API を手軽に構築できます。ここでは、[簡単なモデル定義の例](https://loopback.io/doc/en/lb3/Model-definition-JSON-file.html)を表します：
 
 ```json:customer.json
 {
@@ -27,7 +27,7 @@
 }
 ```
 
-LoopBack ではこのように JSON ファイルを利用してモデル定義を記述します。JSON による記述はわかりやすくていいですよね。しかし、コメントがないため、どのように設定を記述すればいいのかわかりません。たとえば、どのようなプロパティが利用可能なのか、型が何であるのか、必須項目はあるのか、といった情報がないのです。もちろんリファレンスを参照すればいいのですが、できれば入力画面そのものが教えてくれたほうがありがたいですよね。そこで、[LoopBack 3 JSON Schemas](https://github.com/Sequoia/loopback-json-schemas) という JSON Schema が提供されているので試してみましょう。JSON Schema を利用したい場合、以下のような記述を行います:
+LoopBack ではこのように JSON ファイルを利用してモデル定義を記述します。JSON による記述はわかりやすくていいですよね。しかし、コメントがないため、どのように設定を記述すればいいのかわかりません。たとえば、どのようなプロパティが利用可能なのか、型が何であるのか、必須項目はあるのか、といった情報がないのです。もちろんリファレンスを参照すればいいのですが、できれば入力画面そのものが教えてくれたほうがありがたいですよね。そこで、[LoopBack 3 JSON Schemas](https://github.com/Sequoia/loopback-json-schemas) という JSON Schema が提供されているので試してみましょう。JSON Schema を利用したい場合、以下のような記述を行います：
 
 ```json:customer.json
 {
@@ -35,7 +35,7 @@ LoopBack ではこのように JSON ファイルを利用してモデル定義�
 }
 ```
 
-`$schema` プロパティの値として、JSON Schema ファイルの場所を指定します。これは URL でもローカルファイルでも構いません。JSON Schema に対応したエディタを利用している場合、編集中の文書に機能が動作します。Visual Stadio Code[^1] で編集してみましょう:
+`$schema` プロパティの値として、JSON Schema ファイルの場所を指定します。これは URL でもローカルファイルでも構いません。JSON Schema に対応したエディタを利用している場合、編集中の文書に機能が動作します。Visual Stadio Code[^1] で編集してみましょう：
 
 ![動画](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/463374/92f657b1-1461-7d8c-1325-a7b18f043c07.gif)
 
@@ -45,9 +45,9 @@ LoopBack ではこのように JSON ファイルを利用してモデル定義�
 
 自分で JSON Schema を作成する場合は、[Quicktype](https://github.com/quicktype/quicktype)を利用して JSON から半自動生成する手法が大変便利です。Quicktype については[QuicktypeでJSON Schemaを簡単に生成し、型安全な最高の開発体験を得た話](https://qiita.com/kentrino/items/a7ab8b56c8dbcf963ba4)が参考になります。
 
-## Vue Form JSON Schema で設定インターフェースを作る
+## Vue Form JSON Schema で設定インタフェースを作る
 
-本題です。せっかく設定ファイルのスキーマを用意したなら、それをフロントエンドの設定インターフェース設計にも流用したくなることもあるかもしれません。つまり、JSON Schema を元に HTML 等で設定インターフェースを生成し、その画面で入力された設定を JSON として返却してほしい、というアイデアです。 著名なものとして [JSON Editor](https://github.com/json-editor/json-editor) というライブラリがあります。[こちらのデモページ](https://json-editor.github.io/json-editor/)がその強力さをよく表しています。コードの記述量を減らすことができ、とても素敵ですね！
+本題です。せっかく設定ファイルのスキーマを用意したなら、それをフロントエンドの設定インタフェース設計にも流用したくなることもあるでしょう。つまり、JSON Schema を元に HTML 等で設定インタフェースを生成し、その画面で入力された設定を JSON として返却してほしい、というアイデアです。 著名なものとして [JSON Editor](https://github.com/json-editor/json-editor) というライブラリがあります。[こちらのデモページ](https://json-editor.github.io/json-editor/)がその強力さをよく表しています。コードの記述量を減らすことができ、とても素敵ですね！
 
 ![JSON Editor](https://github.com/json-editor/json-editor/raw/master/docs/images/jsoneditor.png)
 （出典：https://github.com/json-editor/json-editor）
@@ -57,7 +57,7 @@ LoopBack ではこのように JSON ファイルを利用してモデル定義�
 ![vue-form-json-schema.jpg](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/463374/0ecb194a-6bc3-0842-5af8-79aec5f9c3e0.jpeg)
 （出典：https://codesandbox.io/s/4rykx7jj19）
 
-Vue Form JSON Schema は[公式リファレンス](https://jarvelov.gitbook.io/vue-form-json-schema/)と[デモページ](https://github.com/jarvelov/vue-form-json-schema#demo)が大変充実しています。そのため本記事で詳しい説明は避けますが、触りとして Readme 付属の使用例の参考訳を示します:
+Vue Form JSON Schema は[公式リファレンス](https://jarvelov.gitbook.io/vue-form-json-schema/)と[デモページ](https://github.com/jarvelov/vue-form-json-schema#demo)が大変充実しています。そのため本記事で詳しい説明は避けますが、触りとして Readme 付属の使用例の参考訳を示します：
 
 ```vue
 <template>
@@ -672,7 +672,7 @@ Vue Form JSON Schema は非常に便利なライブラリですが、コンポ�
 ```
 </div></details>
 
-同じような記述が重複してしまっていることがわかります。モデルの型とコンポーネントは完全に 1:1 の関係にあるわけではありませんが、ある程度はまとめて記述してしまいたいですよね。そこで、手前味噌はありますが、uiSchema の記述を楽にするヘルパーライブラリ [ui-schema-generator](https://github.com/yokra9/ui-schema-generator) を [GitHub](https://github.com/yokra9/ui-schema-generator) と [NPM](https://www.npmjs.com/package/ui-schema-generator) 上で公開しています。利用例です:
+同じような記述が重複してしまっていることがわかります。モデルの型とコンポーネントは完全に 1:1 の関係にあるわけではありませんが、ある程度はまとめて記述してしまいたいですよね。そこで、手前味噌はありますが、uiSchema の記述を楽にするヘルパーライブラリ [ui-schema-generator](https://github.com/yokra9/ui-schema-generator) を [GitHub](https://github.com/yokra9/ui-schema-generator) と [NPM](https://www.npmjs.com/package/ui-schema-generator) 上で公開しています。利用例です：
 
 ```vue
 <template>
@@ -748,7 +748,7 @@ export default {
 </script>
 ```
 
-データオブジェクトのデフォルト値を設定できたり、uiSchema をまとめて出力できるようになったので、コードの記述量を大きく削減できるようになったかと思います。よろしければ使ってみてくださいね。
+データオブジェクトのデフォルト値を設定できたり、uiSchema をまとめて出力できるようになったので、コードの記述量を大きく削減できるようになりました。よろしければ使ってみてくださいね。
 
 ## 参考リンク
 
