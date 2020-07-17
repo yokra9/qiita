@@ -217,7 +217,7 @@ name=CentOS-$releasever - httpd
 baseurl=file:///var/httpd-repo
 enabled=0
 gpgcheck=1
-gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-disablerepo
 
 # yum -y --disablerepo=\* --enablerepo=httpd-repo install httpd
 Loaded plugins: fastestmirror, ovl
