@@ -217,7 +217,7 @@ name=CentOS-$releasever - httpd
 baseurl=file:///var/httpd-repo
 enabled=0
 gpgcheck=1
-gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-disablerepo
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-$releasever
 
 # yum -y --disablerepo=\* --enablerepo=httpd-repo install httpd
 Loaded plugins: fastestmirror, ovl
@@ -299,6 +299,16 @@ Complete!
 ```
 
 やった！　無事にオフライン環境でも `yum install` でインストールできるようになりました。
+
+## ローカルリポジトリを更新したいときの注意点
+
+ディレクトリにファイルを追加して `createrepo` するだけで、ローカルリポジトリにパッケージを追加できます。
+
+リポジトリを更新しても `yum list` で追加したパッケージが表示されなかったり、`yum install` でオフラインインストールできないことがあります。これは前回実行時のキャッシュが残っているせいなので、ローカルリポジトリのキャッシュをクリアしてあげましょう：
+
+```bash
+# yum clean all --disablerepo=\* --enablerepo=httpd-repo
+```
 
 ## 参考リンク
 
