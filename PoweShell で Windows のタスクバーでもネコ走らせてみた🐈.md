@@ -14,10 +14,13 @@ PowerShell は Windows にビルトインされた強力なスクリプト言語
 
 ![メディア1.gif](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/463374/97d11f45-5e75-a790-03ce-29c9e3bb6157.gif)
 
-
 <https://github.com/yokra9/RunCat_for_Windows_on_PowerShell>
 
-[こちら](https://github.com/yokra9/RunCat_for_Windows_on_PowerShell/releases/tag/v0.1)からダウンロードした zip ファイルを解凍し、`init.vbs` を実行してください。
+とりあえず動かしたいときは、[こちら](https://github.com/yokra9/RunCat_for_Windows_on_PowerShell/releases/tag/v0.2)からダウンロードした Zip ファイルを解凍し `init.vbs` を実行してください。
+
+### 2020/08/21追記
+
+インターネットから取得した PowerShell ファイルはセキュリティ上の都合で実行できないようになっているので、初回実行時に `unblock.bat` を実行してブロックを解除してください。@okahashi117 さん、ご指摘ありがとうございました！
 
 ## ソースコード
 
@@ -140,3 +143,4 @@ Win32API の読み込みには C# のスニペットを使っていますが、�
 * [Win32アプリケーションでWindows 10のライト/ダークモードを検出する方法](https://www.it-swarm.dev/ja/windows/win32%E3%82%A2%E3%83%97%E3%83%AA%E3%82%B1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E3%81%A7windows-10%E3%81%AE%E3%83%A9%E3%82%A4%E3%83%88%E3%83%80%E3%83%BC%E3%82%AF%E3%83%A2%E3%83%BC%E3%83%89%E3%82%92%E6%A4%9C%E5%87%BA%E3%81%99%E3%82%8B%E6%96%B9%E6%B3%95/806091802/)
 * [PowerShellでサーバで動いているプロセスを知りたい](https://tech.guitarrapc.com/entry/2013/01/08/030100)
 * [get-counter as job -continuous](https://social.technet.microsoft.com/Forums/windowsserver/en-US/883ef4e5-e1ee-459d-b085-a19d3a0b86cb/getcounter-as-job-continuous?forum=winserverpowershell)
+* [PowerShell で ブロックされたファイルの Zone を解除する](https://tech.guitarrapc.com/entry/2013/07/03/200739)
