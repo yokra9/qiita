@@ -1,14 +1,11 @@
 # Git for Windows（2.25以降）でファイル名に禁則文字を含むリポジトリを Clone する方法
 
-Git for Windows ではファイル名に禁則文字を含むリポジトリを Clone できません。[^1]
-
-[^1]: Windows 10 の場合、「\」「/」「:」「*」「?」「"」「<」「>」「|」がファイル名に利用できません。
-
-Linux での利用を前提としたリポジトリの場合、ファイル名にWindows の禁則文字を含んでしまっている場合があります。[^2] とはいえ禁則文字を含まないファイルまで Clone できないのでは不便です。どうにかできないものか。
+Linux での利用を前提としたリポジトリには、ファイル名に Windows の禁則文字が含まれている場合があります。[^2] しかし、Git for Windows ではファイル名に禁則文字を含むリポジトリを Clone できません。[^1] とはいえ、禁則文字を含まないファイルまで Clone できないのでは不便です。どうにかできないものか。
 
 [^2]: [一例](https://github.com/aquasecurity/vuln-list/blob/master/oval/redhat/6/2010/)です。
+[^1]: Windows 10 の場合、「\」「/」「:」「*」「?」「"」「<」「>」「|」がファイル名に利用できません。
 
-## 「まばらに」 Clone して問題を回避する
+## 「まばらに」Clone して問題を回避する
 
 [protectNTFS](https://git-scm.com/docs/git-config#Documentation/git-config.txt-coreprotectNTFS) をオフにした状態で、[sparse-checkout](https://www.git-scm.com/docs/git-sparse-checkout) を活用すれば無事に Clone できます。
 
@@ -32,7 +29,7 @@ git config core.sparsecheckout true
 git pull origin master
 ```
 
-core.protectNTFS が有効なままだと、禁則文字を含むファイルが sparse-checkout で除外されたディレクトリにある場合でさえ問答無用でエラーになってしまいまいます。なお、protectNTFS は [Git for Windows 2.25.0](https://github.com/git-for-windows/git/releases/tag/v2.25.0.windows.1) から含まれており、以前のバージョンでは sparse-checkout するだけで問題を回避できていました。
+protectNTFS が有効な状態では、sparse-checkout でクローン対象とするパスを限定しても、 禁則文字を含むファイルがあると問答無用でエラーになってしまいます。なお、protectNTFS は [Git for Windows 2.25.0](https://github.com/git-for-windows/git/releases/tag/v2.25.0.windows.1) から含まれており、以前のバージョンでは sparse-checkout するだけで問題を回避できていました。
 
 ## 参考リンク
 
