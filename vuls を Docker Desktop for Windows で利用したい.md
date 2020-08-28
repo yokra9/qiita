@@ -16,12 +16,42 @@
 # Docker for Windows 用にイメージをビルド
 docker build -t vuls .
 
-# vuls を実行する（事前に ~/.ssh/ に SSH 秘密鍵を設置してください）
+# Vuls を実行する
+# （事前に ~/.ssh/ に SSH 秘密鍵を設置してください）
 .\vuls.ps1 configtest -config="/vuls/config.toml"
 .\vuls.ps1 scan -config="/vuls/config.toml"
 ```
 
-## vuls を Windows で利用するときの「つまづきポイント」
+また、OWASP Dependency Check と連携して依存ライブラリ等の脆弱性もスキャンすることもできます[^3]：
+
+[^3]: OWASP Dependency Check と連携させる場合は（JVN だけでなく）NVDから脆弱性情報を取得してください。
+
+```powershell
+Set-Location "dependency-check"
+
+# 初期化処理（初回だけ実行してください）
+.\init.ps1
+
+# OWASP Dependency Check を実行する
+#（事前に ./target に対象とするパッケージを設置してください）
+.\check.ps1
+```
+
+```toml:config.toml
+[servers]
+
+[servers.sample]
+host            = "192.168.1.2"
+port            = "22"
+user            = "admin"
+sshConfigPath   = "/root/.ssh/config"
+keyPath         = "/root/.ssh/id_rsa"
+scanMode        = ["fast"]
+# path to OWASP Dependency Check Report in docker
+owaspDCXMLPath  ="/vuls/dependency-check/odc-reports/dependency-check-report.xml"
+```
+
+## Vuls を Windows で利用するときの「つまづきポイント」
 
 ### fetch gost（Go Security Tracker）が失敗する問題
 
@@ -41,8 +71,8 @@ docker run --rm -i -v "${PWD}:/vuls" -v "${PWD}/gost-log:/var/log/gost" "vuls/go
 
 ```powershell
 git init
-git config core.protectNTFS false
-git config core.sparsecheckout true # git for Windows 2.25 以降で必須
+git config core.protectNTFS false # git for Windows 2.25 以降で必須
+git config core.sparsecheckout true
 git config core.longpaths true
 git remote add origin "https://github.com/aquasecurity/vuln-list.git"
 Copy-Item "..\sparse-checkout" ".git\info"
@@ -68,7 +98,7 @@ Windows 側で一度 sparse-checkout の設定をしておけば、docker コン
 
 ### スキャン日時表記を JST にする / `UNPROTECTED PRIVATE KEY FILE!`
 
-[チュートリアル](https://vuls.io/docs/en/tutorial-docker.html) Step 6. では `-v /etc/localtime:/etc/localtime:ro -e "TZ=Asia/Tokyo"` のように、ホストマシンのタイムゾーン設定をマウントし JST 表記に変更しています。しかし Windows には `/etc/localtime` ないので、別の方法で解決する必要があります。
+[チュートリアル](https://vuls.io/docs/en/tutorial-docker.html) Step 6. では `-v /etc/localtime:/etc/localtime:ro -e "TZ=Asia/Tokyo"` のように、ホストマシンのタイムゾーン設定をマウントし JST 表記に変更しています。しかし Windows には `/etc/localtime` がないので、別の方法で解決する必要があります。
 
 また、スキャン対象との SSH 接続に利用する SSH 秘密鍵をホストマシンからマウントしますが、Windows からマウントしたファイル・フォルダはパーミッションが `777` になっています。SSH から鍵が `TOO OPEN` であると怒られてしまうので、entrypoint で `chmod` してしまいましょう。
 
@@ -100,3 +130,4 @@ exec "$@"
 * [Setting the timezone](https://wiki.alpinelinux.org/wiki/Setting_the_timezone)
 * [Docker Tip #56: Volume Mounting SSH Keys into a Docker Container](https://nickjanetakis.com/blog/docker-tip-56-volume-mounting-ssh-keys-into-a-docker-container)
 * [Vuls using Docker on Windows](https://qiita.com/soulhead/items/4b18759dfcf368168842)
+* [OWASP Dependency Checkを、Vulsと連携して表示させる](https://blog.idcf.jp/entry/idcf-vuls4)
