@@ -10,25 +10,25 @@ Jetty は Tomcat と比較してメモリフットプリントが小さいこと
 
 ## Jetty を Docker で利用する
 
-[Docker Official Image](https://hub.docker.com/_/jetty/) が提供されています[^3]。Jetty の各バージョンに対して OpenJDK LTS(Red Hat ビルド)とJRE、Debian と Debian slim の組み合わせからイメージを選べます。
+[Docker Official Image](https://hub.docker.com/_/jetty/) が提供されています[^3]。Jetty の各バージョンに対して OpenJDK LTS(Red Hat ビルド)と JRE、Debian と Debian slim の組み合わせからイメージを選べます。
 
 |バージョン|開発元|Java|Java EE|サーブレット|JSP|サポート期間|状態|備考|
 |:----|:----|:----|:----|:----|:----|:----|:----|:----|
-|11|Eclipse|11～|8|4.0.2|2.3|2020-|アルファ|JakartaEE Namespaceに変更|
-|10|Eclipse|11～|8|4.0.2|2.3|2019-|ベータ| |
-|9.4|Eclipse|1.8～|7|3.1|2.3|2016-|安定版| |
-|9.3|Eclipse|1.8～|7|3.1|2.3|2015-|非推奨|HTTP/2、FastCGIをサポート|
-|9.2|Eclipse|1.7～|7|3.1|2.3|2014-2018|EOL|Dockerイメージ配布を開始|
-|9.1|Eclipse|1.7～|7|3.1|2.3|2013-2014|EOL| |
-|9|Eclipse|1.7～|7|3.1-beta|2.3|2013-2013|EOL| |
-|8|Eclipse/Codehaus|1.6～|6|3|2.2|2009-2014|EOL| |
-|7|Eclipse/Codehaus|1.5～|5|2.5|2.1|2008-2014|EOL|WebSocket、SPDY v3をサポート|
-|6|Codehaus|1.4～1.5|5|2.5|2|2006-2010|EOL| |
-|5|Sourceforge|1.2～1.5|1.4|2.4|2|2003-2009|Antique（骨董品）| |
-|4|Sourceforge|1.2、J2ME|1.3|2.3|1.2|2001-2006|Ancient（古代）| |
-|3|Sourceforge|1.2|1.2|2.2|1.1|1999-2002|Fossilized（化石）|HTTP/1.1をサポート|
-|2|Mortbay|1.1|-|2.1|1|1998-2000|Legendary（伝説）| |
-|1|Mortbay|1|-|-|-|1995-1998|Mythical（神話）| |
+|11|Eclipse|11～|8|4.0.2|2.3|2020～|アルファ|JakartaEE Namespaceに変更|
+|10|Eclipse|11～|8|4.0.2|2.3|2019～|ベータ| |
+|9.4|Eclipse|1.8～|7|3.1|2.3|2016～|安定版| |
+|9.3|Eclipse|1.8～|7|3.1|2.3|2015～|非推奨|HTTP/2、FastCGIをサポート|
+|9.2|Eclipse|1.7～|7|3.1|2.3|2014～2018|EOL|Dockerイメージ配布を開始|
+|9.1|Eclipse|1.7～|7|3.1|2.3|2013～2014|EOL| |
+|9|Eclipse|1.7～|7|3.1-beta|2.3|2013～2013|EOL| |
+|8|Eclipse/Codehaus|1.6～|6|3|2.2|2009～2014|EOL| |
+|7|Eclipse/Codehaus|1.5～|5|2.5|2.1|2008～2014|EOL|WebSocket、SPDY v3をサポート|
+|6|Codehaus|1.4～1.5|5|2.5|2|2006～2010|EOL| |
+|5|Sourceforge|1.2～1.5|1.4|2.4|2|2003～2009|Antique（骨董品）| |
+|4|Sourceforge|1.2、J2ME|1.3|2.3|1.2|2001～2006|Ancient（古代）| |
+|3|Sourceforge|1.2|1.2|2.2|1.1|1999～2002|Fossilized（化石）|HTTP/1.1をサポート|
+|2|Mortbay|1.1|-|2.1|1|1998～2000|Legendary（伝説）| |
+|1|Mortbay|1|-|-|-|1995～1998|Mythical（神話）| |
 
 ここでは Jetty9 on OpenJDK11 on Debian10 を選択します：
 
