@@ -304,7 +304,7 @@ GitHub のコミットログを見ると現在も継続的にメンテナンス�
 
 ### JSONC （`.jsonc` : おすすめ）
 
-[JSONC](https://github.com/microsoft/node-jsonc-parser) は Visual Studio Code の設定ファイルで JSON にコメントを書くために生まれた Node.js 用 JSON パーサとフォーマットです。Visual Studio Code には標準で JSONC を取り扱う機能が含まれています。Windows Terminal の `profiles.json` も JSONC 形式ですが、こちらは C++ プロジェクトのためパーサとしては [JsonCpp](https://github.com/open-source-parsers/jsoncpp)を採用しています。[^5]
+[JSONC](https://github.com/microsoft/node-jsonc-parser) は Visual Studio Code の設定ファイルで JSON にコメントを書くために生まれた Node.js 用 JSON パーサとフォーマットです。Visual Studio Code には標準で JSONC を取り扱う機能が含まれています。Windows Terminal の `settings.json` も JSONC 形式ですが、こちらは C++ プロジェクトのためパーサとしては [JsonCpp](https://github.com/open-source-parsers/jsoncpp)を採用しています。[^5]
 
 [^5]: 詳しくはこちらの [Issue](https://github.com/microsoft/terminal/pull/1005) から。
 

@@ -12,7 +12,7 @@
     [guid]::NewGuid()
 ```
 <br>
-2. Windows Terminal を起動し、[ Settings ] から `profiles.json` を開きます。
+2. Windows Terminal を起動し、[ Settings ] から `settings.json` を開きます。
 3. `"profiles" : [ { ... } ]` の末尾に以下のオブジェクトを追記して保存します。`"guid"` の値は先ほど取得した GUID に差し替えてください:
 
 ```json
