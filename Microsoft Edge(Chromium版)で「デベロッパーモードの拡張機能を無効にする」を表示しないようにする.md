@@ -8,7 +8,9 @@ Chromium 版 Edge は [Google Chrome の場合](https://cloud.google.com/docs/ch
 
 まず、Microsoft の[ビジネス向け Edge](https://www.microsoft.com/ja-jp/edge/business/download) のページからポリシーテンプレートを取得します。チャンネル/バージョンとビルドを指定すると、ダウンロードのリンクが有効化されます。
 
-ダウンロードしたポリシーテンプレートを所定のディレクトリに配置します。
+ダウンロードしたポリシーテンプレートを所定のディレクトリに配置します。[^2]
+
+[^2]: `msedgeupdate` は Edge の更新方法と更新タイミングを制御するため、`msedgewebview2` はWebView2 の実行方法を構成するためのポリシーテンプレートですので、今回は必要ありません。
 
 * `msedge.admx`
   * From: `windows\admx\`
@@ -17,17 +19,13 @@ Chromium 版 Edge は [Google Chrome の場合](https://cloud.google.com/docs/ch
   * From: `windows\admx\ja-JP`
   * To  : `C:\Windows\PolicyDefinitions\ja-JP\`
 
-次に、グループポリシーエディタを起動し、`管理用テンプレート\Microsoft Edge\拡張機能\拡張機能およびユーザースクリプトのインストールソースを構成する` を開きます。
-
-![ExtensionInstallSources](EdgeExtensionInstallSources.jpg)
-
-`拡張機能、アプリ、ユーザースクリプトのインストールを許可するURL パターン` としてローカルホストの URL パターン（例: `http://localhost:8080/*`）を追加します。ポリシーを設定した後、Edge の再起動を忘れないでください。
-
-こうして、ローカルホストに設置した拡張機能(`.crx` 形式)をインストールできるようになりました。しかし `edge://extensions/` を確認すると `この拡張機能は既知のソースからのものではなく、ユーザーの知らないうちに追加された可能性があります。` と表示され、無効化されてしまいました。個別に許可する必要がありますので、開発者モードに切り替えて拡張機能 ID を控え、削除しましょう。
+次に、拡張機能をインストールします。`edge://extensions/` を表示し、開発者モードに切り替えてから `.crx` 形式のファイルをドラッグ&ドロップしてください。
 
 ![ExtensionInstallSources2](EdgeExtensionInstallSources2.jpg)
 
-グループポリシーエディタに戻り、`管理用テンプレート\Microsoft Edge\拡張機能\特定の拡張機能のインストールを許可する` を開きます。
+しかし、`この拡張機能は既知のソースからのものではなく、ユーザーの知らないうちに追加された可能性があります。` と表示され、無効化されてしまいました。個別に許可する必要がありますので、拡張機能 ID を控え、削除しましょう。
+
+グループポリシーエディタを開き、`管理用テンプレート\Microsoft Edge\拡張機能\特定の拡張機能のインストールを許可する` を開きます。
 
 ![EdgeExtentionAllowList](EdgeExtentionAllowList.jpg)
 
