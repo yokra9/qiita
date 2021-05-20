@@ -1,42 +1,53 @@
 # Windows Terminal で Git Bash を表示する
 
-[Windows Terminal](https://github.com/microsoft/terminal) は Build 2019 で発表された Windows 向けの新たなターミナルです。マルチタブが導入されており、複数の PowerShell やコマンドプロンプトなどを切り替えながら利用できます。また、Windows10 v1809 から UNIX / Linux 互換の擬似コンソール [ConPTY](https://devblogs.microsoft.com/commandline/windows-command-line-introducing-the-windows-pseudo-console-conpty/) が導入されたため Bash on Ubuntu on WSL などの Linux シェルを表示することも可能です。せっかくなので [Git Bash](https://gitforwindows.org/) も利用できるように設定してみました。
+[Windows Terminal](https://github.com/microsoft/terminal) は Build 2019 で発表された Windows 向けの新たなターミナルです。マルチタブが導入されており、複数の PowerShell やコマンドプロンプトなどを切り替えながら利用できます。また、Windows10 v1809 から UNIX / Linux 互換の擬似コンソール [ConPTY](https://devblogs.microsoft.com/commandline/windows-command-line-introducing-the-windows-pseudo-console-conpty/) が導入されたため Bash などの Linux 用シェルの表示も可能になりました。せっかくなので [Git Bash](https://gitforwindows.org/) も利用できるように設定してみました。
 
 ![git-bash-on-windows-terminal.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/463374/24ab28df-45f3-a57a-65bf-af896cbdff15.png)
 
-## 設定手順
+## 設定手順（GUI）
+
+**（2021-05-19追記）** Windows Terminal のバージョンアップに伴い、GUIでの設定が可能になりました。
+
+1. Windows Terminal を起動し、設定画面を開きます。
+2. サイドメニューの`[プロファイル]`-`[新規追加]`からプロファイルを追加し、以下のように設定します。
+
+    ![WT-GitBash-GUI.jpg](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/463374/6ad6e2a1-d481-4791-671f-58bd7fe1be7c.jpeg)
+
+3. 新規タブの選択肢に `Git Bash` が追加されました！
+
+## 設定手順（手動）
 
 1. PowerShell を起動して適当な GUID を取得します。
 
-```powershell
+    ```powershell
     [guid]::NewGuid()
-```
-<br>
-2. Windows Terminal を起動し、[ Settings ] から `settings.json` を開きます。
+    ```
+
+2. Windows Terminal を起動し、設定画面から`[JSONファイルを開く]`を押下して `settings.json` を開きます。
 3. `"profiles" : [ { ... } ]` の末尾に以下のオブジェクトを追記して保存します。`"guid"` の値は先ほど取得した GUID に差し替えてください:
 
-```json
-{
+    ```json
+    {
 
-    "guid" : "{e635c1d7-d15f-f81e-4665-c60b3f27a3f6}",
-    "acrylicOpacity" : 0.5,
-    "closeOnExit" : true,
-    "colorScheme" : "Campbell",
-    "commandline" : "C:\\Program Files\\Git\\bin\\bash.exe",
-    "cursorColor" : "#FFFFFF",
-    "cursorShape" : "bar",
-    "fontFace" : "consolas",
-    "fontSize" : 14,
-    "historySize" : 9001,
-    "icon" : "C:\\Program Files\\Git\\mingw64\\share\\git\\git-for-windows.ico",
-    "name" : "Git Bash",
-    "padding" : "0, 0, 0, 0",
-    "snapOnInput" : true,
-    "startingDirectory" : "%USERPROFILE%",
-    "useAcrylic" : true
-}
-```
-<br>
+        "guid" : "{e635c1d7-d15f-f81e-4665-c60b3f27a3f6}",
+        "acrylicOpacity" : 0.5,
+        "closeOnExit" : true,
+        "colorScheme" : "Campbell",
+        "commandline" : "C:\\Program Files\\Git\\bin\\bash.exe",
+        "cursorColor" : "#FFFFFF",
+        "cursorShape" : "bar",
+        "fontFace" : "consolas",
+        "fontSize" : 14,
+        "historySize" : 9001,
+        "icon" : "C:\\Program Files\\Git\\mingw64\\share\\git\\git-for-windows.ico",
+        "name" : "Git Bash",
+        "padding" : "0, 0, 0, 0",
+        "snapOnInput" : true,
+        "startingDirectory" : "%USERPROFILE%",
+        "useAcrylic" : true
+    }
+    ```
+
 4. 新規タブの選択肢に `Git Bash` が追加されました！
 
 ![git-bash-added-selection.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/463374/8ff677e8-7b96-cfb6-84ee-d96b47c1da47.png)
@@ -45,7 +56,7 @@
 
 ## 日本語対応
 
-上記の作業だけでも利用することはできますが、ロケールの設定が行われていないため日本語が文字化けしてしまいます。そこで、`~/.bashrc` で環境変数 `LANG` を指定します：
+上記の作業だけでも利用できますが、ロケールの設定が行われていないため日本語が文字化けしてしまいます。そこで、`~/.bashrc` で環境変数 `LANG` を指定します：
 
 ```shell:.barhrc
 export LANG=ja_JP.UTF-8
