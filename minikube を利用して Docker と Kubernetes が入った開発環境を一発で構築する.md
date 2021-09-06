@@ -43,6 +43,23 @@ SETX DOCKER_CERT_PATH C:\Users\emanon\.minikube\certs
 
 ここまで 30 分もかからないので、Docker Desktop 的オールインワン導入のお手軽さを実現できますね。
 
+### （参考）WSL2 上の docker engine を Windows から呼び出す
+
+WSL2 の場合も minikube と同様に TCP 経由の呼び出しを許可することで呼び出し可能となります：
+
+```json:/etc/docker/daemon.json
+{
+  "hosts": [
+          "tcp://localhost:2375",
+          "unix:///var/run/docker.sock"
+  ]
+}
+```
+
+```powershell
+SETX DOCKER_HOST tcp://localhost:2375
+```
+
 ## Visual Studio Code の Dev Container で利用する
 
 構築がお手軽な一方で、この環境を VS Code と連携させるには手間がかかるので、[素直に WSL2 上の docker を利用する](https://uncaughtexception.hatenablog.com/entry/2021/09/02/193132)ことをお勧めしますが、参考のために記述を残します。
