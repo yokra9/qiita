@@ -6,11 +6,23 @@
 
 Docker Desktop for Windows には、GUI 管理ツールであると同時に、Docker と Kubernetes を一発で構築してくれる利点がありました。本記事では後者の代替ツールとして [minikube](https://minikube.sigs.k8s.io/) を利用する方法をご紹介します。
 
+## おことわり: この手法の将来性について
+
+[Kubernetes は v1.20 以降、コンテナランタイムとして Docker を非推奨としています](https://kubernetes.io/blog/2020/12/02/dont-panic-kubernetes-and-docker/)。Docker は CRI と呼ばれるコンテナランタイムの標準に準拠していないため、Kubernetes との通信に Dockershim と呼ばれる機構を利用していました。そして、Kubernetes v1.23 からは Dockershim が削除され、コンテナランタイムとして Docker を選択できなくなります。
+
+[inductor](https://twitter.com/_inductor_) さんがコントリビュータである [Anders Björklund](https://github.com/afbjorklund) さんに確認したところ、minikube も来年には [containerd](https://containerd.io/) に切り替える予定だとされています。Docker ランタイムは残るとのコメントもありますが、本稿でご紹介するような使い方が使い続けられるかは不透明です。
+
+<https://twitter.com/_inductor_/status/1435140614094348289>
+
+inductor さん、貴重な情報のご提供ありがとうございました。
+
 ## minikube で導入した docker engine を Windows から呼び出す
 
 衝突を避けるため、事前に Docker Desktop をアンインストールしてください。また、以降の作業では、Windows 用のパッケージマネージャである [chocolatey](https://community.chocolatey.org/) を利用しますので、未導入の方はインストールしてください。
 
-まず、chocolatey で minikube と Docker CLI を導入します。
+まず、chocolatey で minikube と Docker CLI を導入します[^1]。
+
+[^1]: chocolatey でインストールできる Docker CLI はコミュニティ版のバイナリです。公式のバイナリは[こちら](https://download.docker.com/win/static/stable/x86_64/)から取得できます。ただし、[ドキュメント](https://docs.docker.com/engine/install/binaries/) から Windows 版バイナリへの動線が削除されているため、今後も継続的に入手できるかは不明ですし、適用されるライセンスが明記されていません。なお、choco は[このレポジトリ](https://github.com/StefanScherer/docker-cli-builder) からバイナリを取得しており、リリースページからバイナリを手動ダウンロードできます。
 
 ```powershell
 # 管理者権限が必要です
@@ -78,9 +90,9 @@ minikube start --vm-driver=hyperv --hyperv-virtual-switch=Minikube --mount-strin
 minikube mount "E:\workspace:/home/docker/workspace"
 ```
 
-ただし、実験してみた範囲だと、Windows からネットワーク越しにマウントしたディレクトリをコンテナへマウントすると、作業中にマウントが外れるなど安定して動作しませんでした[^1]。そのため、多段マウントではなく rsync を利用し手動で同期を取ってみます。
+ただし、実験してみた範囲だと、Windows からネットワーク越しにマウントしたディレクトリをコンテナへマウントすると、作業中にマウントが外れるなど安定して動作しませんでした[^2]。そのため、多段マウントではなく rsync を利用し手動で同期を取ってみます。
 
-[^1]: いわゆる「おま環」の可能性はあります。
+[^2]: いわゆる「おま環」の可能性はあります。
 
 まず、rsync でノードと通信するため、秘密鍵の場所を確認します。
 
