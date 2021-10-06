@@ -6,7 +6,7 @@
 
 WSL2 の主な用途は開発環境の構築でしょうから、いまどきスタンドアローンなのは辛すぎます。どうにかしたいですね。
 
-## ローカルHTTPプロキシを利用する
+## ローカル HTTP プロキシを利用する
 
 そんなときは、[stone](http://www.gcd.org/sengoku/stone/Welcome.ja.html) などを利用してローカル HTTP プロキシを立てることで問題を回避できる可能性があります。まず、Windows 側でプロキシサーバを起動します。
 
@@ -21,10 +21,10 @@ stone proxy 8080
 [^3]: 非対話シェルでも環境変数が設定されるよう、`~/.profile` か `~/.bash_profile` に追記することをお勧めします。`~/.bashrc` だと、たとえば VSCode の `devcontainer.json` でホスト側の環境変数を渡せなくなります。
 
 ```bash
-proxyAddres=$(ip route | grep 'default via' | grep -Eo '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}')
+proxyAddress=$(ip route | grep 'default via' | grep -Eo '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}')
 proxyPort=8080
-export http_proxy="http://${proxyAddres}:${proxyPort}"
-export https_proxy="http://${proxyAddres}:${proxyPort}"
+export http_proxy="http://${proxyAddress}:${proxyPort}"
+export https_proxy="http://${proxyAddress}:${proxyPort}"
 export HTTP_PROXY=${http_proxy}
 export HTTPS_PROXY=${https_proxy}
 ```
