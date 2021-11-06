@@ -18,7 +18,7 @@ PowerShell には curl がご用意されていないため、代わりに `Invo
 (Invoke-WebRequest https://corona-stats.online/Japan -UserAgent curl).Content
 ```
 
-![スクショ.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/463374/7692a3de-d3fd-2fdf-743c-82d48350a180.png)
+![スクショ.png](img/7692a3de-d3fd-2fdf-743c-82d48350a180.png)
 
 また、以下のバッチファイルをパスが通ったディレクトリ配置すると、`durl <URL>` でコンテンツを取得することができるようになります：
 
@@ -31,8 +31,7 @@ powershell -Command " (Invoke-WebRequest %* -UserAgent curl).Content"
 
 `curl.exe` がインストールされているので直接実行できたりしますが、PowerShell の<del>色々とややこしい</del>脳の筋トレに役立つエンコード周りを考慮に入れなければいけないので個人的にはおすすめしません。
 
-![無題.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/463374/767c6cef-c225-d920-69c9-3c396e7ce3d0.png)
-
+![無題.png](img/767c6cef-c225-d920-69c9-3c396e7ce3d0.png)
 #### 2020-04-07 追記
 
 [コメント](https://qiita.com/yokra9/items/1e7cee82bd172f8fac7a#comment-d6a474544bcddd440346)にて @7cc さんがエンコード周りの解説を書いてくださっています。感謝！

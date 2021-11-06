@@ -2,7 +2,7 @@
 
 [Windows Terminal](https://github.com/microsoft/terminal) は Build 2019 で発表された Windows 向けの新たなターミナルです。マルチタブが導入されており、複数の PowerShell やコマンドプロンプトなどを切り替えながら利用できます。また、Windows10 v1809 から UNIX / Linux 互換の擬似コンソール [ConPTY](https://devblogs.microsoft.com/commandline/windows-command-line-introducing-the-windows-pseudo-console-conpty/) が導入されたため Bash などの Linux 用シェルの表示も可能になりました。せっかくなので [Git Bash](https://gitforwindows.org/) も利用できるように設定してみました。
 
-![git-bash-on-windows-terminal.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/463374/24ab28df-45f3-a57a-65bf-af896cbdff15.png)
+![git-bash-on-windows-terminal.png](img/24ab28df-45f3-a57a-65bf-af896cbdff15.png)
 
 ## 設定手順（GUI）
 
@@ -11,7 +11,7 @@
 1. Windows Terminal を起動し、設定画面を開きます。
 2. サイドメニューの`[プロファイル]`-`[新規追加]`からプロファイルを追加し、以下のように設定します。
 
-    ![WT-GitBash-GUI.jpg](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/463374/6ad6e2a1-d481-4791-671f-58bd7fe1be7c.jpeg)
+    ![WT-GitBash-GUI.jpg](img/WT-GitBash-GUI.jpg)
 
 3. 新規タブの選択肢に `Git Bash` が追加されました！
 
@@ -50,7 +50,7 @@
 
 4. 新規タブの選択肢に `Git Bash` が追加されました！
 
-![git-bash-added-selection.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/463374/8ff677e8-7b96-cfb6-84ee-d96b47c1da47.png)
+![git-bash-added-selection.png](img/8ff677e8-7b96-cfb6-84ee-d96b47c1da47.png)
 
 ※ここでは同様の手順で [PowerShell Core 6](https://aka.ms/pscore6) も追加しています。
 
@@ -64,7 +64,7 @@ export LANG=ja_JP.UTF-8
 
 日本語が文字化けしなくなりました。
 
-![git-bash-on-windows-terminal-ja.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/463374/3fe5e15e-1284-dd0f-80eb-22ac86259197.png)
+![git-bash-on-windows-terminal-ja.png](img/3fe5e15e-1284-dd0f-80eb-22ac86259197.png)
 
 ※ここでは同様の手順で [Cygwin](https://qiita.com/yokra9/items/e8b184021091dbabb8a1) も追加しています。
 

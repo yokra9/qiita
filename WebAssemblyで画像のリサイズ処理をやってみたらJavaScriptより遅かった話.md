@@ -114,11 +114,11 @@ HTMLCanvasElement.toBlob(): 212.616943359375 ms
 
 Canvas に対する操作に要する時間が大きいようです。ところで、この計測は Microsoft Edge 上で実施しており、Canvas に対するハードウェアアクセラレーションが有効になっています。
 
-![edge-gpu.jpg](edge-gpu.jpg)
+![edge-gpu.jpg](img/edge-gpu.jpg)
 
 この後作成する WASM 版のコードだとハードウェアアクセラレーションが働かないので、ハードウェアアクセラレーションを切って測定してみます。
 
-![edge-nogpu.jpg](edge-nogpu.jpg)
+![edge-nogpu.jpg](img/edge-nogpu.jpg)
 
 Canvas がボトルネックになっているのであれば明確に遅くなっていそうなものですが、実際はどうでしょうか：
 

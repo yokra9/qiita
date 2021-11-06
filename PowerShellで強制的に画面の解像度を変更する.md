@@ -2,7 +2,7 @@
 
 Windows 10 でディスプレイ解像度設定を変更しようとすると、以下のような確認が表示されます：
 
-![display-resolution](./display-resolution.png)
+![display-resolution](img/display-resolution.png)
 
 意図しない変更による失敗を防ぐ機能と思われますが、頻繁に解像度設定を変更する場合には不便です。
 

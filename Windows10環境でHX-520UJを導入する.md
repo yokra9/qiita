@@ -19,7 +19,7 @@ HX-520UJ.K および HX-520UJ.J の形式番号は M-520U とされています�
 
 [^3]: MDIS に卸されていた理由はわかりませんでしたが、現在提供されているドライバの製造元は日立マクセル表記でした。
 
-![hitm500u.sys.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/463374/dc3cb591-4b94-1d7f-69f1-451255e8b5ff.png)
+![hitm500u.sys.png](img/hitm500u.sys.png)
 
 上記リンクから MR-520UJ および MM-520U のサポートサイトにアクセスすることで、 Windows 10 に対応したドライバ（バージョン1.0.1.4）を入手できます。[^4]
 

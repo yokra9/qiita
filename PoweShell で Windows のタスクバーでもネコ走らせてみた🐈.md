@@ -12,7 +12,7 @@ PowerShell は Windows にビルトインされた強力なスクリプト言語
 
 できました。
 
-![メディア1.gif](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/463374/97d11f45-5e75-a790-03ce-29c9e3bb6157.gif)
+![メディア1.gif](img/97d11f45-5e75-a790-03ce-29c9e3bb6157.gif)
 
 <https://github.com/yokra9/RunCat_for_Windows_on_PowerShell>
 

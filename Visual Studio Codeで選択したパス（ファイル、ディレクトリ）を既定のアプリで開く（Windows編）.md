@@ -1,7 +1,7 @@
 # Visual Studio Codeで選択したパス（ファイル、ディレクトリ）をデフォルトのアプリで開く（Windows編）
 
 VS Code のエディター画面で編集中のテキストに URL を貼り付けると、
-![vscodelink.jpg](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/463374/0b088cdb-4dae-678c-338e-35cb8c83fac9.jpeg)
+![vscodelink.jpg](img/0b088cdb-4dae-678c-338e-35cb8c83fac9.jpeg)
 このようにリンク先をデフォルトのブラウザで表示させることができます。
 
 ローカルファイルやディレクトリへのパスはハイライトされませんが、いちいちエクスプローラーやブラウザにコピー&ペーストするのも面倒です。`file:///C:/~` という表記で無理矢理リンクにすることはできますが、バイナリファイルやディレクトリを表示しようとするとエラーになってしまいます。[^1] どうにかしたい。

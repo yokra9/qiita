@@ -8,7 +8,7 @@
 
 ある昼下がりのことでした。
 
-![LF.jpg](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/463374/4f8a2c60-cfbf-98e4-b63f-ccfbad887d55.jpeg)
+![LF.jpg](img/4f8a2c60-cfbf-98e4-b63f-ccfbad887d55.jpeg)
 
 この画像ほどではないにせよ、同じくらいに何の変哲もないスクリプトを実行したのですが、
 
@@ -18,7 +18,7 @@
 
 ……と、なぜか怒られてしまいました。UTF-8だし、改行コードはLFだし、どこに問題があるというのでしょう。vim で確認してみましょう。
 
-![fiCRLF.jpg](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/463374/67e2579f-e9c0-dc18-cbfb-bccdc7806b4d.jpeg)
+![fiCRLF.jpg](img/67e2579f-e9c0-dc18-cbfb-bccdc7806b4d.jpeg)
 
 改行コードは `unix`（= `LF`）で間違いないようです。4行目の行末に `^M` と表示されていますが、これは `CR` を表す制御コードです。4行目末だけ、なぜか `CRLF` で改行されていることがわかります（いや本当になぜ？）
 

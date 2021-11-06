@@ -39,11 +39,11 @@ minikube start --vm-driver=hyperv
 
 このとき、バックエンドとして Hyper-V のほかに VirtualBox や VMware Workstation が利用できます。[WHP により Hyper-V と他の仮想化ソフトウェアが共存できます](https://qiita.com/matarillo/items/ca1eecf8f9a3cd76f9ce#windows-%E3%83%8F%E3%82%A4%E3%83%91%E3%83%BC%E3%83%90%E3%82%A4%E3%82%B6%E3%83%BC-%E3%83%97%E3%83%A9%E3%83%83%E3%83%88%E3%83%95%E3%82%A9%E3%83%BC%E3%83%A0)が、minikube 側がエラーを吐くため Hyper-V ユーザは他のバックエンドを利用できません。
 
-![cannot-use-virtualbox](cannot-use-virtualbox.jpg)
+![cannot-use-virtualbox](img/cannot-use-virtualbox.jpg)
 
 さて、Hyper-V 上にシングルノードなクラスタが構築できたら、 `minikube docker-env` で minikube が作成したバックエンドの情報を取得します。これらの情報を環境変数に設定すると、 Docker CLI がノード上の Docker Engine と通信できるようになります。
 
-![minikube-docker-env](minikube-docker-env.png)
+![minikube-docker-env](img/minikube-docker-env.png)
 
 なお、現在の PowerShell セッション以外でも環境変数を維持したい場合は、ユーザ環境変数に保存しておきましょう。
 

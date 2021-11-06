@@ -4,12 +4,11 @@
 
 モデルとなる JSON から JSON Schema を半自動的に生成し、JSON Schema から Vue.js のフォームを半自動的に生成し、Vue.js のフォームのモデルとモデルの JSON が等価な状態をめざせるようになります。
 
-![図3.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/463374/a9da876d-a94b-a800-c636-f9adbe809d6f.png)
+![図3.png](img/a9da876d-a94b-a800-c636-f9adbe809d6f.png)
 
 加えて、JSON Schema を元にしたフォームバリデーションも行えるようになります。
 
-![](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/463374/2ac9ae22-c3e2-1ba8-f48e-8bb3535d4d15.jpeg)
-
+![](img/2ac9ae22-c3e2-1ba8-f48e-8bb3535d4d15.jpeg)
 
 ## はじめよう！　JSON Schema
 
@@ -37,7 +36,7 @@ LoopBack ではこのように JSON ファイルを利用してモデル定義�
 
 `$schema` プロパティの値として、JSON Schema ファイルの場所を指定します。これは URL でもローカルファイルでも構いません。JSON Schema に対応したエディタを利用している場合、編集中の文書に機能が動作します。Visual Stadio Code[^1] で編集してみましょう：
 
-![動画](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/463374/92f657b1-1461-7d8c-1325-a7b18f043c07.gif)
+![動画](img/92f657b1-1461-7d8c-1325-a7b18f043c07.gif)
 
 [^1]: [Palenight](https://marketplace.visualstudio.com/items?itemName=whizkydee.material-palenight-theme) テーマを利用しています🦄かわいいね
 
@@ -54,7 +53,7 @@ LoopBack ではこのように JSON ファイルを利用してモデル定義�
 
 さて、JSON Editor は生の DOM を操作するので Vue.js を利用したアプリケーションとは相性がよくありません。また、フォーム部品として [Vuetify](https://vuetifyjs.com/) のような Vue コンポーネントを利用したい場合もあるでしょう。そのため、[Vue Form JSON Schema](https://github.com/jarvelov/vue-form-json-schema) という専用のライブラリ（Vue コンポーネント）を利用します。
 
-![vue-form-json-schema.jpg](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/463374/0ecb194a-6bc3-0842-5af8-79aec5f9c3e0.jpeg)
+![vue-form-json-schema.jpg](img/0ecb194a-6bc3-0842-5af8-79aec5f9c3e0.jpeg)
 （出典：https://codesandbox.io/s/4rykx7jj19）
 
 Vue Form JSON Schema は[公式リファレンス](https://jarvelov.gitbook.io/vue-form-json-schema/)と[デモページ](https://github.com/jarvelov/vue-form-json-schema#demo)が大変充実しています。そのため本記事で詳しい説明は避けますが、触りとして Readme 付属の使用例の参考訳を示します：

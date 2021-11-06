@@ -12,7 +12,7 @@ WSL2、便利ですよね。任意の Linux ディストリビューションパ
 
 上記のページから任意の Linux ディストリビューションパッケージをダウンロードしましょう。ダウンロードしたファイルを開くと下記のような画面が表示されるので、インストールします。
 
-![debian-appx-wsl2.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/463374/cec4b8e6-2c3a-6a4c-ddb0-c013b5db70d3.png)
+![debian-appx-wsl2.png](img/debian-appx-wsl2.png)
 
 公式マニュアルでは `Add-AppxPackage` コマンドレットでインストールする方法が案内されています。
 
@@ -24,7 +24,7 @@ Add-AppxPackage <ファイル名>.appx
 
 上記の手順でインストールに失敗した場合は、手動でのインストールに挑戦してみましょう。Appx・AppxBundle 形式のインストーラは [msix などと同様](https://qiita.com/yokra9/items/b5d1318f5474e0812c16)実態としては Zip 形式のアーカイブであり、適当な圧縮解凍ソフトで内容物を抽出できます。
 
-![debian](./debian-7zip.png)
+![debian](img/debian-7zip.png)
 
 内容物を任意の場所に設置し、`<ディストリビューション名>.exe` を実行すると WSL2 でディストリビューションが起動します。このタイミングでディストリビューションの設置場所が WSL2 に登録されます。
 

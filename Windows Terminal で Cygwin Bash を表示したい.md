@@ -3,7 +3,7 @@
 
 [Windows Terminal](https://github.com/microsoft/terminal) は Build 2019 で発表された Windows 向けの新たなターミナルです。マルチタブが導入されており、複数の PowerShell やコマンドプロンプトなどを切り替えながら利用できます。また、Windows10 v1809 から UNIX / Linux 互換の擬似コンソール [ConPTY](https://devblogs.microsoft.com/commandline/windows-command-line-introducing-the-windows-pseudo-console-conpty/) が導入されたため Bash on Ubuntu on WSL などの Linux シェルを表示することも可能です。せっかくなので [Cygwin](https://www.cygwin.com/) も利用できるように設定してみました。[^1]
 
-![cygwin-bash-on-windows-terminal.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/463374/704187aa-f392-b960-ca5c-0795483bce6a.png)
+![cygwin-bash-on-windows-terminal.png](img/704187aa-f392-b960-ca5c-0795483bce6a.png)
 
 
 [^1]: ちなみに Ansible は Python-pip 導入後に pip からインストールできるほか、`setup-x86_46.exe` からでもインストール可能です。
@@ -90,7 +90,7 @@ See the man page for more detail.
 <br>
 4. 新規タブの選択肢に `Cygwin` が追加されました！
 
-![cygwin-bash-added-selection.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/463374/22c70121-e4ba-331f-f0fe-4972ad4b1dbf.png)
+![cygwin-bash-added-selection.png](img/22c70121-e4ba-331f-f0fe-4972ad4b1dbf.png)
 
 ※ここでは[同様の手順で Git Bash も 追加](https://qiita.com/yokra9/items/bdd0882268b308cf22ca)しています。
 

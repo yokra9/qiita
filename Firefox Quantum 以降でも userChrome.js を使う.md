@@ -27,8 +27,7 @@
 
 [about:profiles](about:profiles) を開きます。使用中のプロファイルを探し、ルートディレクトリを開きます。
 
-![openProfile.jpg](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/463374/acda06a3-273c-6bcb-8fef-8434732ef8c4.jpeg)
-
+![openProfile.jpg](img/openProfile.jpg)
 
 ### `userChrome.css` と `userChrome.xml` を配置する
 

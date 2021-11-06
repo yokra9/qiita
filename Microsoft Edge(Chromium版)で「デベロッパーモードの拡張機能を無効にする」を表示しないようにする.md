@@ -21,13 +21,13 @@ Chromium 版 Edge は [Google Chrome の場合](https://cloud.google.com/docs/ch
 
 次に、拡張機能をインストールします。`edge://extensions/` を表示し、開発者モードに切り替えてから `.crx` 形式のファイルをドラッグ&ドロップしてください。
 
-![ExtensionInstallSources2](EdgeExtensionInstallSources2.jpg)
+![ExtensionInstallSources2](img/EdgeExtensionInstallSources2.jpg)
 
 しかし、`この拡張機能は既知のソースからのものではなく、ユーザーの知らないうちに追加された可能性があります。` と表示され、無効化されてしまいました。個別に許可する必要がありますので、拡張機能 ID を控え、削除しましょう。
 
 グループポリシーエディタを開き、`管理用テンプレート\Microsoft Edge\拡張機能\特定の拡張機能のインストールを許可する` を開きます。
 
-![EdgeExtentionAllowList](EdgeExtentionAllowList.jpg)
+![EdgeExtentionAllowList](img/EdgeExtentionAllowList.jpg)
 
 `禁止リストから除外する拡張子 ID`[^1] にインストールを許可したい拡張機能の IDを指定します。
 

@@ -63,7 +63,7 @@
 
 `test1.html` をブラウザで開くと：
 
-![reactive.gif](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/463374/b60b39df-6696-91f6-7c88-02c3949444a5.gif)
+![reactive.gif](img/b60b39df-6696-91f6-7c88-02c3949444a5.gif)
 
 このように、お互いのグローバル変数 `document` を参照しリアクティブな描画を実現しています。
 

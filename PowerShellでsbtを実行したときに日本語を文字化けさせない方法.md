@@ -12,7 +12,7 @@ sbt
 
 さて、この方法でも問題はないのですが、`chcp` でコードページを変更するとコンソールの表示がクリアされてしまいます。
 
-![chcp](chcp-clear-console.gif)
+![chcp](img/chcp-clear-console.gif)
 
 これが気になる場合は、PowerShell ネイティブな方法でコンソールの出力エンコーディング設定を変更することで回避できます：
 
@@ -27,7 +27,7 @@ sbt
 [Console]::OutputEncoding = [Text.Encoding]::GetEncoding('shift_jis')
 ```
 
-![OutputEncoding](pwsh-notclear-console.gif)
+![OutputEncoding](img/pwsh-notclear-console.gif)
 
 ## 参考リンク
 
