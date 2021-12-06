@@ -16,7 +16,7 @@ Dockerfile のある Git リポジトリは[こちら](https://github.com/bitnam
 
 ## コンテナを Git サーバに仕立てる
 
-Pro Git book を見ながらインタラクティブに操作していきましょう。コンテナを立ち上げ、bash を起動します。このとき、SSH 接続用のポートと、Web UI 用のポートをフォワードしておきます。コンテナ外にデータを保持したい場合は、ボリュームやマウントの設定も追加してください。
+Pro Git book を見ながらインタラクティブに操作していきましょう。コンテナを立ち上げ、bash を起動します。このとき、SSH 接続用のポートと、Web UI 用のポートをフォワードしておきます。コンテナ外にデータを保持したい場合は、ボリュームやマウントの設定も追加してください。また、 bash が終了してもコンテナを稼働させたい場合は、コマンドを`tail -f /dev/null` に変更するなどしてください。
 
 ```bash
 docker run -it --name git -p 10022:22 -p 11234:1234 bitnami/git:latest bash
@@ -68,7 +68,7 @@ sudo -u git bash
 あとはお手元のリポジトリで remote として追加するだけで使い始めることができます！ `git` コマンドに SSH 用のポートを指定するには、以下のように設定します：
 
 ```bash
-git remote add master ssh://git@localhost:10022/~/<リポジトリ名>
+git remote add <リモート名> ssh://git@localhost:10022/~/<リポジトリ名>
 ```
 
 ## GitWeb (Web UI) を表示する
