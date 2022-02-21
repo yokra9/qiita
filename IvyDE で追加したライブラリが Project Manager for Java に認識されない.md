@@ -45,5 +45,6 @@ Extension Pack for Java は、現在開いているプロジェクトがアン�
 
 ## 参考リンク
 
+* [サンプルプロジェクト](https://github.com/yokra9/ivyde-test)
 * [How to add referenced library JAR files using relative path for eclipse Java project in vscode](https://stackoverflow.com/questions/69216059/how-to-add-referenced-library-jar-files-using-relative-path-for-eclipse-java-pro)
 * [Add java.project.referencedLibraries setting #1196](https://github.com/redhat-developer/vscode-java/pull/1196)
