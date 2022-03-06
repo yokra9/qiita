@@ -1,5 +1,11 @@
 # Gatling DSL の EL 式と Scala の変数展開が同居するとややこしい件
 
+**（2022-03-03追記）** 本記事で取り上げた内容は [#4157](https://github.com/gatling/gatling/issues/4157) で解決され、Gatling 3.7 で取り込まれました。Gatling 3.7 以降の EL 式では、`${}` の代わりに `${}` を利用することが推奨されています。[^1]
+
+[^1]: https://gatling.io/docs/gatling/reference/current/upgrading/3.6-to-3.7/
+
+---
+
 Gatling は Scala でテストコードを記述する負荷試験ツールですが、その多くを占めるシナリオ部分は [Gatling DSL](https://gatling.io/docs/current/general/concepts#scenario) と呼ばれる[ドメイン特化言語](https://ja.wikipedia.org/wiki/%E3%83%89%E3%83%A1%E3%82%A4%E3%83%B3%E5%9B%BA%E6%9C%89%E8%A8%80%E8%AA%9E)で記述します。
 
 ## Gatling DSL の EL 式（Expression Language）
@@ -92,7 +98,7 @@ s"${foo} BAR" // FOO BAR
 """${foo} BAR""" // FOO BAR
 ```
 
-Gatling DSL の EL 式にそっくりですね。実際の所、Gatling DSL でも Scala の変数展開を利用することはできますが、それぞれの機能は排他的です：
+Gatling DSL の EL 式にそっくりですね。実際の所、Gatling DSL でも Scala の変数展開を利用できますが、それぞれの機能は排他的です：
 
 ```scala
 session.set("foo", "FOO")
