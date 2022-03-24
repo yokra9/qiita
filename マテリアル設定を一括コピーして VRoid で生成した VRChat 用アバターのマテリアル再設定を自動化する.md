@@ -4,7 +4,7 @@
 
 [VRoidAvatarSetupUtils](https://qiita.com/jirko/items/7f1aaee574675273bc39) を併用すれば VRCSDK パラメータの再設定[^1]やオブジェクトのコピーが自動化できて便利です。それでも、シェーダの変更やシェーダプロパティといったマテリアルの設定は手動で行う必要があります。インポートのたびに繰り返すのは面倒ですよね。
 
-[^1]: [Playable Layers と Expressions をコピーする機能を追加したフォーク版](https://github.com/yokra9/VRoidAvatarSetupUtils/releases)を公開しています。
+[^1]: [Playable Layers と Expressions 、Constraints をコピーする機能を追加したフォーク版](https://github.com/yokra9/VRoidAvatarSetupUtils/releases)を公開しています。
 
 というわけで、ソースとして指定したマテリアルの設定を取得して複数のマテリアルに一括で適用するツールを作成してみました。
 
