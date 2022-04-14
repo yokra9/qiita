@@ -1,5 +1,13 @@
 # VRCSDK3 でバーチャル早着替え with VRoid
 
+**2021-08-29追記** Unity 2019 環境になってからも同様の方法で利用可能です。ただし、Entry 直後の State (今回でいえば `White` )でも切り替え対象のマテリアルを設定しないとうまく動作しない場合があるようです。その場合は、記録の際に一度別のマテリアルを選択した後、本来のマテリアルを再度選択することでアニメーションを作成できます。
+
+**2022-04-14追記** VRoid 正式版 (V1.x～) でも同様のテクニックで早着替えが可能です。本文を参照し、ベータ版と同様にテスクチャのレイヤーを切り替えたマテリアルを用意してください。`透明メッシュを削除する` オプションがデフォルトでオンになっている点に注意して下さい。早着替えの仕組み上、メッシュが各 VRM で一致している必要がありますので、オフにしてください。
+
+![vroid-henshin](img/vroid-henshin-21.jpg)
+
+---
+
 みなさん、VRChat 楽しんでいますか？　私はとても楽しんでいます。
 
 さて、先日 VRCSDK3-AVATAR がリリースされました。その特徴は、なんといってもカスタマイズ性の高さです。もとよりプレイヤー自身がアバターやワールドを制作することが VRChat の醍醐味ではありますが、 その長所がより突き詰められた形です。
@@ -32,13 +40,13 @@ Unity プロジェクトに [VRCSDK3-AVATAR](https://vrchat.com/home/download) �
 
 シーン中にある VRChat 用モデルを複製します。[^2]
 
-[^2]: この後アニメーションを作成する際に地面に埋まってしまうと直すのが面倒なので、複製しておくことがおすすめです。
+[^2]: この後アニメーションを作成する際地面に埋まってしまうと直すのが面倒なので、複製しておくことがおすすめです。
 
 ![vroid-henshin](img/vroid-henshin-5.jpg)
 
 ## STEP3: アニメーションの作成
 
-Animationウィンドウ（タブ）で [Create] をクリックし、新しいアニメーションクリップを作成します。名前は何でもよいですが、ここでは `kigae` としました。
+Animationウィンドウ（タブ）で[Create]をクリックし、新しいアニメーションクリップを作成します。名前は何でもよいですが、ここでは `kigae` としました。
 
 ![vroid-henshin](img/vroid-henshin-6.jpg)
 
@@ -46,7 +54,7 @@ Animationウィンドウ（タブ）の左上にある記録ボタン（赤丸�
 
 ![vroid-henshin](img/vroid-henshin-7.jpg)
 
-足元に複製したモデルが埋まっているので、ヒエラルキーから [Body] を選択しインスペクタを開きます。[Skined Mesh Renderer]-[Materials]で任意のマテリアルを着替え後のマテリアルに差し替えます。ワンピースの場合はトップスのみなので、`F00_002_01_Tops_01_CLOTH` を変更すれば OK です。
+足元に複製したモデルが埋まっているので、ヒエラルキーから[Body]を選択しインスペクタを開きます。[Skined Mesh Renderer]-[Materials]で任意のマテリアルを着替え後のマテリアルに差し替えます。ワンピースの場合はトップスのみなので、`F00_002_01_Tops_01_CLOTH` を変更すれば OK です。
 
 ![vroid-henshin](img/vroid-henshin-8.jpg)
 
@@ -56,25 +64,25 @@ Animationウィンドウ（タブ）の左上にある記録ボタン（赤丸�
 
 FX はモデルの状態遷移図のようなものです。VRM Converter で変換したモデルでは、あらかじめカスタマイズされた FX が作成されています。
 
-モデルのインスペクタで [VRC Avatar Descriptor]-[Playable Layers]-[FX] に設定されている FX をダブルクリックで開きましょう。
+モデルのインスペクタで[VRC Avatar Descriptor]-[Playable Layers]-[FX]に設定されている FX をダブルクリックで開きましょう。
 
 ![vroid-henshin](img/vroid-henshin-9.jpg)
 
-[Parameters] に int 型変数 `Kigae` を追加します。この変数はアクションメニューとの連携に利用します。アクションメニューでの操作が変数に反映されるので、FX では `Kigae` の変化で服装が変化するようにしましょう。
+[Parameters]に int 型変数 `Kigae` を追加します。この変数はアクションメニューとの連携に利用します。アクションメニューでの操作が変数に反映されるので、FX では `Kigae` の変化で服装が変化するようにしましょう。
 
 ![vroid-henshin](img/vroid-henshin-10.jpg)
 
-FX は複数の状態遷移図をレイヤーで重ねたような構造になっています。[Layers] タブで `Kigae` レイヤーを追加し、**オプションで Weight を 1 に変更します**。デフォルトでは Weight が 0 ですが、そのままではモデルにアニメーションが反映されません。
+FX は複数の状態遷移図をレイヤーで重ねたような構造になっています。[Layers]タブで `Kigae` レイヤーを追加し、**オプションで Weight を 1 に変更します**。デフォルトでは Weight が 0 ですが、そのままではモデルにアニメーションが反映されません。
 
 ![vroid-henshin](img/vroid-henshin-11.jpg)
 
-状態遷移を作図していきます。右クリックで [Create State]-[Empty] から新たな状態を、状態を右クリックし [Make Transition] から新たな遷移を作成できます。下図のように「着替え前の状態」と「着替え後の状態」を作り、「Entry」から「Exit」がつながるようにしてください。
+状態遷移を作図していきます。右クリックで[Create State]-[Empty]から新たな状態を、状態を右クリックし[Make Transition]から新たな遷移を作成できます。下図のように「着替え前の状態」と「着替え後の状態」を作り、「Entry」から「Exit」がつながるようにしてください。
 
-そして、「着替え後の状態」の [Motion] に先ほど作成したアニメーションを設定します。
+そして、「着替え後の状態」の[Motion]に先ほど作成したアニメーションを設定します。
 
 ![vroid-henshin](img/vroid-henshin-12.jpg)
 
-Transition を選択し、遷移の条件を設定します。[Conditions] で `Kigae equals 0` で「着替え前の状態」に、`Kigae equals 1` で「着替え後の状態」へ遷移するようにします。
+Transition を選択し、遷移の条件を設定します。[Conditions]で `Kigae equals 0` で「着替え前の状態」に、`Kigae equals 1` で「着替え後の状態」へ遷移するようにします。
 
 ![vroid-henshin](img/vroid-henshin-13.jpg)
 
@@ -84,7 +92,7 @@ Transition を選択し、遷移の条件を設定します。[Conditions] で `
 
 ## STEP4: アクションメニュー の変更
 
-最後に、設定したアニメーションをアクションメニューから呼び出せるようにしましょう。インスペクタで [VRC Avatar Descriptor]-[Expressions]-[VRCExpressionParameters] を開きます。
+最後に、設定したアニメーションをアクションメニューから呼び出せるようにしましょう。インスペクタで[VRC Avatar Descriptor]-[Expressions]-[VRCExpressionParameters]を開きます。
 
 ![vroid-henshin](img/vroid-henshin-15.jpg)
 
@@ -92,15 +100,15 @@ Transition を選択し、遷移の条件を設定します。[Conditions] で `
 
 ![vroid-henshin](img/vroid-henshin-16.jpg)
 
-[VRC Avatar Descriptor]-[Expressions]-[VRCExpressionsMenu] を開きます。
+[VRC Avatar Descriptor]-[Expressions]-[VRCExpressionsMenu]を開きます。
 
 ![vroid-henshin](img/vroid-henshin-17.jpg)
 
-[Add Components] からアクションメニューの項目を追加します。
+[Add Components]からアクションメニューの項目を追加します。
 
-[Parameter]で `Kigae, Int` を選択し、[Value] を `1` にします。
+[Parameter]で `Kigae, Int` を選択し、[Value]を `1` にします。
 
-[Type] で `toggle` を指定すると、次にボタンを押すまで着替えっぱなしになります。
+[Type]で `toggle` を指定すると、次にボタンを押すまで着替えっぱなしになります。
 
 ![vroid-henshin](img/vroid-henshin-18.jpg)
 
