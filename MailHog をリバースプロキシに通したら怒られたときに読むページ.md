@@ -1,8 +1,8 @@
 # MailHog をリバースプロキシに通したら Error during WebSocket handshake: Unexpected response code: 400 と怒られたときに読むページ
 
-タイトルの通りです。メール送信機能を持つアプリの開発時に便利なダミーSMTPサーバ `Mailhog` をリバプロ環境で利用しようとすると WebSocket がリバプロを貫通していないので調整する必要があるブヒ。[^1]
+私はメール送信機能を持つアプリの開発時にダミーSMTPサーバとして [Mailhog](https://github.com/mailhog/MailHog) を利用しています。シングルバイナリながらも Web UI まで備える等お手軽・便利な点が気に入っていて、[ISO-2022-JP を文字化けさせないための PR をマージして生成したバイナリ](https://github.com/yokra9/MailHog-UI/releases)を配布しているくらいです。
 
-[^1]: [hog](https://ejje.weblio.jp/content/hog) -- `(食肉用の成長した)豚、(食肉用の)去勢した雄豚、(豚みたいに)よく食べるやつ、貪欲な人、利己的な人、下品な人、汚らしい人、大型のオートバイ`
+そんな Mailhog ですが、Web UI をリバプロ経由で利用したい場合には WebSocket が貫通するように調整する必要があります。
 
 ## debian 用 Apache の場合
 
@@ -19,15 +19,15 @@ a2enmod proxy_http proxy_wstunnel
 
     # 中略
 
-	ProxyPass "/mailhog/api/v2/websocket" ws://localhost:8025/api/v2/websocket
-	ProxyPassReverse "/mailhog/api/v2/websocket" ws://localhost:8025/api/v2/websocket
+    ProxyPass "/mailhog/api/v2/websocket" ws://localhost:8025/api/v2/websocket
+    ProxyPassReverse "/mailhog/api/v2/websocket" ws://localhost:8025/api/v2/websocket
 
-	ProxyPass "/mailhog/" http://localhost:8025/
-	ProxyPassReverse "/mailhog/"  http://localhost:8025/
+    ProxyPass "/mailhog/" http://localhost:8025/
+    ProxyPassReverse "/mailhog/"  http://localhost:8025/
 </VirtualHost>
 ```
 
-ポイントは、設定を記載する順番です。制限が厳しい順で記すルールになっていますので、アプリ本体より API のエンドポイントを先に記載しなければなりません。エンドポイントの URL は ` ws://localhost:8025/api/v2/websocket/` でないので注意しましょう。
+ポイントは、設定を記載する順番です。制限が厳しい順に記すルールとなっていますので、アプリ本体より API のエンドポイントを先に記載しなければなりません。エンドポイントの URL は `ws://localhost:8025/api/v2/websocket/` でないので注意しましょう。
 
 ## おまけ：Dockerfile
 
