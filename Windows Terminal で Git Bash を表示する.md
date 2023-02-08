@@ -81,6 +81,5 @@ export LANG=ja_JP.UTF-8
 
 ## 参考リンク
 
-* [Adding Git-Bash to the new Windows Terminal
-](https://stackoverflow.com/questions/56839307/adding-git-bash-to-the-new-windows-terminal)
+* [Adding Git-Bash to the new Windows Terminal](https://stackoverflow.com/questions/56839307/adding-git-bash-to-the-new-windows-terminal)
 * [Windows Terminal で Cygwin Bash を表示したい](https://qiita.com/yokra9/items/e8b184021091dbabb8a1)
