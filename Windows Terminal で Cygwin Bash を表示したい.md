@@ -1,10 +1,8 @@
 # Windows Terminal で Cygwin Bash を表示したい
 
-
-[Windows Terminal](https://github.com/microsoft/terminal) は Build 2019 で発表された Windows 向けの新たなターミナルです。マルチタブが導入されており、複数の PowerShell やコマンドプロンプトなどを切り替えながら利用できます。また、Windows10 v1809 から UNIX / Linux 互換の擬似コンソール [ConPTY](https://devblogs.microsoft.com/commandline/windows-command-line-introducing-the-windows-pseudo-console-conpty/) が導入されたため Bash on Ubuntu on WSL などの Linux シェルを表示することも可能です。せっかくなので [Cygwin](https://www.cygwin.com/) も利用できるように設定してみました。[^1]
+[Windows Terminal](https://github.com/microsoft/terminal) は Build 2019 で発表された Windows 向けの新たなターミナルです。マルチタブが導入されており、複数の PowerShell やコマンドプロンプトなどを切り替えながら利用できます。また、Windows10 v1809 から UNIX / Linux 互換の擬似コンソール [ConPTY](https://devblogs.microsoft.com/commandline/windows-command-line-introducing-the-windows-pseudo-console-conpty/) が導入されたため Bash などの Linux シェルを表示できます。せっかくなので [Cygwin](https://www.cygwin.com/) も利用できるように設定してみました。[^1]
 
 ![cygwin-bash-on-windows-terminal.png](img/704187aa-f392-b960-ca5c-0795483bce6a.png)
-
 
 [^1]: ちなみに Ansible は Python-pip 導入後に pip からインストールできるほか、`setup-x86_46.exe` からでもインストール可能です。
 
@@ -12,7 +10,7 @@
 
 ### Cygwin での準備
 
-`setup-x86_46.exe` もしくは `apt-cyg` を利用して Cygwin に `chere` をインストールします。Mintty で `chere -h` を実行できればOKです：
+`setup-x86_64.exe` もしくは `apt-cyg` を利用して Cygwin に `chere` をインストールします。Mintty で `chere -h` を実行できればOKです：
 
 ```shell
 $ chere -h
@@ -69,32 +67,32 @@ See the man page for more detail.
 
 1. PowerShell を起動して適当な GUID を取得します。
 
-```powershell
-    [guid]::NewGuid()
-```
-<br>
-2. Windows Terminal を起動し、[ Settings ] から `settings.json` を開きます。
+    ```powershell
+        [guid]::NewGuid()
+    ```
+
+2. Windows Terminal を起動し、[Settings]から `settings.json` を開きます。
 3. `"profiles" : [ { ... } ]` の末尾に以下のオブジェクトを追記して保存します。`"guid"` の値は先ほど取得した GUID に差し替えてください:
 
-```json:settings.json
-{
-    "guid": "{22cbae05-ab97-4c97-a2ea-6feaa2494f7a}",
-    "name": "Cygwin",
-    "suppressApplicationTitle": true,
-    "commandline": "C:\\cygwin64\\bin\\bash.exe /bin/xhere /bin/bash ~",
-    "icon": "C:\\cygwin64\\Cygwin-Terminal.ico",
-    "useAcrylic" : true,
-    "acrylicOpacity" : 0.6
-}
-```
-<br>
+    ```json:profiles.json
+    {
+        "guid": "{22cbae05-ab97-4c97-a2ea-6feaa2494f7a}",
+        "name": "Cygwin",
+        "suppressApplicationTitle": true,
+        "commandline": "C:\\cygwin64\\bin\\bash.exe /bin/xhere /bin/bash ~",
+        "icon": "C:\\cygwin64\\Cygwin-Terminal.ico",
+        "useAcrylic" : true,
+        "acrylicOpacity" : 0.6
+    }
+    ```
+
 4. 新規タブの選択肢に `Cygwin` が追加されました！
 
-![cygwin-bash-added-selection.png](img/22c70121-e4ba-331f-f0fe-4972ad4b1dbf.png)
+    ![cygwin-bash-added-selection.png](img/22c70121-e4ba-331f-f0fe-4972ad4b1dbf.png)
 
-※ここでは[同様の手順で Git Bash も 追加](https://qiita.com/yokra9/items/bdd0882268b308cf22ca)しています。
+※ここでは同様の手順で [Git Bash も 追加](https://qiita.com/yokra9/items/bdd0882268b308cf22ca)しています。
 
-# 参考リンク
+## 参考リンク
 
 * [Windows で VS Code の integrated terminal を cygwin64 の bash にする](http://dynamicsoar.hatenablog.com/entry/2018/09/02/065456)
 * [Windows Terminalでもmsys2を使おう](https://qiita.com/yumetodo/items/4aa03d1eb3d887bca1a8)
