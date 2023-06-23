@@ -15,7 +15,7 @@ PowerShell では内部的に UTF-16LE を利用しています。そのため�
 ```
 
 ```powershell:基本多言語面外（サロゲートペア文字）
-"❤️".Length
+"🎵".Length
 # 2
 ```
 
@@ -24,10 +24,10 @@ PowerShell では内部的に UTF-16LE を利用しています。そのため�
 同様に、結合文字列についても確認してみましょう：
 
 ```powershell:結合文字列
-"あ゙".Length
+"ぬ゙".Length
 # 2 (1+1)
 
-"👳🏽‍♀️".Length
+"👨🏻‍🎤".Length
 # 7 (2+2+1+2)
 ```
 
@@ -43,7 +43,7 @@ Copyright (c) Microsoft Corporation.
 https://aka.ms/powershell
 Type 'help' to get help.
 
-PS /> "👳🏽‍♀️".Length
+PS /> "👨🏻‍🎤".Length
 7
 ```
 
@@ -56,8 +56,8 @@ PS /> "👳🏽‍♀️".Length
 * 結合文字列
 
 ```powershell
-[System.Globalization.StringInfo]::new("👳🏽‍♀️<あ゙❤️").LengthInTextElements
-# 4
+[System.Globalization.StringInfo]::new("👨🏻‍🎤<ぬ゙～🎵").LengthInTextElements
+# 5
 ```
 
 やったね。期待通り 4 文字として数えることができました！
