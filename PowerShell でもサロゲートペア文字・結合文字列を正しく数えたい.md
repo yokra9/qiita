@@ -36,7 +36,7 @@ PowerShell では内部的に UTF-16LE を利用しています。そのため�
 なお、PowerShell には Linux 版もリリースされていますが、こちらでも同じ挙動となります。
 
 ```log
-$ docker run --rm -it mcr.microsoft.com/powershell:lts-7.2-debian-buster-slim pwsh -Command '"👨🏻‍🎤".Length'
+$ docker run --rm mcr.microsoft.com/powershell:lts-7.2-debian-buster-slim pwsh -Command '"👨🏻‍🎤".Length'
 7
 ```
 
