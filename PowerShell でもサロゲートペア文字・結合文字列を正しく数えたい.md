@@ -53,7 +53,7 @@ $ docker run --rm -it mcr.microsoft.com/powershell:lts-7.2-debian-buster-slim pw
 # 5
 ```
 
-やったね。期待通り 4 文字として数えることができました！
+やったね。期待通り 5 文字として数えることができました！
 
 ## 参考リンク
 
