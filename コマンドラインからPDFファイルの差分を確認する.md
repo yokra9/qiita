@@ -7,45 +7,19 @@
 
 クロスプラットフォーム対応で、Windows 版はバイナリとしても提供されています。本稿では Linux 版のコンパイル方法を中心に記載していきます。
 
-## コンパイル編
+## インストール
 
 Debian 11 を想定しています。
 
 ### 前提：依存性を解消する
 
-ビルドと実行に必要なパッケージをインストールします。GTK3 は wxWidgets が、poppler は diff-pdf が依存しているパッケージです。
+ビルドと実行に必要なパッケージをインストールします。wxWidgets はクロスプラットフォームな GUI ライブラリです（[参考](https://qiita.com/496_/items/3c2929bc296d39ce708c)）。diff-pdf も wxWidgets3 を利用しています。GTK3 は wxWidgets が、poppler は diff-pdf が依存しているパッケージです。
 
 ```bash
-apt install automake bzip2 git g++ libgtk-3-dev libpoppler-glib-dev make wget 
+apt install automake git g++ libgtk-3-dev libwxgtk3.0-gtk3-dev libpoppler-glib-dev make
 ```
 
-### wxWidgetsをインストールする
-
-wxWidgets はクロスプラットフォームな GUI ライブラリです（[参考](https://qiita.com/496_/items/3c2929bc296d39ce708c)）。diff-pdf も wxWidgets3 を利用していますが、yum からインストールできるのは wxWidgets2 なので、ソースからコンパイルする必要があります。
-
-1. wxWidgets のソースコードを[ここ](https://github.com/wxWidgets/wxWidgets/releases)からダウンロードして展開する
-
-    ```bash
-    wget https://github.com/wxWidgets/wxWidgets/releases/download/v3.2.2.1/wxWidgets-3.2.2.1.tar.bz2
-    bzip2 -dc wxWidgets-3.2.2.1.tar.bz2 | tar xvf -
-    ```
-
-2. `configure` を実行する
-
-    ```bash
-    cd wxWidgets-3.2.2.1
-    ./configure --disable-dependency-tracking
-    ```
-
-3. コンパイル＆インストール
-
-    ```bash
-    make
-    make install
-    ldconfig
-    ```
-
-### diff-pdf をコンパイルする
+### diff-pdf をコンパイル＆インストールする
 
 1. `git clone` する
 
@@ -65,8 +39,24 @@ wxWidgets はクロスプラットフォームな GUI ライブラリです（[�
 3. コンパイル＆インストール
 
     ```bash
-    make
     make install
+    ```
+
+4. 動作確認
+
+    ```log
+    root@0a840f01fc92:/tmp# diff-pdf --help
+    Usage: diff-pdf [-h] [-v] [-s] [-m] [-g] [--output-diff <str>] [--channel-tolerance <num>] [--per-page-pixel-tolerance <num>] [--dpi <num>] [--view] file1.pdf file2.pdf
+    -h, --help                            show this help message
+    -v, --verbose                         be verbose
+    -s, --skip-identical                  only output pages with differences
+    -m, --mark-differences                additionally mark differences on left side
+    -g, --grayscale                       only differences will be in color, unchanged parts will show as gray
+    --output-diff=<str>                   output differences to given PDF file
+    --channel-tolerance=<num>             consider channel values to be equal if within specified tolerance
+    --per-page-pixel-tolerance=<num>      total number of pixels allowed to be different per page before specifying the page is different
+    --dpi=<num>                           rasterization resolution (default: 300 dpi)
+    --view                                view the differences in a window
     ```
 
 ## 使い方
