@@ -29,7 +29,7 @@ Dockerfile は `#` で始まる行がコメントとして扱われるため、1
 
 ## `syntax` ディレクティブとの相性問題（解決済み）
 
-このトリックは以前から使用可能だったのですが、`syntax` ディレクティブとの相性問題がありました。`syntax` ディレクティブは通常 1 行目にありますが、シバンを書くと 2 行目に移動してしまいます。この結果、buildx はその行を `syntax` ディレクティブではなく通常のコメントとして理解し、拡張構文が使用できない状態になってました。
+このトリックは以前から使用可能だったのですが、`syntax` ディレクティブとの相性問題がありました。`syntax` ディレクティブは通常 1 行目にありますが、シバンを書くと 2 行目に移動してしまいます。この結果、Buildkit はその行を `syntax` ディレクティブではなく通常のコメントとして理解し、拡張構文が使用できない状態になってました。
 
 この点について、2023-01-10 リリースの [Dockerfile v1.5.0](https://github.com/moby/buildkit/releases/tag/dockerfile%2F1.5.0) で `syntax` ディレクティブの拡張が行われ、シバン行の次にある場合でも理解されるようになりました。同時に `// syntax = ...` や `{ "syntax": "..." }` といった形式の表記も理解されるようになっています：
 
@@ -49,10 +49,10 @@ Dockerfile は `#` で始まる行がコメントとして扱われるため、1
 
 Buildkit には同日リリースの [v0.11.0](https://github.com/moby/buildkit/releases/tag/v0.11.0) でビルトインされ、Docker Engine には 2023-05-17 リリースの [v24.0](https://github.com/moby/moby/releases/tag/v24.0.0) で取り込まれました。
 
-Dockerfile が実行可能であることのメリットは正直あまりないですが、`docker build` に渡してほしいオプションを明示する際には使えそうです：
+Dockerfile が実行可能であることのメリットは正直あまりないですが、タグ等 `docker build` に渡してほしいオプションを明示する際には使えそうです：
 
 ```Dockerfile
-#!/usr/bin/env -S docker build --no-cache --progress plain --build-arg KEY=build-time . -f
+#!/usr/bin/env -S docker build --no-cache --progress plain --tag tag --build-arg KEY=build-time . -f
 # syntax=docker/dockerfile:1.5.0
 FROM busybox
 
