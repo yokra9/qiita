@@ -8,6 +8,7 @@ chmod +x Dockerfile
 ```
 
 ![ExecutableDockerfile](./img/ExecutableDockerfile.gif)
+
 仕掛けは単純で、シバンで `docker build` を呼び出しているだけです：
 
 ```Dockerfile
