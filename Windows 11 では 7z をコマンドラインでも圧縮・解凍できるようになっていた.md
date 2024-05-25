@@ -56,7 +56,37 @@ Extract: tar.exe -x [options] [<patterns>]
 bsdtar 3.6.2 - libarchive 3.6.2 zlib/1.2.5.f-ipp liblzma/5.2.5 bz2lib/1.0.8 libzstd/1.5.4
 ```
 
-FreeBSD 版 tar は、tar や gz はもちろん、7z 等多様なアーカイブ形式に対応しています：
+そのため、`tar -c` を実行しても GNU tar でおなじみの `空のアーカイブ作成はご容赦願います` という独特な表現を見ることはできません：
+
+```bash
+# Ubuntu 上の GNU tar v1.34
+tar -c
+```
+
+```log
+tar: 空のアーカイブ作成はご容赦願います
+より詳しい情報は 'tar --help' または 'tar --usage' で.
+```
+
+```bash
+# Ubuntu 上の FreeBSD 版 tar v3.6.0
+bsdtar -c
+```
+
+```log
+bsdtar: no files or directories specified
+```
+
+```powershell
+# Windows 11 に付属の FreeBSD 版 tar v3.6.2
+tar.exe -c
+```
+
+```log
+tar.exe: no files or directories specified
+```
+
+FreeBSD 版 tar は、tar や gz はもちろん、7z 等の多様なアーカイブ形式に対応しています：
 
 ```markdown
 ## Supported Formats
