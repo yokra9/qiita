@@ -1,6 +1,6 @@
 # Windows 11 では 7z をコマンドラインでも圧縮・解凍できるようになっていた
 
-Windows 11 23H2 以降、[エクスプローラーが 7z、tar などの解凍に対応](https://blogs.windows.com/windowsdeveloper/2023/05/23/bringing-the-power-of-ai-to-windows-11-unlocking-a-new-era-of-productivity-for-customers-and-developers-with-windows-copilot-and-dev-home/)しました。また、[Build 25992 では圧縮も可能となった](https://blogs.windows.com/windows-insider/2023/11/08/announcing-windows-11-insider-preview-build-25992-canary-channel/)ようです。[7-zip](https://7-zip.opensource.jp/) を追加インストールしなくてもこれらのアーカイブを取り扱えるのは嬉しいですよね。
+Windows 11 23H2 以降、[エクスプローラーが 7z、tar などの解凍に対応](https://blogs.windows.com/windowsdeveloper/2023/05/23/bringing-the-power-of-ai-to-windows-11-unlocking-a-new-era-of-productivity-for-customers-and-developers-with-windows-copilot-and-dev-home/)しました。さらに、[Build 25992 では圧縮も可能となった](https://blogs.windows.com/windows-insider/2023/11/08/announcing-windows-11-insider-preview-build-25992-canary-channel/)ようです。[7-zip](https://7-zip.opensource.jp/) を追加インストールしなくてもこれらのアーカイブを取り扱えるのは嬉しいですよね。
 
 ![new-archive-formats](https://blogs.windows.com/wp-content/uploads/prod/sites/44/2023/11/new-archive-formats.png) [^1]
 
@@ -21,7 +21,7 @@ OperationStopped: File 'E:\test\archive.7z' does not appear to be a valid zip ar
 
 せっかく標準機能で 7z が取り扱えるようになったのですから、コマンドラインからも操作してみたいですよね。どうにかできないものか。
 
-## Windows 11 に同梱されている libarchive (bsdtar) をコマンドラインから利用する
+## Windows 11 に同梱されている bsdtar (libarchive) をコマンドラインから利用する
 
 実は、[Windows 10 1803 以降には tar コマンドが同梱されています](https://techcommunity.microsoft.com/t5/containers/tar-and-curl-come-to-windows/ba-p/382409)。この tar コマンドは [GNU tar](https://www.gnu.org/software/tar/) ではなく、[FreeBSD 版 tar (libarchive)](https://www.libarchive.org/) です：
 
@@ -58,8 +58,7 @@ bsdtar 3.6.2 - libarchive 3.6.2 zlib/1.2.5.f-ipp liblzma/5.2.5 bz2lib/1.0.8 libz
 
 そのため、`tar -c` を実行しても GNU tar でおなじみの `空のアーカイブ作成はご容赦願います` という独特な表現を見ることはできません：
 
-```bash
-# Ubuntu 上の GNU tar v1.34
+```Ubuntu 上の GNU tar v1.34:bash
 tar -c
 ```
 
@@ -68,8 +67,7 @@ tar: 空のアーカイブ作成はご容赦願います
 より詳しい情報は 'tar --help' または 'tar --usage' で.
 ```
 
-```bash
-# Ubuntu 上の FreeBSD 版 tar v3.6.0
+```Ubuntu 上の FreeBSD 版 tar v3.6.0:bash
 bsdtar -c
 ```
 
@@ -77,8 +75,7 @@ bsdtar -c
 bsdtar: no files or directories specified
 ```
 
-```powershell
-# Windows 11 に付属の FreeBSD 版 tar v3.6.2
+```Windows 11 に付属の FreeBSD 版 tar v3.6.2:powershell
 tar.exe -c
 ```
 
@@ -160,11 +157,15 @@ When creating archives, the result can be filtered with any of the following:
 
 [^2]: <https://github.com/libarchive/libarchive/blob/v3.6.2/README.md>
 
-というわけで、`tar.exe` を叩くだけでコマンドラインから 7z を圧縮・解凍できてしまいます：
+というわけで、`tar.exe` を叩くだけでコマンドラインから 7z を圧縮・解凍できてしまうのです：
 
 ![libarchive](./img/libarchive.gif)
 
-[エクスプローラの 7z 対応も libarchive を利用している](https://blogs.windows.com/windowsdeveloper/2023/05/23/bringing-the-power-of-ai-to-windows-11-unlocking-a-new-era-of-productivity-for-customers-and-developers-with-windows-copilot-and-dev-home/)ため、順序としてはコマンドラインで先に対応していたことになります。私も Windows 10 の頃から `tar.exe` が同梱されていたことは知っていたのですが、ここまで高機能なバージョンとは認識していませんでした。やはり、[最近の Windows の開発者への寄り添い具合](https://forest.watch.impress.co.jp/docs/news/1593848.html)には目を見張るものがありますね。
+[エクスプローラの 7z 対応も libarchive を利用している](https://blogs.windows.com/windowsdeveloper/2023/05/23/bringing-the-power-of-ai-to-windows-11-unlocking-a-new-era-of-productivity-for-customers-and-developers-with-windows-copilot-and-dev-home/)ため、順序としてはコマンドラインで先に対応していたことになります。私も Windows 10 の頃から `tar.exe` が同梱されていたことは知っていたのですが、それが FreeBSD 版 tar で、ここまで広範囲をカバーできていたとは認識していませんでした。
+
+とはいえ、開発者にとって嬉しいのは Linux との相互運用性という意味で tar および gz、bzip2 への対応でしょう。[^3] 本件に限らず、[最近の Windows の開発者への寄り添い具合](https://forest.watch.impress.co.jp/docs/news/1593848.html)には目を見張るものがあります。この調子で開発者フレンドリーな姿勢を継続してほしいですね。
+
+[^3]: ちなみに `.tgz` と `.tbz2` はエクスプローラーで開けましたが、 `.tbz` は非対応でした。
 
 ## 参考リンク
 
@@ -177,6 +178,7 @@ When creating archives, the result can be filtered with any of the following:
 * [Windowsのtarコマンドで tar.gzファイルをtarファイルにする](https://qiita.com/n_sato/items/5bee756165dbcc1a84c5)
 * [bsdtarをUbuntuで使う](https://zenn.dev/yoichi/articles/freebsd-tar-on-ubuntu-linux)
 * [FreeBSD の tar がすごい](https://qiita.com/s_mitu/items/b61b227d55e1d8bf9fc5)
+* [Linux コマンドの多言語対応 ~ tar の「空のアーカイブ作成はご容赦願います」の謎に迫る~](https://www.kimullaa.com/posts/202001251000/)
 * [libarchive](https://libarchive.org/)
 * [libarchive/libarchive: Multi-format archive and compression library](https://github.com/libarchive/libarchive)
 * [Release Libarchive 3.6.2 · libarchive/libarchive](https://github.com/libarchive/libarchive/releases/tag/v3.6.2)
