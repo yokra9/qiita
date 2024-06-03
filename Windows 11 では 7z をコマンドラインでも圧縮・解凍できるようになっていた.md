@@ -58,7 +58,7 @@ bsdtar 3.6.2 - libarchive 3.6.2 zlib/1.2.5.f-ipp liblzma/5.2.5 bz2lib/1.0.8 libz
 
 そのため、`tar -c` を実行しても GNU tar でおなじみの `空のアーカイブ作成はご容赦願います` という独特な表現を見ることはできません：
 
-```Ubuntu 上の GNU tar v1.34:bash
+```bash:Ubuntu 上の GNU tar v1.34
 tar -c
 ```
 
@@ -67,7 +67,7 @@ tar: 空のアーカイブ作成はご容赦願います
 より詳しい情報は 'tar --help' または 'tar --usage' で.
 ```
 
-```Ubuntu 上の FreeBSD 版 tar v3.6.0:bash
+```bash:Ubuntu 上の FreeBSD 版 tar v3.6.0
 bsdtar -c
 ```
 
@@ -75,7 +75,7 @@ bsdtar -c
 bsdtar: no files or directories specified
 ```
 
-```Windows 11 に付属の FreeBSD 版 tar v3.6.2:powershell
+```powershell:Windows 11 に付属の FreeBSD 版 tar v3.6.2
 tar.exe -c
 ```
 
@@ -161,11 +161,13 @@ When creating archives, the result can be filtered with any of the following:
 
 ![libarchive](./img/libarchive.gif)
 
-[エクスプローラの 7z 対応も libarchive を利用している](https://blogs.windows.com/windowsdeveloper/2023/05/23/bringing-the-power-of-ai-to-windows-11-unlocking-a-new-era-of-productivity-for-customers-and-developers-with-windows-copilot-and-dev-home/)ため、順序としてはコマンドラインで先に対応していたことになります。私も Windows 10 の頃から `tar.exe` が同梱されていたことは知っていたのですが、それが FreeBSD 版 tar で、ここまで広範囲をカバーできていたとは認識していませんでした。
+[エクスプローラの 7z 対応も libarchive を利用している](https://blogs.windows.com/windowsdeveloper/2023/05/23/bringing-the-power-of-ai-to-windows-11-unlocking-a-new-era-of-productivity-for-customers-and-developers-with-windows-copilot-and-dev-home/)ため、順序としてはコマンドラインで先に対応していたことになります。私も Windows 10 の頃から `tar.exe` が同梱されていたことは知っていたのですが、それが FreeBSD 版 tar で、ここまで広範囲をカバーできるものとは認識していませんでした。[^3]
 
-とはいえ、開発者にとって嬉しいのは Linux との相互運用性という意味で tar および gz、bzip2 への対応でしょう。[^3] 本件に限らず、[最近の Windows の開発者への寄り添い具合](https://forest.watch.impress.co.jp/docs/news/1593848.html)には目を見張るものがあります。この調子で開発者フレンドリーな姿勢を継続してほしいですね。
+[^3]: 実際、Windows 10 の `tar.exe` では 7z を解凍しようとしても `LZMA codec is unsupported` となってしまうようです。`tar.exe --help` の結果からも、`liblzma` が含まれていないことが確認できます。
 
-[^3]: ちなみに `.tgz` と `.tbz2` はエクスプローラーで開けましたが、 `.tbz` は非対応でした。
+とはいえ、開発者にとって嬉しいのは Linux との相互運用性という意味で tar および gz、bzip2 への対応でしょう。[^4] 本件に限らず、[最近の Windows の開発者への寄り添い具合](https://forest.watch.impress.co.jp/docs/news/1593848.html)には目を見張るものがあります。この調子で開発者フレンドリーな姿勢を継続してほしいですね。
+
+[^4]: ちなみに `.tgz` と `.tbz2` はエクスプローラーで開けましたが、 `.tbz` は非対応でした。
 
 ## 参考リンク
 
@@ -182,3 +184,4 @@ When creating archives, the result can be filtered with any of the following:
 * [libarchive](https://libarchive.org/)
 * [libarchive/libarchive: Multi-format archive and compression library](https://github.com/libarchive/libarchive)
 * [Release Libarchive 3.6.2 · libarchive/libarchive](https://github.com/libarchive/libarchive/releases/tag/v3.6.2)
+* [bsdtar(1) - FreeBSD Manual Pages](https://man.freebsd.org/cgi/man.cgi?query=bsdtar&sektion=1&format=html)
