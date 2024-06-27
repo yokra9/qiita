@@ -20,7 +20,7 @@ sudo apt-get update
 sudo apt-get install opensbi qemu-system-misc u-boot-qemu
 ```
 
-次に、QEMU 用のプリインストールイメージをダウンロードして解凍します。
+次に、QEMU 用のプリインストール済イメージをダウンロードして解凍します。
 
 ```bash
 wget https://cdimage.ubuntu.com/releases/24.04/release/ubuntu-24.04-preinstalled-server-riscv64.img.xz
@@ -156,6 +156,8 @@ Note: Recompile with -Xlint:preview for details.
 riscv64
 ```
 
+![Eclipse Temurin 21 on Ubuntu on QEMU for RISC-V](<./img/Eclipse Temurin 21 on Ubuntu on QEMU for RISC-V.gif>)
+
 やりました。
 
 ## Ubuntu 標準の OpenJDK 21 on Ubuntu on QEMU for RISC-V on Ubuntu on WSL2
@@ -163,6 +165,7 @@ riscv64
 そもそも、[JEP 422: Linux/RISC-V Port](https://openjdk.org/jeps/422) が取り込まれた Java 19 から標準的に RISC-V 上での動作は可能になっているはずです。実際、Ubuntu on RISC-V でも apt から標準の OpenJDK を導入可能です：
 
 ```bash
+sudo apt update
 sudo apt install openjdk-21-jdk
 
 java -version
@@ -174,7 +177,7 @@ OpenJDK Runtime Environment (build 21.0.3+9-Ubuntu-1ubuntu1)
 OpenJDK 64-Bit Server VM (build 21.0.3+9-Ubuntu-1ubuntu1, mixed mode, sharing)
 ```
 
-では、Temurin と同様に `arch.java` を実行してみましょう：
+では、Temurin と同様に `Arch.java` を実行してみましょう：
 
 ```bash
 java --enable-preview --source 21 /tmp/Arch.java
@@ -186,11 +189,12 @@ Note: Recompile with -Xlint:preview for details.
 riscv64
 ```
 
-問題なく動作しますね。ただしインストール時の依存パッケージが多いので、リソースの限られた状況だと Temurin をアーカイブで持ち込む方が手軽な可能性もあります。
+問題なく動作しますね。ただし、インストール時の依存パッケージが多いため、リソースの限られた状況では Temurin をアーカイブで持ち込む方が手軽な可能性もあります。
 
 なお、誤って JRE の方（`openjdk-21-jre-headless` パッケージ）をインストールすると以下のエラーになってしまいます：
 
 ```bash
+sudo apt update
 sudo apt install openjdk-21-jre-headless
 
 java --enable-preview --source 21 /tmp/Arch.java
@@ -206,10 +210,10 @@ Exception in thread "main" java.lang.IllegalArgumentException: error: release ve
         at jdk.compiler/com.sun.tools.javac.api.JavacTool.getTask(JavacTool.java:119)
         at jdk.compiler/com.sun.tools.javac.launcher.Main.compile(Main.java:400)
         at jdk.compiler/com.sun.tools.javac.launcher.Main.run(Main.java:205)
-        at jdk.compiler/com.sun.tools.javac.launcher.Main.ma^C(Main.java:135)
+        at jdk.compiler/com.sun.tools.javac.launcher.Main.main(Main.java:135)
 ```
 
-ちなみに、伝統的な書き方では問題ありません：
+伝統的な書き方では問題ありません：
 
 ```java:Traditional.java
 public class Traditional{
