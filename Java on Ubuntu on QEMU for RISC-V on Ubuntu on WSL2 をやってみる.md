@@ -1,12 +1,12 @@
 # Java on Ubuntu on QEMU for RISC-V on Ubuntu on WSL2 をやってみる
 
-この所、[Eclipse Temurin 21 が RISC-Vで利用可能になった](https://adoptium.net/blog/2024/04/eclipse-temurin-21-and-22-available-on-riscv/)り、[Ubuntu 24.04 が RISC-V 搭載 SBC「Milk-V Mars」を正式サポートしたり](https://gihyo.jp/admin/clip/01/ubuntu-topics/202405/31)しましたね。ということは、RISC-V な市販ボード PC で Ubuntu の起動も、さらには Temurin の動作もサポートされることになります。30 億のデバイスで走ることが知られる Java ですが、まだまだその版図を広げていくつもりのようです。せっかくなので Milk-V Mars を買って試してみたかったのですが、[現在は品切れ中](https://arace.tech/products/milk-v-mars)のようです。というわけで、Ubuntu on QEMU for RISC-V on Ubuntu on WSL2 で Java を走らせてお茶を濁すこととします。
+この所、[Eclipse Temurin 21 が RISC-Vで利用可能になった](https://adoptium.net/blog/2024/04/eclipse-temurin-21-and-22-available-on-riscv/)り、[Ubuntu 24.04 が RISC-V 搭載 SBC「Milk-V Mars」を正式サポートしたり](https://gihyo.jp/admin/clip/01/ubuntu-topics/202405/31)しましたね。ということは、RISC-V な市販ボード PC で Ubuntu の起動も、さらには Temurin の動作もサポートされることになります。30 億のデバイスで走ることが知られる Java ですが、まだまだその版図を広げていくつもりのようです。せっかくなので Milk-V Mars を買って試してみたかったのですが、どうやら品切れ中のようでした。というわけで、Ubuntu on QEMU for RISC-V on Ubuntu on WSL2 で Java を走らせてお茶を濁すこととします。
 
 ## Ubuntu on QEMU for RISC-V on Ubuntu on WSL2 を起動する
 
 Ubuntu Wiki に [RISC-V/QEMU](https://wiki.ubuntu.com/RISC-V/QEMU) というそのものズバリな項目があるため、こちらを参照します。
 
-まずは必要なパッケージをインストールします：
+まず、Ubuntu on WSL2 にて必要なパッケージをインストールします：
 
 * [qemu-system-misc](https://packages.ubuntu.com/noble/qemu-system-misc)
   * `qemu-system-riscv64` ([QEMU RISC-V System emulator](https://www.qemu.org/docs/master/system/target-riscv.html))
@@ -230,6 +230,10 @@ java /tmp/Traditional.java
 ```log
 riscv64
 ```
+
+## …という記事を書いているうちに
+
+[アリエクの Milk-V Mars 在庫](https://ja.aliexpress.com/item/1005006777867681.html)が復活していました。しかし私はエミュレータで遊んでいるうちになんとなく満足してしまったので、物欲が湧いた頃に再検討することとします（トホホ）。
 
 ## 参考リンク
 
