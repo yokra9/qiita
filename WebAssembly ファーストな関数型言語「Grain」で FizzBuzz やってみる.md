@@ -1,6 +1,6 @@
 # WebAssembly ファーストな関数型言語「Grain」で FizzBuzz やってみる
 
-[RedMonk Programming Language Rankings: Jan 2024](https://redmonk.com/sogrady/2024/03/08/language-rankings-1-24/) [^1]を眺めていて、[Zig](https://ziglang.org/) 等と並んで [Grain](https://grain-lang.org/) が言及されていることに気が付きました。[^2]
+[RedMonk Programming Language Rankings: Jan 2024](https://redmonk.com/sogrady/2024/03/08/language-rankings-1-24/) [^1]を眺めていて、[Zig](https://ziglang.org/) や [Moonbit](https://www.moonbitlang.com/) 等と並んで [Grain](https://grain-lang.org/) が言及されていることに気が付きました。[^2]
 
 [^1]: GitHub と Stack Overflow での人気度から算出するプログラミング言語の人気度ランキング。開発者に焦点を当てたアナリストファームの RedMonk が [2012 年から公開して](https://redmonk.com/sogrady/2012/09/12/language-rankings-9-12/)います。
 
@@ -9,7 +9,7 @@
 > Bicep (86), Grain, Moonbit, Zig (97): as with the Dart/Kotlin/Rust grouping above, these languages are grouped here not because they’re all technically similar but rather because they are on the languages of interest list mentioned above. They are included here for a variety of reasons: Zig is on here because it has attempted to learn from the languages that preceded it from C++ to Rust. Grain and Moonbit are on here, meanwhile, because they are optimized for WebAssembly. Bicep is on here because it comes up with surprising frequency – and a mildly surprising ranking – for a cloud DSL. Only two of these languages are currently ranked, but we’re watching all of them to see if these or any other new languages begin to emerge.
 <!-- markdownlint-disable -->
 
-> Bicep (86)、Grain、Moonbit、Zig (97)：上記の Dart/Kotlin/Rust のグループ分けと同様に、これらの言語がここにグループ分けされているのは、技術的にすべて似ているからではなく、むしろ上記の興味のある言語リストに含まれているからだ。これらはさまざまな理由でここに含まれている： Zig は、C++ から Rust まで、先行する言語から学ぼうとしている。一方、Grain と Moonbit は WebAssembly に最適化されているため、ここに含まれている。Bicep は、クラウド DSL としては意外な頻度で、そして少し意外な順位でランクインしている。現在ランクインしているのはこれらの言語のうち2つだけだが、これらの言語やその他の新しい言語が出現し始めるかどうか、すべての言語をウォッチしている。（DeepL 訳を元に修正）
+> [Bicep](https://learn.microsoft.com/ja-jp/azure/azure-resource-manager/bicep/overview) (86)、Grain、Moonbit、Zig (97)：上記の Dart/Kotlin/Rust のグループ分けと同様に、これらの言語がここにグループ分けされているのは、技術的にすべて似ているからではなく、むしろ上記の興味のある言語リストに含まれているからだ。これらはさまざまな理由でここに含まれている： Zig は、C++ から Rust まで、先行する言語から学ぼうとしている。一方、Grain と Moonbit は WebAssembly に最適化されているため、ここに含まれている。Bicep は、クラウド DSL としては意外な頻度で、そして少し意外な順位でランクインしている。現在ランクインしているのはこれらの言語のうち2つだけだが、これらの言語やその他の新しい言語が出現し始めるかどうか、すべての言語をウォッチしている。（DeepL 訳を元に修正）
 
 Grain は WebAssembly ファーストな関数型プログラミング言語です。OCaml に影響を受けているというか、Grain 自体が [Reason というOCaml な AltJS](https://reasonml.github.io/)[^3]で書かれています。
 
@@ -292,14 +292,15 @@ Grain では（先行する言語たちと同様に）match 式がパターン�
 
 ちゃんとコンパイラが怒ってくれています。網羅できていないケースの例示など、エラーメッセージがわかりやすい点に好感が持てますね。
 
-## まとめ
+## まとめと感想
 
-というわけで Grain でいくつかの FizzBuzz をやってみましたが、なかなか書き味の良い言語だと感じました。[「違うものにふれると、より『そのもの』のことがわかる」と言います](https://speakerdeck.com/snoozer05/a-ruby-programming-episode-ruby-is-my-glasses-my-stationery-and-my-language?slide=84)し、普段は他の言語を愛好する皆様もニッチな言語とふれあってみてはいかがでしょうか。
+というわけで Grain でいくつかの FizzBuzz をやってみましたが、なかなか書き味の良い言語でしたし、触っていて楽しかったです。カスタム中置演算子は制約の多い言語だからこそわかりやすく輝きを見せており、今回得られた経験は他の言語でプログラミングを行う際にも活かせそうです。[「違うものにふれると、より『そのもの』のことがわかる」](https://speakerdeck.com/snoozer05/a-ruby-programming-episode-ruby-is-my-glasses-my-stationery-and-my-language?slide=84)と言いますし、[「プログラミング言語は単なる技術ではなく、プログラマーがそれを道具として思考するもの」](https://www.practical-scheme.net/trans/beating-the-averages-j.html)とも言います。普段は他の言語を愛好する皆様も新しい言語とふれあって見聞を広めてみてはいかがでしょうか。
 
 ## 参考リンク
 
 * [Introduction - Grain Docs](https://grain-lang.org/docs/intro)
 * [The RedMonk Programming Language Rankings: January 2024](https://redmonk.com/sogrady/2024/03/08/language-rankings-1-24/)
+* [MoonBit が WebAssembly 時代の理想(の原型)だった](https://zenn.dev/mizchi/articles/introduce-moonbit)
 * [知らない言語を使ってみたい - ReasonML編 (OCaml な AltJS)](https://qiita.com/kikuchi_kentaro/items/f078bd3ad0b2c2308251)
 * [初めてのWasmCon開催。キーノートからコンポーネントモデルを解説するFastlyのセッションを紹介 | Think IT（シンクイット）](https://thinkit.co.jp/article/22528)
 * [WASMを実行するためのランタイム、wasmCloudがCNCFのサンドボックスに | Think IT（シンクイット）](https://thinkit.co.jp/article/18714)
@@ -310,5 +311,6 @@ Grain では（先行する言語たちと同様に）match 式がパターン�
 * [演算子定義 | とほほのHaskell入門 - とほほのWWW入門](https://www.tohoho-web.com/ex/haskell.html#define-operators)
 * [Operators | Tour of Scala | Scala Documentation](https://docs.scala-lang.org/tour/operators.html)
 * [Infix notation | Functions | Kotlin Documentation](https://kotlinlang.org/docs/functions.html#infix-notation)
+* [究極のスキルアップ！プログラマーのあこがれ言語「Lisp」を始めよう | 日経クロステック（xTECH）](https://xtech.nikkei.com/atcl/nxt/column/18/02149/072600001/)
 * [Python: pipe を使った Infix プログラミング - CUBE SUGAR CONTAINER](https://blog.amedama.jp/entry/2016/02/16/215744)
 * [文系卒のクソザコWEB系エンジニアが関数型言語に入門した結果をまとめた](https://qiita.com/yokra9/items/76a9265e03bf6f4d6810)
