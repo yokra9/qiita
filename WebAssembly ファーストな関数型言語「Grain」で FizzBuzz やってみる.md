@@ -181,7 +181,9 @@ Hello, world!
 
 ## Grain で FizzBuzz やってみる
 
-これから掲載するコードは[こちらのレポジトリ](https://github.com/yokra9/grain-fizz-buzz)にも格納しています。
+みなさんご存知 [FizzBuzz](https://paiza.jp/works/mondai/c_rank_skillcheck_sample/fizz-buzz) 問題で Grain の文法を概観してみましょう。
+
+なお、これから掲載するコードは[こちらのレポジトリ](https://github.com/yokra9/grain-fizz-buzz)にも格納しています。
 
 ### まずは素直に [`for` ループ](https://grain-lang.org/docs/guide/loops)と [`if` 式](https://grain-lang.org/docs/guide/conditionals)で書いてみる
 
