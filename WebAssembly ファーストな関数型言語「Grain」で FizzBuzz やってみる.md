@@ -294,6 +294,46 @@ Grain では（先行する言語たちと同様に）match 式がパターン�
 
 ちゃんとコンパイラが怒ってくれています。網羅できていないケースの例示など、エラーメッセージがわかりやすい点に好感が持てますね。
 
+また、`|` で複数パターンにマッチさせることもできます：
+
+```grain:FizzBuzz5.gr
+module FizzBuzz5
+
+from "list" include List
+
+let (|>) = (list, (fn, a)) => fn(a, list)
+
+List.init(100, n => n + 1) |>
+  (List.map, i => match (i % 15) {
+    3 | 6 | 9 | 12 => "Fizz",
+    5 | 10 => "Buzz",
+    0 => "FizzBuzz",
+    _ => toString(i),
+  }) |>
+  (List.forEach, n => print(n))
+```
+
+別解として [Match Guards](https://grain-lang.org/docs/guide/pattern_matching#Match-Guards) も使えますが、今回のケースではかえって文字数が多くなってしまいました：
+
+```grain:FizzBuzz6.gr
+module FizzBuzz6
+
+from "list" include List
+
+let (|>) = (list, (fn, a)) => fn(a, list)
+
+List.init(100, n => n + 1) |>
+  (List.map, i => match (i % 15) {
+    r when List.contains(r, [3, 6, 9, 12]) => "Fizz",
+    r when List.contains(r, [5, 10]) => "Buzz",
+    0 => "FizzBuzz",
+    _ => toString(i),
+  }) |>
+  (List.forEach, n => print(n))
+```
+
+なお、個人的には `FizzBuzz4.gr` のタプルを使った実装が好みです。
+
 ## まとめと感想
 
 というわけで Grain でいくつかの FizzBuzz をやってみましたが、なかなか書き味の良い言語でしたし、触っていて楽しかったです。カスタム中置演算子は制約の多い言語だからこそわかりやすく輝きを見せており、今回得られた経験は他の言語でプログラミングを行う際にも活かせそうです。[「違うものにふれると、より『そのもの』のことがわかる」](https://speakerdeck.com/snoozer05/a-ruby-programming-episode-ruby-is-my-glasses-my-stationery-and-my-language?slide=84)と言いますし、[「プログラミング言語は単なる技術ではなく、プログラマーがそれを道具として思考するもの」](https://www.practical-scheme.net/trans/beating-the-averages-j.html)とも言います。普段は他の言語を愛好する皆様も新しい言語とふれあって見聞を広めてみてはいかがでしょうか。
