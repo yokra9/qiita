@@ -8,7 +8,7 @@
 
 ## `Switch-DisplayMode` コマンドレット
 
-Win32API の [`SetDisplayConfig` 関数](https://learn.microsoft.com/ja-jp/windows-hardware/drivers/display/connecting-and-configuring-displays)でマルチディスプレイの構成を変更する PowerShell スクリプトです。なお、コード全文は[こちら](https://github.com/yokra9/Switch-DisplayMode)で公開しています。
+Win32API の [`SetDisplayConfig` 関数](https://learn.microsoft.com/ja-jp/windows/win32/api/winuser/nf-winuser-setdisplayconfig)でマルチディスプレイの構成を変更する PowerShell スクリプトです。なお、コード全文は[こちら](https://github.com/yokra9/Switch-DisplayMode)で公開しています。
 
 ```powershell:Switch-DisplayMode.ps1
 # Win32API の SetDisplayConfig 関数を読み込む
@@ -26,9 +26,9 @@ $Win32Functions = Add-Type -Name Win32SetDisplayConfig -MemberDefinition $cscode
 
 # 引数 flags で使用するビット値。
 $SDC_APPLY = 0x00000080
+$SDC_TOPOLOGY_INTERNAL = 0x00000001
 $SDC_TOPOLOGY_CLONE = 0x00000002
 $SDC_TOPOLOGY_EXTEND = 0x00000004
-$SDC_TOPOLOGY_INTERNAL = 0x00000001
 $SDC_TOPOLOGY_EXTERNAL = 0x00000008
 
 # システムエラーコード
@@ -41,10 +41,14 @@ $ERROR_BAD_CONFIGURATION = 0x64A
 
 # 引数を元にビット値を計算する
 $action = switch ($Args[0]) {
+    # 永続化データベースから最後の内部構成を設定する
+    "internal" { $SDC_TOPOLOGY_INTERNAL }
     # 永続化データベースから最後の複製構成を設定する
     "clone" { $SDC_TOPOLOGY_CLONE }
     # 永続化データベースから最後の拡張構成を設定する
     "extend" { $SDC_TOPOLOGY_EXTEND }
+    # 永続化データベースから最後の外部構成を設定する
+    "external" { $SDC_TOPOLOGY_EXTERNAL }
     # 現在接続されているモニターの最後の既知の表示構成を設定する
     default { $SDC_TOPOLOGY_INTERNAL -bor $SDC_TOPOLOGY_CLONE -bor $SDC_TOPOLOGY_EXTEND -bor $SDC_TOPOLOGY_EXTERNAL }
 }
@@ -69,11 +73,17 @@ throw $err
 # Switch-DisplayMode コマンドレットをインポートする
 . .\Switch-DisplayMode.ps1
 
+# 永続化データベースから最後の内部構成を設定する
+Switch-DisplayMode -DisplayMode internal
+
 # 永続化データベースから最後の拡張構成を設定する
 Switch-DisplayMode -DisplayMode extend
 
 # 永続化データベースから最後の複製構成を設定する
 Switch-DisplayMode -DisplayMode clone
+
+# 永続化データベースから最後の外部構成を設定する
+Switch-DisplayMode -DisplayMode external
 ```
 
 ## 余談、あるいは Windows 7 の発売が 15 年前という信じがたい現実
@@ -84,7 +94,7 @@ Switch-DisplayMode -DisplayMode clone
 
 ![Display-Switcher-Win7](./img/Display-Switcher-Win7.png)
 
-Windows Vista 以前の場合、直接ディスプレイのプロパティを変更する必要がありました。そのため、[Windows XP 用に C# でディスプレイスイッチャを作成する方法](https://www.codeproject.com/articles/178027/how-to-create-a-display-switcher-for-windows-xp)を紹介する記事が書かれていたりしました。当該記事では ChangeDisplaySettingsEx 関数を利用していますが、SetDisplayConfig 関数と比べ冗長なコードが必要だったようです。
+Windows Vista 以前の場合、直接ディスプレイのプロパティを変更する必要がありました。そのため、[Windows XP 用に C# でディスプレイスイッチャを作成する方法](https://www.codeproject.com/articles/178027/how-to-create-a-display-switcher-for-windows-xp)を紹介する記事が書かれていたりしました。当該記事では `ChangeDisplaySettingsEx` 関数を利用していますが、`SetDisplayConfig` 関数と比べ冗長なコードが必要だったようです。
 
 本稿執筆の参考として Windows 7 発売直後のブログ記事等を漁っていたのですが、なんだか懐かしい気持ちになってしまいました。15 年前といえば 1.5 むかしに相当しますから、ずいぶんと時間が経ってしまいました。当時は Windows Aero が格好良く見えたものだけどなぁ…。
 
