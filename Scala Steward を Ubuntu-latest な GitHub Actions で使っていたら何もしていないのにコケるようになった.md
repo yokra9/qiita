@@ -72,7 +72,7 @@ jobs:
 
 [^1]: 不幸にも発見が遅れた、という見方もできます。
 
-解決法はシンプルで、[公式ガイド](https://www.scala-sbt.org/download/)を参考に sbt のインストール手順を追加するだけです：
+せっかく `ubuntu-latest` を使用しているなら、できればこのまま最新版を追いかけたいところです。解決法はシンプルで、[公式ガイド](https://www.scala-sbt.org/download/)を参考に sbt のインストール手順を追加するだけです：
 
 ```yml:.github/workflows/DependencyUpdate.yml
 name: Launch Scala Steward
