@@ -110,7 +110,7 @@ jobs:
           author-name: github-actions[bot]
 ```
 
-なお、sbt の追加に加え [コミッターが `github-actions[bot]` になる名前とメールアドレス](https://github.com/orgs/community/discussions/26560)を指定するアレンジも施しています。
+なお、sbt の追加に加え[コミッターが `github-actions[bot]` になる名前とメールアドレス](https://github.com/orgs/community/discussions/26560)を指定するアレンジも施しています。
 
 ## 参考リンク
 
