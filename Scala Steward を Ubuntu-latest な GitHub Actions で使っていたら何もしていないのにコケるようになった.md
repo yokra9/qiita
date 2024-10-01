@@ -1,4 +1,4 @@
-# Scala Steward を Ubuntu-latest な GitHub Actions で使っていたら何もしていないのにコケるようになった
+# Scala Steward を ubuntu-latest な GitHub Actions で使っていたら何もしていないのにコケるようになった
 
 [以前の記事](https://qiita.com/yokra9/items/5d80a9397951091ed637) で [Scala Steward を GitHub Actions で使う方法](https://qiita.com/yokra9/items/5d80a9397951091ed637#scala-steward-%E3%82%92-github-actions-%E3%81%A7%E4%BD%BF%E3%81%86)をご紹介しました。Scala でも Dependabot のように依存ライブラリをアップデートする PR を自動で作成してくれて便利です。
 
@@ -110,8 +110,11 @@ jobs:
           author-name: github-actions[bot]
 ```
 
+なお、sbt の追加に加え [コミッターが `github-actions[bot]` になる名前とメールアドレス](https://github.com/orgs/community/discussions/26560)を指定するアレンジも施しています。
+
 ## 参考リンク
 
 * [Ubuntu-latest workflows will use Ubuntu-24.04 image · Issue #10636 · actions/runner-images](https://github.com/actions/runner-images/issues/10636)
 * [Runner error: version `GLIBC_2.32' not found · Issue #442 · scala-steward-org/scala-steward-action](https://github.com/scala-steward-org/scala-steward-action/issues/442)
+* [【GitHub】github-actions[bot]になってpushする方法](https://qiita.com/marurusan/items/604f8655083154aa6fa1)
 * [Scala でも Dependabot のように依存ライブラリをアップデートする PR を自動で作成してほしい（GitHub Actions）](https://qiita.com/yokra9/items/5d80a9397951091ed637)
