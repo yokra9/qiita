@@ -8,28 +8,30 @@
 
 **(2022-09-11追記)** [Akka-HTTP を含む Akka ファミリのライセンス変更](https://www.lightbend.com/akka/license-faq)に伴い、Scalatra 版の記述を追加しました。
 
+**(2024-09-04追記)** Akka 版を OSS フォークである [Pekko](https://pekko.apache.org/) に差し替えました。また、Scalatra 版を Scalatra 3.1(Jakarta Servlet 6.1 / Jetty 12) に対応させました。
+
 ## 環境
 
-* Scala 2.13.8
-* sbt 1.7.1
-* [sbt-native-packager](http://www.scala-sbt.org/sbt-native-packager/) 1.9.11
+* Scala 3.3.3
+* sbt 1.10.1
+* [sbt-native-packager](http://www.scala-sbt.org/sbt-native-packager/) 1.10.4
 
-## Scala + Akka-HTTP で Web アプリを作成する
+## Scala + Pekko-HTTP で Web アプリを作成する
 
-最初に、`build.sbt` に依存ライブラリを追加します。元記事との違いとしては、 Akka シリーズのバージョンのほか、SLF4J 対応のロギングライブラリとして logback を追加しています。[^1]
+最初に、`build.sbt` に依存ライブラリを追加します。元記事との違いとしては、 Akka ファミリを Pekko ファミリに置き換えたほか、SLF4J 対応のロギングライブラリとして logback を追加しています。[^1]
 
 [^1]: logback は設定ファイルを追加しない場合ロギング出力は直接コンソールに出力されるので、コンテナレディなアプリを作成するには最適です。
 
 ```scala:build.sbt
-ThisBuild / scalaVersion := "2.13.8"
+ThisBuild / scalaVersion := "3.3.3"
 
 // sbt run でサーバを起動したまま維持できるようにします
 run / fork := true
 
 libraryDependencies ++= Seq(
-  "com.typesafe.akka" %% "akka-actor-typed" % "2.6.20",
-  "com.typesafe.akka" %% "akka-stream" % "2.6.20",
-  "com.typesafe.akka" %% "akka-http" % "10.2.10",
+  "org.apache.pekko" %% "pekko-actor-typed" % "1.1.0",
+  "org.apache.pekko" %% "pekko-stream" % "1.1.0",
+  "org.apache.pekko" %% "pekko-http" % "1.0.1",
   "ch.qos.logback" % "logback-classic" % "1.4.0",
 )
 ```
@@ -37,12 +39,12 @@ libraryDependencies ++= Seq(
 続いてソース本文です。[Akka HTTP 10.2.0 での仕様変更](https://doc.akka.io/docs/akka-http/current/migration-guide/migration-guide-10.2.x.html)を反映しています。
 
 ```scala:main.scala
-import akka.actor.typed.ActorSystem
-import akka.actor.typed.scaladsl.Behaviors
-import akka.event.Logging
-import akka.http.scaladsl.Http
-import akka.http.scaladsl.model._
-import akka.http.scaladsl.server.Directives._
+import org.apache.pekko.actor.typed.ActorSystem
+import org.apache.pekko.actor.typed.scaladsl.Behaviors
+import org.apache.pekko.event.Logging
+import org.apache.pekko.http.scaladsl.Http
+import org.apache.pekko.http.scaladsl.model._
+import org.apache.pekko.http.scaladsl.server.Directives._
 import scala.concurrent.Await
 import scala.concurrent.duration.Duration
 import org.slf4j.{Logger, LoggerFactory}
@@ -53,7 +55,7 @@ object Main {
   def main(args: Array[String]): Unit = {
 
     // typed ActorSystem が導入されましたが、旧 ActorSystem も利用可能です。
-    implicit val system = ActorSystem(Behaviors.empty, "my-sample-app")
+    implicit val system: ActorSystem[Any] = ActorSystem(Behaviors.empty, "my-sample-app")
 
     // GET /indexでリクエストのURLパラメータとUserAgentを返却する
     val route =
@@ -93,7 +95,7 @@ param: Map(query -> string), user-agent: curl/7.66.0}
 
 ## Scala + Scalatra で Web アプリを作成する
 
-[公式ドキュメント](https://scalatra.org/guides/)に従いましょう。[Generate a Scalatra project](https://scalatra.org/getting-started/first-project.html) にテンプレートからプロジェクトを作成する方法が記載されています。
+基本的に[公式ドキュメント](https://scalatra.org/guides/)に従いましょう。[Generate a Scalatra project](https://scalatra.org/getting-started/first-project.html) にテンプレートからプロジェクトを作成する方法が記載されていますが、Jakarta Servlet 6.0 / Jetty 12 対応が追い付いていないようです。
 
 Scalatra はマイクロな Web フレームワークであり、Scalatra で作成した Web アプリは Java サーブレットになります。上記のコードのうち、ルーティングに相当する部分をサーブレットとして切り出します：
 
@@ -102,7 +104,6 @@ import org.scalatra._
 import org.slf4j.{Logger, LoggerFactory}
 
 class MyScalatraServlet extends ScalatraServlet {
-
   val logger = LoggerFactory.getLogger(getClass)
 
   // GET /indexでリクエストのURLパラメータとUserAgentを返却する
@@ -119,12 +120,12 @@ class MyScalatraServlet extends ScalatraServlet {
 }
 ```
 
-サーブレットは実行に Jetty や Tomcat などのサーブレット・コンテナを必要とします。これはシンプルな HTTP ツールキットである Akka-HTTP とは異なる点ですね。sbt-assembly を利用して FAT JAR にしたり、sbt-native-packager を利用して Dockerize するためには、Jetty を起動するメインクラスを用意します：
+サーブレットは実行に Jetty や Tomcat などのサーブレット・コンテナを必要とします。これはシンプルな HTTP ツールキットである Akka-HTTP / Pekko-HTTP とは異なる点ですね。sbt-assembly を利用して FAT JAR にしたり、sbt-native-packager を利用して Dockerize するためには、Jetty を起動するメインクラスを用意します：
 
 ```scala:Main.scala
 import org.eclipse.jetty.server.Server
-import org.eclipse.jetty.servlet.{DefaultServlet, ServletHolder}
-import org.eclipse.jetty.webapp.WebAppContext
+import org.eclipse.jetty.ee10.servlet.{DefaultServlet, ServletContextHandler}
+import org.eclipse.jetty.ee10.webapp.WebAppContext
 import org.scalatra.servlet.ScalatraListener
 import org.slf4j.{Logger, LoggerFactory}
 
@@ -132,9 +133,15 @@ object Main {
   val logger = LoggerFactory.getLogger(getClass)
 
   def main(args: Array[String]): Unit = {
+    start().join()
+  }
+
+  def start(): Server = {
     val context = new WebAppContext()
     context.setContextPath("/")
-    context.setResourceBase("/src/main/webapp")
+    context.setBaseResourceAsString(
+      this.getClass.getResource("Main.class").toURI.resolve(".").toString
+    )
     context.addEventListener(new ScalatraListener)
     context.addServlet(classOf[DefaultServlet], "/")
 
@@ -150,7 +157,7 @@ object Main {
     server.setHandler(context)
     server.start()
 
-    server.join()
+    server
   }
 }
 ```
@@ -162,7 +169,7 @@ object Main {
 `project/plugins.sbt` に `sbt-native-packager` を追加します。同プラグインは `msi` | `rpm` | `deb` などのネイティブパッケージのほか、Docker イメージも出力できるすぐれものです。
 
 ```scala:project/plugins.sbt
-addSbtPlugin("com.github.sbt" % "sbt-native-packager" % "1.9.11")
+addSbtPlugin("com.github.sbt" % "sbt-native-packager" % "1.10.4")
 ```
 
 `build.sbt` に Docker ビルド用の設定を追加します。
@@ -182,10 +189,10 @@ dockerExposedPorts := List(8080)
 
 その他 DockerPlugin で利用可能な設定は[公式マニュアル](https://www.scala-sbt.org/sbt-native-packager/formats/docker.html)を参照してください。
 
-`sbt docker:publishLocal` で Docker イメージがビルドできます：
+`sbt Docker/publishLocal` で Docker イメージがビルドできます：
 
 ```plaintext
-$ sbt docker:publishLocal
+$ sbt Docker/publishLocal
 （中略）
 [success] All package validations passed
 [info] Sending build context to Docker daemon  26.37MB
@@ -198,7 +205,7 @@ $ sbt docker:publishLocal
 Dockerfile の生成のみを行うこともできます：
 
 ```plaintxt
-sbt docker:stage
+sbt Docker/stage
 ```
 
 生成された Dockerfile は以下のようになっていました：
@@ -229,7 +236,7 @@ CMD []
 
 マルチステージビルドを活用していていい感じですね。
 
-ソース全文は GitHub 上のリポジトリ（[Akka](https://github.com/yokra9/akka-http-example) / [Scalatra](https://github.com/yokra9/scalatra-example)）に置いておきましたので、ご参考まで。
+ソース全文は GitHub 上のリポジトリ（[Pekko](https://github.com/yokra9/akka-http-example) / [Scalatra](https://github.com/yokra9/scalatra-example)）に置いておきましたので、ご参考まで。
 
 ## 参考リンク
 
