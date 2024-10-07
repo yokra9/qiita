@@ -68,11 +68,11 @@ jobs:
     name: Launch Scala Steward
 ```
 
-これは[当時のドキュメント](https://github.com/scala-steward-org/scala-steward-action/blob/8f8b9946a3d5639fc2c09ccf1cf6395ceb003e98/README.md)を参考とした設定でしたが、[現在のドキュメント](https://github.com/scala-steward-org/scala-steward-action/blob/29f3605dc74127ab3a2c984253e767e841c240fa/README.md)では `ubuntu-22.04` 決め打ちとなっています。これは [`ubuntu-20.04` 環境で発生するエラー](https://github.com/scala-steward-org/scala-steward-action/issues/442#issuecomment-1361062303)のワークアラウンドだったようですが、幸運にも今回の事象も回避する結果になっています。[^1]
+これは[当時のドキュメント](https://github.com/scala-steward-org/scala-steward-action/blob/8f8b9946a3d5639fc2c09ccf1cf6395ceb003e98/README.md)を参考とした設定でしたが、[28 日時点のドキュメント](https://github.com/scala-steward-org/scala-steward-action/blob/29f3605dc74127ab3a2c984253e767e841c240fa/README.md)では `ubuntu-22.04` 決め打ちとなっています。元来は [`ubuntu-20.04` 環境で発生するエラー](https://github.com/scala-steward-org/scala-steward-action/issues/442#issuecomment-1361062303)のワークアラウンドだったようですが、幸運にも今回の事象を回避する結果になっています。[^1]
 
 [^1]: 不幸にも発見が遅れた、という見方もできます。
 
-せっかく `ubuntu-latest` を使用しているなら、できればこのまま最新版を追いかけたいところです。解決法はシンプルで、[公式ガイド](https://www.scala-sbt.org/download/)を参考に sbt のインストール手順を追加するだけです：
+せっかく `ubuntu-latest` を使用しているなら、できればこのまま最新版を追いかけたいところです。~~解決法はシンプルで、[公式ガイド](https://www.scala-sbt.org/download/)を参考に sbt のインストール手順を追加するだけです~~ [sbt/setup-sbt](https://github.com/sbt/setup-sbt) を使用した方がもっとシンプルにできると[教えていただいた](https://github.com/scala-steward-org/scala-steward-action/pull/644#issuecomment-2395316303)ので修正しました：
 
 ```yml:.github/workflows/DependencyUpdate.yml
 name: Launch Scala Steward
@@ -110,7 +110,9 @@ jobs:
           author-name: github-actions[bot]
 ```
 
-なお、sbt の追加に加え[コミッターが `github-actions[bot]` になる名前とメールアドレス](https://github.com/orgs/community/discussions/26560)を指定するアレンジも施しています。
+ここでは sbt の追加に加え[コミッターが `github-actions[bot]` になる名前とメールアドレス](https://github.com/orgs/community/discussions/26560)を指定するアレンジも施しています。
+
+なお、[#644 Fix README.md to run on ubuntu-latest and install sbt by yokra9](https://github.com/scala-steward-org/scala-steward-action/pull/644) にてドキュメントの修正がマージされました。現在はドキュメントに従って導入すればコケなくなっているはずです。
 
 ## 参考リンク
 
@@ -118,3 +120,4 @@ jobs:
 * [Runner error: version `GLIBC_2.32' not found · Issue #442 · scala-steward-org/scala-steward-action](https://github.com/scala-steward-org/scala-steward-action/issues/442)
 * [【GitHub】github-actions[bot]になってpushする方法](https://qiita.com/marurusan/items/604f8655083154aa6fa1)
 * [Scala でも Dependabot のように依存ライブラリをアップデートする PR を自動で作成してほしい（GitHub Actions）](https://qiita.com/yokra9/items/5d80a9397951091ed637)
+* [Fix README.md to run on ubuntu-latest and install sbt by yokra9 · Pull Request #644 · scala-steward-org/scala-steward-action](https://github.com/scala-steward-org/scala-steward-action/pull/644)
