@@ -69,7 +69,7 @@ export default function Home(): JSX.Element {
 ```typescript:actions.ts
 "use server";
 
-const sleep = (ms: number):Promise<string> => new Promise(resolve => setTimeout(() => { resolve("sleeped") }, ms));
+const sleep = (ms: number): Promise<string> => new Promise(resolve => setTimeout(() => { resolve("sleeped") }, ms));
 
 // Top-level Await
 const data = await sleep(1000);
