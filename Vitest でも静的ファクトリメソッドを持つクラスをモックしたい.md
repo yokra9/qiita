@@ -128,6 +128,28 @@ mocked Klass.create()
 viaCreate called: {} undefined
 ```
 
+[式本体記法の暗黙 return](https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Functions/Arrow_functions#%E9%96%A2%E6%95%B0%E3%81%AE%E6%9C%AC%E4%BD%93) を活用することで、もう少しスマートにも書けます：
+
+```typescript
+import { test, vi } from "vitest"
+import { viaCreate } from "./main";
+
+test("スタティックなファクトリメソッドをモックする", () => {
+
+    vi.mock("./Klass", () => ({
+        Klass: {
+            create: vi.fn().mockImplementation(() => {
+                console.log("mocked Klass.create()")
+
+                return {}
+            })
+        }
+    }));
+
+    viaCreate();
+});
+```
+
 また、モック化されたファクトリメソッドの返り値としてフィールド（やメソッド定義）を含めることも可能です。
 
 ```diff
