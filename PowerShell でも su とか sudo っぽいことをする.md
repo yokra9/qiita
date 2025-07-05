@@ -1,5 +1,9 @@
 # PowerShell でも su とか sudo っぽいことをする
 
+**（2025-07-05追記）** Windows 11 24H2 から公式で [Sudo for Windows](https://learn.microsoft.com/ja-jp/windows/advanced-settings/sudo/) が利用できるようになりました。
+
+---
+
 PowerShell には  `su` コマンドおよび `sudo` コマンドがありません。そのため、管理者としてコマンドを実行したい場合は `powershell.exe` ないしは `pwsh.exe`[^1] などのシェルを「管理者として実行」する必要があります。
 
 [^1]: PowerShell Core の実行ファイル名です。
