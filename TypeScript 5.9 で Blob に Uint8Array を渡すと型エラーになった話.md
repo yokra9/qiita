@@ -48,10 +48,7 @@ interface SharedArrayBuffer {
 この差異を埋め、基盤となるバッファ型を維持するため、すべての型付き配列（`Uint8Array` など）も[ジェネリック型になりました。](https://github.com/microsoft/TypeScript/pull/59417)
 
 ```typescript
-interface ArrayBufferTypes {
-    ArrayBuffer: ArrayBuffer;
-}
-type ArrayBufferLike = ArrayBufferTypes[keyof ArrayBufferTypes];
+type ArrayBufferLike = ArrayBuffer | SharedArrayBuffer
 
 interface Uint8Array<TArrayBuffer extends ArrayBufferLike = ArrayBufferLike> {
     // ...
