@@ -19,7 +19,9 @@ False  v4.0.30319     C:\Program Files\WindowsApps\Microsoft.PowerShell_7.…
 OperationStopped: File 'E:\test\archive.7z' does not appear to be a valid zip archive.
 ```
 
-せっかく標準機能で 7z が取り扱えるようになったのですから、コマンドラインからも操作してみたいですよね。どうにかできないものか。
+せっかく標準機能で 7z が取り扱えるようになったのですから、コマンドラインからも操作してみたいですよね。どうにかできないものか。[^6]
+
+[^6]: 7z のデフォルトアルゴリズムは LZMA ですが、実は Windows 8 以降 [LZMS という似て非なるアルゴリズムは搭載されていたりします](https://qiita.com/yokra9/items/20f65b27851ce52158ff)。
 
 ## Windows 11 に同梱されている bsdtar (libarchive) をコマンドラインから利用する
 
@@ -161,13 +163,15 @@ When creating archives, the result can be filtered with any of the following:
 
 ![libarchive](./img/libarchive.gif)
 
-[エクスプローラの 7z 対応も libarchive を利用している](https://blogs.windows.com/windowsdeveloper/2023/05/23/bringing-the-power-of-ai-to-windows-11-unlocking-a-new-era-of-productivity-for-customers-and-developers-with-windows-copilot-and-dev-home/)ため、順序としてはコマンドラインで先に対応していたことになります。私も Windows 10 の頃から `tar.exe` が同梱されていたことは知っていたのですが、それが FreeBSD 版 tar で、ここまで広範囲をカバーできるものとは認識していませんでした。[^3]
+[エクスプローラの 7z 対応も libarchive を利用している](https://blogs.windows.com/windowsdeveloper/2023/05/23/bringing-the-power-of-ai-to-windows-11-unlocking-a-new-era-of-productivity-for-customers-and-developers-with-windows-copilot-and-dev-home/)ため、順序としてはコマンドラインで先に取り込んでいたことになります。私も Windows 10 の頃から `tar.exe` が同梱されていたことは知っていたのですが、それが FreeBSD 版 tar で、ここまで広範囲をカバーできるものとは認識していませんでした。[^3] [^4]
 
 [^3]: 実際、Windows 10 の `tar.exe` では 7z を解凍しようとしても `LZMA codec is unsupported` となってしまうようです。`tar.exe --help` の結果からも、`liblzma` が含まれていないことが確認できます。
 
-とはいえ、開発者にとって嬉しいのは Linux との相互運用性という意味で tar および gz、bzip2 への対応でしょう。[^4] 本件に限らず、[最近の Windows の開発者への寄り添い具合](https://forest.watch.impress.co.jp/docs/news/1593848.html)には目を見張るものがあります。この調子で開発者フレンドリーな姿勢を継続してほしいですね。
+[^4]: Windows 11 に同梱されている libarchive のファイル名は `archiveint.dll`です。 ![archiveint.dll](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/463374/be6dd3b0-ce19-4f23-8307-e99773f27467.png)
 
-[^4]: ちなみに `.tgz` と `.tbz2` はエクスプローラーで開けましたが、 `.tbz` は非対応でした。
+とはいえ、開発者にとって嬉しいのは Linux との相互運用性という意味で tar および gz、bzip2 への対応でしょう。[^5] 本件に限らず、[最近の Windows の開発者への寄り添い具合](https://forest.watch.impress.co.jp/docs/news/1593848.html)には目を見張るものがあります。この調子で開発者フレンドリーな姿勢を継続してほしいですね。
+
+[^5]: ちなみに `.tgz` と `.tbz2` はエクスプローラーで開けましたが、 `.tbz` は非対応でした。
 
 ## 参考リンク
 
@@ -185,3 +189,4 @@ When creating archives, the result can be filtered with any of the following:
 * [libarchive/libarchive: Multi-format archive and compression library](https://github.com/libarchive/libarchive)
 * [Release Libarchive 3.6.2 · libarchive/libarchive](https://github.com/libarchive/libarchive/releases/tag/v3.6.2)
 * [bsdtar(1) - FreeBSD Manual Pages](https://man.freebsd.org/cgi/man.cgi?query=bsdtar&sektion=1&format=html)
+* [Windows 11 Compression Features Pose libarchive Security Threats](https://gbhackers.com/libarchive-security-threats/)
