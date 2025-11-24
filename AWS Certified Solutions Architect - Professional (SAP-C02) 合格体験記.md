@@ -1,4 +1,4 @@
-# AWS Certified Solutions Architect - Associate (SAP-C02) 合格体験記
+# AWS Certified Solutions Architect - Professional (SAP-C02) 合格体験記
 
 AWS Certified Solutions Architect - Professional (SAP-C02) の合格体験記です。得点は 850 点でした。
 
