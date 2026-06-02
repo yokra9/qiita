@@ -1,4 +1,4 @@
-# Windows でも Safari の表示を確認、したくてもできないので WebKit を試す
+# Windows でも Safari の表示を確認、したくてもできないので WebKit で試す
 
 Mac を持っていない人でも、Web サイトがデスクトップ用の [Safari](https://www.apple.com/jp/safari/) でどう見えるのか気になる事ってありますよね。
 
