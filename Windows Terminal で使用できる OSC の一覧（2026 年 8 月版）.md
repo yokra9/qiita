@@ -1,6 +1,6 @@
 # Windows Terminal で使用できる OSC の一覧（2026 年 8 月版）
 
-[Operating System Command (OSC)](https://www.terminfo.dev/osc) はエスケープシーケンスの一種です。CLI アプリから `Operating System`（この場合はターミナルアプリのこと）に対してコマンドを送信する際に利用します。OSC には標準化団体などが存在せず、各ターミナルアプリで自由に実装が進められています。
+[Operating System Command (OSC)](https://www.terminfo.dev/osc) はエスケープシーケンスの一種です。CLI アプリから `Operating System`（この場合はターミナルアプリのこと）に対して命令を送信する際に利用します。OSC には標準化団体などが存在せず、各ターミナルアプリで自由に実装が進められています。
 
 ```txt:OSC の構文
 ESC ] Ps ; Pt ST
@@ -8,43 +8,43 @@ ESC ] Ps ; Pt ST
 
 `ESC ]` が OSC 開始を指すエスケープシーケンス、`Ps` が ID、`Pt` が引数、`ST`（`ESC \` もしくは `BEL`）が終端です。
 
-本記事では Windows Terminal で実装されている OSC を中心に、一部蘊蓄を交えながらご紹介するものです。なお、サンプルとして提示する PowerShell は全て 7.x を前提としており、 `ESC`（エスケープ文字）として `` `e `` を、`BEL`（アラート文字）として `` `a `` を使用します。
+本記事では Windows Terminal で実装されている OSC を中心に、一部蘊蓄を交えながらご紹介するものです。なお、サンプルとして提示する PowerShell スクリプトは全て 7.x を前提としており、 `ESC`（エスケープ文字）として `` `e `` を、`BEL`（アラート文字）として `` `a `` を使用します。
 
 ||概要|実装バージョン|実装PR|
 |:----|:----|:----|:----|
-|OSC 0|タブ名を変更する|Initial Release|-|
-|OSC 1|タブ名を変更する|Initial Release|-|
-|OSC 2|タブ名を変更する|Initial Release|-|
-|OSC 4|カラーパレットを変更する|Initial Release|-|
-|OSC 7|現在の作業ディレクトリを通知する|-|[#20019](https://github.com/microsoft/terminal/pull/20019)|
-|OSC 8|ハイパーリンクを表示する|[v1.4.2652.0](https://github.com/microsoft/terminal/releases/tag/v1.4.2652.0)|[#7251](https://github.com/microsoft/terminal/pull/7251)|
-|OSC 9|ConEmu 拡張|-|-|
-|OSC 9;4|進捗状況を表示する|[v1.6.10272.0](https://github.com/microsoft/terminal/releases/tag/v1.6.10272.0)|[#8055](https://github.com/microsoft/terminal/pull/8055)|
-|OSC 9;9|現在の作業ディレクトリを通知|[v1.6.10272.0](https://github.com/microsoft/terminal/releases/tag/v1.6.10272.0)|[#8330](https://github.com/microsoft/terminal/pull/8330)|
-|OSC 9;12|コマンド開始位置マーカー|[v1.18.1421.0](https://github.com/microsoft/terminal/releases/tag/v1.18.1421.0)|[#14807](https://github.com/microsoft/terminal/pull/14807)|
-|OSC 10|文字色を変更する|[v0.2](https://github.com/microsoft/terminal/releases/tag/v0.2.1715.0)|[#891](https://github.com/microsoft/terminal/pull/891)|
-|OSC 11|背景色を変更する|[v0.2](https://github.com/microsoft/terminal/releases/tag/v0.2.1715.0)|[#891](https://github.com/microsoft/terminal/pull/891)|
-|OSC 12|カーソル色を変更する|Initial Release|-|
-|OSC 17|ハイライト色を変更する|[v1.22.2362.0](https://github.com/microsoft/terminal/releases/tag/v1.22.2362.0)|[#17742](https://github.com/microsoft/terminal/pull/17742)|
-|OSC 21|タブ名を変更する|[v1.21.1272.0](https://github.com/microsoft/terminal/releases/tag/v1.21.1272.0)|[#16804](https://github.com/microsoft/terminal/pull/16804)|
-|OSC 52|クリップボード|[v1.2.2022.0](https://github.com/microsoft/terminal/releases/tag/v1.2.2022.0)|[#5823](https://github.com/microsoft/terminal/pull/5823)|
-|OSC 104|カラーパレットをリセットする|[v1.23.11132.0](https://github.com/microsoft/terminal/releases/tag/v1.23.11132.0)|[#18767](https://github.com/microsoft/terminal/pull/18767)|
-|OSC 110|文字色をリセットする|[v1.23.11132.0](https://github.com/microsoft/terminal/releases/tag/v1.23.11132.0)|[#18767](https://github.com/microsoft/terminal/pull/18767)|
-|OSC 111|背景色をリセットする|[v1.23.11132.0](https://github.com/microsoft/terminal/releases/tag/v1.23.11132.0)|[#18767](https://github.com/microsoft/terminal/pull/18767)|
-|OSC 112|カーソル色をリセットする|[v1.23.11132.0](https://github.com/microsoft/terminal/releases/tag/v1.23.11132.0)|[#18767](https://github.com/microsoft/terminal/pull/18767)|
-|OSC 117|ハイライト色をリセットする|[v1.23.11132.0](https://github.com/microsoft/terminal/releases/tag/v1.23.11132.0)|[#18767](https://github.com/microsoft/terminal/pull/18767)|
-|OSC 133|セマンティックインフォメーション（Final Term 拡張）|-|-|
-|OSC 133;A|プロンプト開始位置マーカー|[v1.15.186](https://github.com/microsoft/terminal/releases/tag/v1.15.1862.0)|[#13163](https://github.com/microsoft/terminal/pull/13163)|
-|OSC 133;B|コマンド開始位置マーカー|[v1.17.1023](https://github.com/microsoft/terminal/releases/tag/v1.17.1023)|[#14341](https://github.com/microsoft/terminal/pull/14341)|
-|OSC 133;C|出力開始位置マーカー|[v1.17.1023](https://github.com/microsoft/terminal/releases/tag/v1.17.1023)|[#14341](https://github.com/microsoft/terminal/pull/14341)|
-|OSC 133;D|出力終了位置マーカー|[v1.17.1023](https://github.com/microsoft/terminal/releases/tag/v1.17.1023)|[#14341](https://github.com/microsoft/terminal/pull/14341)|
-|OSC 633|VSCode 拡張|-|-|
-|OSC 633;Completions|シェル補完|[v1.19.2682.0](https://github.com/microsoft/terminal/releases/tag/v1.19.2682.0)|[#14938](https://github.com/microsoft/terminal/pull/14938)|
-|OSC 777|urxvt 拡張|-|-|
-|OSC 777;notify|デスクトップ通知|-|[#20012](https://github.com/microsoft/terminal/pull/20012)|
-|OSC 1337|iTerm2 拡張|-|-|
-|OSC 1337;SetMark|スクロールバーにマーク|[v1.15.186](https://github.com/microsoft/terminal/releases/tag/v1.15.1862.0)|[#12948](https://github.com/microsoft/terminal/pull/12948)|
-|OSC 9001|コマンドが見つからないことを通知（Windows Terminal 拡張）|[v1.22.2362.0](https://github.com/microsoft/terminal/releases/tag/v1.22.2362.0)|[#16848](https://github.com/microsoft/terminal/pull/16848)|
+|[OSC 0](#osc-0-2--タブ名を変更するseticonandwindowtitlesetwindowiconsetwindowtitle)|タブ名を変更する|Initial Release|-|
+|[OSC 1](#osc-0-2--タブ名を変更するseticonandwindowtitlesetwindowiconsetwindowtitle)|タブ名を変更する|Initial Release|-|
+|[OSC 2](#osc-0-2--タブ名を変更するseticonandwindowtitlesetwindowiconsetwindowtitle)|タブ名を変更する|Initial Release|-|
+|[OSC 4](#osc-4--カラーパレットを変更するsetcolor)|カラーパレットを変更する|Initial Release|-|
+|[OSC 7](#osc-7--現在の作業ディレクトリを通知するcurrentworkingdirectory)|現在の作業ディレクトリを通知する|-|[#20019](https://github.com/microsoft/terminal/pull/20019)|
+|[OSC 8](#osc-8--ハイパーリンクを表示するhyperlink)|ハイパーリンクを表示する|[v1.4.2652.0](https://github.com/microsoft/terminal/releases/tag/v1.4.2652.0)|[#7251](https://github.com/microsoft/terminal/pull/7251)|
+|[OSC 9](#osc-9conemuaction)|ConEmu 拡張|||
+|[OSC 9;4](#osc-94--進捗状況を表示する)|進捗状況を表示する|[v1.6.10272.0](https://github.com/microsoft/terminal/releases/tag/v1.6.10272.0)|[#8055](https://github.com/microsoft/terminal/pull/8055)|
+|[OSC 9;9](#osc-99--現在の作業ディレクトリを通知する)|現在の作業ディレクトリを通知する|[v1.6.10272.0](https://github.com/microsoft/terminal/releases/tag/v1.6.10272.0)|[#8330](https://github.com/microsoft/terminal/pull/8330)|
+|[OSC 9;12](#osc-912--コマンド開始位置マーカー)|コマンド開始位置マーカー|[v1.18.1421.0](https://github.com/microsoft/terminal/releases/tag/v1.18.1421.0)|[#14807](https://github.com/microsoft/terminal/pull/14807)|
+|[OSC 10](#osc-10--文字色を変更するsetforegroundcolor)|文字色を変更する|[v0.2](https://github.com/microsoft/terminal/releases/tag/v0.2.1715.0)|[#891](https://github.com/microsoft/terminal/pull/891)|
+|[OSC 11](#osc-11--背景色を変更するsetbackgroundcolor)|背景色を変更する|[v0.2](https://github.com/microsoft/terminal/releases/tag/v0.2.1715.0)|[#891](https://github.com/microsoft/terminal/pull/891)|
+|[OSC 12](#osc-12--カーソル色を変更するsetcursorcolor)|カーソル色を変更する|Initial Release|-|
+|[OSC 17](#osc-17--ハイライト色を変更するsethighlightcolor)|ハイライト色を変更する|[v1.22.2362.0](https://github.com/microsoft/terminal/releases/tag/v1.22.2362.0)|[#17742](https://github.com/microsoft/terminal/pull/17742)|
+|[OSC 21](#osc-21--タブ名を変更するdecswt_setwindowtitle)|タブ名を変更する|[v1.21.1272.0](https://github.com/microsoft/terminal/releases/tag/v1.21.1272.0)|[#16804](https://github.com/microsoft/terminal/pull/16804)|
+|[OSC 52](#osc-52--クリップボードsetclipboard)|クリップボード|[v1.2.2022.0](https://github.com/microsoft/terminal/releases/tag/v1.2.2022.0)|[#5823](https://github.com/microsoft/terminal/pull/5823)|
+|[OSC 104](#osc-104--カラーパレットをリセットするresetcolor)|カラーパレットをリセットする|[v1.23.11132.0](https://github.com/microsoft/terminal/releases/tag/v1.23.11132.0)|[#18767](https://github.com/microsoft/terminal/pull/18767)|
+|[OSC 110](#osc-110--文字色をリセットするresetforegroundcolor)|文字色をリセットする|[v1.23.11132.0](https://github.com/microsoft/terminal/releases/tag/v1.23.11132.0)|[#18767](https://github.com/microsoft/terminal/pull/18767)|
+|[OSC 111](#osc-111--背景色をリセットするresetbackgroundcolor)|背景色をリセットする|[v1.23.11132.0](https://github.com/microsoft/terminal/releases/tag/v1.23.11132.0)|[#18767](https://github.com/microsoft/terminal/pull/18767)|
+|[OSC 112](#osc-112--カーソル色をリセットするresetcursorcolor)|カーソル色をリセットする|[v1.23.11132.0](https://github.com/microsoft/terminal/releases/tag/v1.23.11132.0)|[#18767](https://github.com/microsoft/terminal/pull/18767)|
+|[OSC 117](#osc-117--ハイライト色をリセットするresethighlightcolor)|ハイライト色をリセットする|[v1.23.11132.0](https://github.com/microsoft/terminal/releases/tag/v1.23.11132.0)|[#18767](https://github.com/microsoft/terminal/pull/18767)|
+|[OSC 133](#osc-133--セマンティックインフォメーションfinal-term拡張)|セマンティックインフォメーション（Final Term 拡張）|||
+|[OSC 133;A](#osc-133a--プロンプト開始位置マーカーftcs_prompt)|プロンプト開始位置マーカー|[v1.15.186](https://github.com/microsoft/terminal/releases/tag/v1.15.1862.0)|[#13163](https://github.com/microsoft/terminal/pull/13163)|
+|[OSC 133;B](#osc-133b--コマンド開始位置マーカーftcs_command_start)|コマンド開始位置マーカー|[v1.17.1023](https://github.com/microsoft/terminal/releases/tag/v1.17.1023)|[#14341](https://github.com/microsoft/terminal/pull/14341)|
+|[OSC 133;C](#osc-133c--出力開始位置マーカーftcs_command_executed)|出力開始位置マーカー|[v1.17.1023](https://github.com/microsoft/terminal/releases/tag/v1.17.1023)|[#14341](https://github.com/microsoft/terminal/pull/14341)|
+|[OSC 133;D](#osc-133d--出力終了位置マーカーftcs_command_finished)|出力終了位置マーカー|[v1.17.1023](https://github.com/microsoft/terminal/releases/tag/v1.17.1023)|[#14341](https://github.com/microsoft/terminal/pull/14341)|
+|[OSC 633](#osc-633--vscode-拡張vscodeaction)|VSCode 拡張|||
+|[OSC 633;Completions](#osc-633completions--シェル補完)|シェル補完|[v1.19.2682.0](https://github.com/microsoft/terminal/releases/tag/v1.19.2682.0)|[#14938](https://github.com/microsoft/terminal/pull/14938)|
+|[OSC 777](#osc-777--urxvt-拡張urxvtaction)|urxvt 拡張|||
+|[OSC 777;notify](#osc-777notify--デスクトップ通知を送信する)|デスクトップ通知を送信する|-|[#20012](https://github.com/microsoft/terminal/pull/20012)|
+|[OSC 1337](#osc-1337--iterm2-拡張iterm2action)|iTerm2 拡張|-|-|
+|[OSC 1337;SetMark](#osc-1337setmark--スクロールマークを追加する)|スクロールバーにマークを追加する|[v1.15.186](https://github.com/microsoft/terminal/releases/tag/v1.15.1862.0)|[#12948](https://github.com/microsoft/terminal/pull/12948)|
+|[OSC 9001](#osc-9001--コマンドが見つからないことを通知するwtaction)|コマンドが見つからないことを通知する（Windows Terminal 拡張）|[v1.22.2362.0](https://github.com/microsoft/terminal/releases/tag/v1.22.2362.0)|[#16848](https://github.com/microsoft/terminal/pull/16848)|
 
 ## OSC 0-2 : タブ名を変更する（`SetIconAndWindowTitle`/`SetWindowIcon`/`SetWindowTitle`）
 
@@ -105,11 +105,32 @@ Write-Host -NoNewline "`e]104`a"
 
 ## OSC 7 : 現在の作業ディレクトリを通知する（`CurrentWorkingDirectory`）
 
-<https://github.com/microsoft/terminal/pull/20019>
+現在の作業ディレクトリ（CWD）をターミナルに伝えます。
 
-OSC 9;9に類するものですが、現在はリバートされた状態です。
+```powershell
+Write-Host -NoNewline "`e]7;file:///C:/Path`a"
+```
 
-<https://github.com/microsoft/terminal/pull/20116>
+PowerShell プロファイル の `prompt` 関数で OSC 7 を使用すると、「タブを複製する」機能で現在の作業ディレクトリを引き継げます。
+
+```powershell:Profile.ps1
+function prompt {
+  $cwd = $($executionContext.SessionState.Path.CurrentLocation);
+  $uri = [System.Uri]::new($cwd).AbsoluteUri;
+
+  # OSC 7 で CWD を通知
+  $out += "`e]7;$uri`a";
+
+  # プロンプトを設定（デフォルトと同値）
+  $out += "PS $cwd$('>' * ($nestedPromptLevel + 1)) ";
+
+  return $out
+}
+```
+
+![CWD2](./img/CWD2.gif)
+
+[Preview v1.25.923.0](https://github.com/microsoft/terminal/releases/tag/v1.25.923.0) に含まれていましたが、予期せぬネットワークアクセスを発生させたということで [v1.25.1171.0](https://github.com/microsoft/terminal/releases/tag/v1.25.1171.0) でリバートされた状態です。
 
 ## OSC 8 : ハイパーリンクを表示する（`HyperLink`）
 
@@ -148,12 +169,12 @@ Write-Host -NoNewline "`e]9;4;0`a"
 
 Microsoft Learn の [Windows ターミナルで進行状況バーを設定する](https://learn.microsoft.com/ja-jp/windows/terminal/tutorials/progress-bar-sequences) でも解説されています。
 
-### OSC 9;9 : 現在の作業ディレクトリを通知
+### OSC 9;9 : 現在の作業ディレクトリを通知する
 
 現在の作業ディレクトリ（CWD）をターミナルに伝えます。
 
 ```powershell
-Write-Host -NoNewline "`e]9;`"C:\Path`"`a"
+Write-Host -NoNewline "`e]9;9;`"C:\Path`"`a"
 ```
 
 PowerShell プロファイル の `prompt` 関数で OSC 9;9 を使用すると、「タブを複製する」機能で現在の作業ディレクトリを引き継げます。
@@ -576,7 +597,7 @@ VSCode が [OSC 133 にインスパイアされて実装した](https://github.c
 
 [rxvt-unicode (urxvt)](https://pod.tst.eu/http://cvs.schmorp.de/rxvt-unicode/doc/rxvt.1.pod) に由来する OSC です。urxvt は [rxvt](https://rxvt.sourceforge.net/) の Unicode 対応版ですが、[Perl 拡張](https://pod.tst.eu/http://cvs.schmorp.de/rxvt-unicode/src/urxvt.pm)サポートも追加されています。Perl 拡張用に[様々なフック](https://pod.tst.eu/http://cvs.schmorp.de/rxvt-unicode/src/urxvt.pm#Hooks_CONTENT)が用意されていますが、そのうち `on_osc_seq_perl` フックは `` `e]777;<拡張機能名>;<パラメタ>`a `` を受信した際に呼び出されます。つまり、urxvt ではユーザが自由に OSC 777 を拡張できるということです。Windows Terminal ではこのうち 1 種が実装されています。
 
-### OSC 777;notify : デスクトップ通知
+### OSC 777;notify : デスクトップ通知を送信する
 
 デスクトップ通知を送信します。
 
@@ -604,8 +625,6 @@ Start-Sleep 2; Write-Host -NoNewline "`e]777;notify;タイトル;本文`a"
 
 ![allowOSC777](./img/allowOSC777.gif)
 
-普及の背景としては [Claude Code のような CLI ベースの AI エージェントからデスクトップ通知を送る方法として知られるようになった](https://code.claude.com/docs/en/hooks#emit-terminal-notifications)ことが関係しそうです。
-
 ## OSC 1337 : iTerm2 拡張（`ITerm2Action`）
 
 [iTerm2 に由来する OSC](https://iterm2.com/documentation-escape-codes.html) が 1 種実装されています。
@@ -629,7 +648,7 @@ Write-Host "`n`n`n`t`t`t`t`t`t`t`t`t`t`t`t`t`tここ`e]1337;SetMark`a`n`n`n"
 
 ![SetMark2](./img/SetMark2.gif)
 
-## OSC 9001 : コマンドが見つからないことを通知（`WTAction`）
+## OSC 9001 : コマンドが見つからないことを通知する（`WTAction`）
 
 最後は Windows Terminal 自身による拡張です。ターミナルは以下の OSC を受け取ると、左端に Quick Fix が表示されるということです。
 
@@ -637,9 +656,29 @@ Write-Host "`n`n`n`t`t`t`t`t`t`t`t`t`t`t`t`t`tここ`e]1337;SetMark`a`n`n`n"
 OSC 9001; SuggestInput; <cmd>; <description>
 ```
 
-[関連 PR](https://github.com/microsoft/terminal/pull/16848) は v1.22 でマージされているものの、[Spec](https://github.com/microsoft/terminal/blob/main/doc/specs/%2316599%20-%20Quick%20Fix/%2316599%20-%20Quick%20Fix.md) に掲載されているスクリーンショットはモックのままとなっており、手元の環境でも表示されなかったためです。
+伝聞調なのは、[関連 PR](https://github.com/microsoft/terminal/pull/16848) は v1.22 でマージされ [Developer Blog](https://devblogs.microsoft.com/commandline/windows-terminal-preview-1-22-release/#quick-fixes-in-cmd) でも取り上げられているものの、手元の環境では表示されなかったためです。[Spec](https://github.com/microsoft/terminal/blob/main/doc/specs/%2316599%20-%20Quick%20Fix/%2316599%20-%20Quick%20Fix.md) に掲載されているスクリーンショットはモックのままとなっています。
 
 ![quickFix-normal](https://github.com/microsoft/terminal/raw/main/doc/specs/%2316599%20-%20Quick%20Fix/quickFix-normal.gif)
+
+## まとめと余談
+
+Initial Release で実装されていたものから Nightly Build にしか含まれないものまで、Windows Terminal は OSC のサポートを継続的に追加してきました。[`$PSStyle` 自動変数](https://learn.microsoft.com/ja-jp/powershell/module/microsoft.powershell.core/about/about_ansi_terminals?view=powershell-7.6)など OSC 以外の手段でも実現可能な機能も多いですが、古いコンソール技術は [Sixel](https://qiita.com/yokra9/items/14373111cc8ee765ff35) のように時代を超えて有用性が再浮上するケースもあります。現に、[Claude Code のような CLI ベースのエージェントからデスクトップ通知を送る方法として OSC 777;notify が取り上げられ](https://code.claude.com/docs/en/hooks#emit-terminal-notifications)ていますし、これらを記憶に留めて損はありません。本記事では Windows Terminal に実装されたものを中心に取り上げましたが、[vtdn](https://vtdn.dev/docs/category/osc-sequences) や [Terminfo.dev](https://www.terminfo.dev/osc) などを参照して残りの OSC を知るのも面白いでしょう。
+
+<!-- markdownlint-disable-next-line MD033 -->
+<details><summary>クリックして余談を展開…</summary>
+
+本記事は筆者が心を込めて人力で執筆したものですが、例によって[投稿前に複数の AI モデルにレビューしてもらって](https://qiita.com/yokra9/items/b0223c039520a1b42a6b#%E3%83%AC%E3%83%93%E3%83%A5%E3%83%BC%E3%81%AF%E8%A4%87%E6%95%B0%E3%81%AE-ai-%E3%81%AB%E3%81%97%E3%81%A6%E3%82%82%E3%82%89%E3%81%86)います。今回は [Qiita x さくらの AI Engine キャンペーン](https://qiita.com/official-events/bd14d28b53326d318fec)に因んで、Open AI 互換 API 経由で GitHub Copilot チャットから各モデルにレビューをお願いしました。今回は以下のモデルで同様のプロンプトを試しました。
+
+|モデル名|アクティブパラメータ数|パラメータ合計|
+|:----|:----|:----|
+|[gpt-oss-120b](https://openai.com/ja-JP/index/introducing-gpt-oss/)|5.1b|117b|
+|[preview/gemma-4-31B-it](https://deepmind.google/models/gemma/gemma-4/)|3.8B|25.2B|
+|[preview/Kimi-K2.6](https://www.kimi.com/blog/kimi-k2-6)|32B|1T|
+|[preview/Qwen3.6-35B-A3B](https://qwen.ai/blog?id=qwen3.6-35b-a3b)|3B|35B|
+
+Gemma 4 と Kimi K2.6、Qwen 3.6 は 2026 年 4 月リリースのオープンモデル同士ですが、体感として Kimi K2.6 の指摘にもっとも高い知性を感じたのが印象的でした。ただし、この中だとアクティブパラメータ数が桁違いなだけあって、応答速度では他モデルより幾分遅かったです。計算機資源が十分にあればオープンモデルで実用的な賢さを感じられる現状と、巷で囁かれる「日本語ドキュメントには中華系 LLM が向いている説」を体感できるいい機会となりました。ありがとう、[さくらの AI Engine 無償枠](https://ai.sakura.ad.jp/sakura-ai/ai-engine/#price)。
+
+</details>
 
 ## 参考リンク
 
@@ -648,7 +687,7 @@ OSC 9001; SuggestInput; <cmd>; <description>
 * [OSC Sequences | vtdn▒](https://vtdn.dev/docs/category/osc-sequences)
 * [Terminfo.dev — Can Your Terminal Do That? | Terminfo.dev](https://www.terminfo.dev/osc)
 * [コンソール仮想ターミナル シーケンス - Windows Console | Microsoft Learn](https://learn.microsoft.com/ja-jp/windows/console/console-virtual-terminal-sequences)
-* [about_ANSI_Terminals - PowerShell | Microsoft Learn](https://learn.microsoft.com/ja-jp/powershell/module/microsoft.powershell.core/about/about_ansi_terminals?view=powershell-7.6)
 * [about_Special_Characters - PowerShell | Microsoft Learn](https://learn.microsoft.com/ja-jp/powershell/module/microsoft.powershell.core/about/about_special_characters?view=powershell-7.6)
 * [terminal/src/terminal/parser/OutputStateMachineEngine.cpp at main · microsoft/terminal](https://github.com/microsoft/terminal/blob/main/src/terminal/parser/OutputStateMachineEngine.cpp)
 * [terminal/src/terminal/adapter/adaptDispatch.cpp at main · microsoft/terminal](https://github.com/microsoft/terminal/blob/main/src/terminal/adapter/adaptDispatch.cpp)
+* [Are there any settings to configure to use CMD Quick Fix? · Issue #20484 · microsoft/terminal](https://github.com/microsoft/terminal/issues/20484)
