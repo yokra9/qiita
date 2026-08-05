@@ -115,7 +115,7 @@ PowerShell プロファイル の `prompt` 関数で OSC 7 を使用すると、
 
 ```powershell:Profile.ps1
 function prompt {
-  $cwd = $($executionContext.SessionState.Path.CurrentLocation);
+  $cwd = $executionContext.SessionState.Path.CurrentLocation.Path;
   $uri = [System.Uri]::new($cwd).AbsoluteUri;
 
   # OSC 7 で CWD を通知
@@ -181,7 +181,7 @@ PowerShell プロファイル の `prompt` 関数で OSC 9;9 を使用すると�
 
 ```powershell:Profile.ps1
 function prompt {
-  $cwd = $($executionContext.SessionState.Path.CurrentLocation);
+  $cwd = $executionContext.SessionState.Path.CurrentLocation.Path;
 
   # OSC 9;9 で CWD を通知
   $out += "`e]9;9;`"$cwd`"`a";
