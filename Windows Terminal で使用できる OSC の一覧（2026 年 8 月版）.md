@@ -44,7 +44,8 @@ ESC ] Ps ; Pt ST
 |[OSC 777;notify](#osc-777notify--デスクトップ通知を送信する)|デスクトップ通知を送信する|-|[#20012](https://github.com/microsoft/terminal/pull/20012)|
 |[OSC 1337](#osc-1337--iterm2-拡張iterm2action)|iTerm2 拡張|-|-|
 |[OSC 1337;SetMark](#osc-1337setmark--スクロールマークを追加する)|スクロールバーにマークを追加する|[v1.15.186](https://github.com/microsoft/terminal/releases/tag/v1.15.1862.0)|[#12948](https://github.com/microsoft/terminal/pull/12948)|
-|[OSC 9001](#osc-9001--コマンドが見つからないことを通知するwtaction)|コマンドが見つからないことを通知する（Windows Terminal 拡張）|[v1.22.2362.0](https://github.com/microsoft/terminal/releases/tag/v1.22.2362.0)|[#16848](https://github.com/microsoft/terminal/pull/16848)|
+|[OSC 9001](#osc-9001--windows-terminal-拡張wtaction)|Windows Terminal 拡張|||
+|[OSC 9001;CmdNotFound](#osc-9001cmdnotfound--コマンドが見つからないことを通知する)|コマンドが見つからないことを通知する|[v1.22.2362.0](https://github.com/microsoft/terminal/releases/tag/v1.22.2362.0)|[#16848](https://github.com/microsoft/terminal/pull/16848)|
 
 ## OSC 0-2 : タブ名を変更する（`SetIconAndWindowTitle`/`SetWindowIcon`/`SetWindowTitle`）
 
@@ -610,7 +611,7 @@ Start-Sleep 2; Write-Host -NoNewline "`e]777;notify;タイトル;本文`a"
 
 同年、GNOME Bugzilla の [Notifications for long-running commands](https://gitlab.gnome.org/GNOME/gnome-terminal/-/work_items/7378) という Issue で Terminology での実装が紹介されます。この Issue に投稿されたパッチは [GNOME vte](https://gitlab.gnome.org/GNOME/vte) の [Fedora 版フォーク](https://src.fedoraproject.org/rpms/vte291/blob/f22/f/vte291-command-notify.patch)で取り込まれました。これはやがてダウンストリームの [CentOS 7.4.1708](https://vault.centos.org/7.4.1708/os/Source/SPackages/) にも取り込まれメジャーどころとなります。
 
-その後 [foot](https://codeberg.org/dnkl/foot/pulls/236) では 2020 年に、 [ghostty](https://github.com/ghostty-org/ghostty/issues/612) では 2023 年に実装され、[#20012](https://github.com/microsoft/terminal/pull/20012) で Windows Terminal にも実装されることになります。記事執筆時点では Nightly Build で下記設定を有効化した場合に利用可能となります。
+その後 [foot](https://codeberg.org/dnkl/foot/pulls/236) では 2020 年に、 [ghostty](https://github.com/ghostty-org/ghostty/issues/612) では 2023 年に実装され、[#20012](https://github.com/microsoft/terminal/pull/20012) で Windows Terminal にも実装されることになります。記事執筆時点では Canary で下記設定を有効化した場合に利用可能となります。
 
 ```json:settings.json
 {
@@ -648,17 +649,28 @@ Write-Host "`n`n`n`t`t`t`t`t`t`t`t`t`t`t`t`t`tここ`e]1337;SetMark`a`n`n`n"
 
 ![SetMark2](./img/SetMark2.gif)
 
-## OSC 9001 : コマンドが見つからないことを通知する（`WTAction`）
+## OSC 9001 : Windows Terminal 拡張（`WTAction`）
 
-最後は Windows Terminal 自身による拡張です。ターミナルは以下の OSC を受け取ると、左端に Quick Fix が表示されるということです。
+最後は Windows Terminal 自身による拡張です。
 
-```txt
-OSC 9001; SuggestInput; <cmd>; <description>
+### OSC 9001;CmdNotFound : コマンドが見つからないことを通知する
+
+コマンドが見つからないことを通知します。
+
+```powershell
+# コマンドが見つからないことを通知する
+Write-Host "`e]9001;CmdNotFound;見つからないコマンド`a"
 ```
 
-伝聞調なのは、[関連 PR](https://github.com/microsoft/terminal/pull/16848) は v1.22 でマージされ [Developer Blog](https://devblogs.microsoft.com/commandline/windows-terminal-preview-1-22-release/#quick-fixes-in-cmd) でも取り上げられているものの、手元の環境では表示されなかったためです。[Spec](https://github.com/microsoft/terminal/blob/main/doc/specs/%2316599%20-%20Quick%20Fix/%2316599%20-%20Quick%20Fix.md) に掲載されているスクリーンショットはモックのままとなっています。
+ターミナルの左端にクイックフィックスアイコンが表示され、クリックすると [WinGet](https://learn.microsoft.com/ja-jp/windows/package-manager/) コマンドの候補が表示されます。
 
-![quickFix-normal](https://github.com/microsoft/terminal/raw/main/doc/specs/%2316599%20-%20Quick%20Fix/quickFix-normal.gif)
+![CmdNotFound](./img/CmdNotFound.gif)
+
+コマンドプロンプトで見つからないコマンドを実行すると OSC 9001;CmdNotFound が送信され、クイックフィックスアイコンが表示されます。
+
+![WTAction](./img/WTAction.gif)
+
+記事執筆時点では [Canary および Preview のみで有効](https://github.com/microsoft/terminal/issues/20484)となっています。
 
 ## まとめと余談
 
@@ -690,4 +702,3 @@ Gemma 4 と Kimi K2.6、Qwen 3.6 は 2026 年 4 月リリースのオープン�
 * [about_Special_Characters - PowerShell | Microsoft Learn](https://learn.microsoft.com/ja-jp/powershell/module/microsoft.powershell.core/about/about_special_characters?view=powershell-7.6)
 * [terminal/src/terminal/parser/OutputStateMachineEngine.cpp at main · microsoft/terminal](https://github.com/microsoft/terminal/blob/main/src/terminal/parser/OutputStateMachineEngine.cpp)
 * [terminal/src/terminal/adapter/adaptDispatch.cpp at main · microsoft/terminal](https://github.com/microsoft/terminal/blob/main/src/terminal/adapter/adaptDispatch.cpp)
-* [Are there any settings to configure to use CMD Quick Fix? · Issue #20484 · microsoft/terminal](https://github.com/microsoft/terminal/issues/20484)
