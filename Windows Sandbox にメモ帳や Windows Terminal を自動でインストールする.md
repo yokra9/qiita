@@ -14,7 +14,7 @@
 
 [^2]: ここで PowerShell を駆使してインストーラをダウンロード・起動しているのは、WinGet もプリインストールされていないためです。
 [^3]: 大本の `powershell.exe` はウィンドウが表示されません。進捗をわかりやすくするため `Start-Process powershell` で別プロセスを開始しています。
-[^4]: XML 内で `"～"` は扱いづらいため `ArgumentList` の指定に `'～'` を使用する一方、内側のスクリプトでは文字列を `''～''` （[連続する単一引用符](https://learn.microsoft.com/ja-jp/powershell/module/microsoft.powershell.core/about/about_quoting_rules?view=powershell-5.1#including-quote-characters-in-a-string)）で表現しています。スクリプトをホストからマウントすればこのような問題は発生しませんが、セキュリティ上の理由でマウントを避けたい場合や、美意識の問題で 1 ファイルにまとめたい場合は参考にしてください。
+[^4]: XML 内で `"～"` は扱いづらいため `ArgumentList` の指定に `'～'` を使用する一方、内側のスクリプトでは文字列を `''～''` （[連続する単一引用符](https://learn.microsoft.com/ja-jp/powershell/module/microsoft.powershell.core/about/about_quoting_rules?view=powershell-5.1#including-quote-characters-in-a-string)）で表現しています。スクリプトをホストからマウントすればこのような問題は発生しませんが、セキュリティ上の都合でマウントを避けたい場合や、美意識の都合で 1 ファイルにまとめたい場合は参考にしてください。
 
 ```xml:Notepad++.wsb
 <?xml version="1.0" encoding="UTF-8"?>
