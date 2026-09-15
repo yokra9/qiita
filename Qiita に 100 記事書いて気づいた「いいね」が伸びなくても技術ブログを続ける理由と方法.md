@@ -78,7 +78,7 @@
 
 ### 「まとめてみた」系[^5]の場合
 
-[^5]: [Jakarta EE 10 で API と実装が分離された Specification の一覧](https://qiita.com/yokra9/items/f27484dda853092ed9eb) ほか
+[^5]: [Jakarta EE 10 で API と実装が分離された Specification の一覧](https://qiita.com/yokra9/items/f27484dda853092ed9eb) 、[Windows Terminal で使用できる OSC の一覧](https://qiita.com/yokra9/items/a69e257161c640bf9ef4) ほか
 
 自分が調査過程で「この情報がまとまっていたら楽だったのに！」と感じた事柄は、ほぼ確実に他の誰かも同じ不満を抱いています。
 
