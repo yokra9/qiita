@@ -1,8 +1,8 @@
 # Scala でも WinUI 3 なデスクトップアプリを開発したい with WinUI4K
 
-[Win UI 3](https://learn.microsoft.com/ja-jp/windows/apps/winui/winui3/) は [Windows App SDK](https://learn.microsoft.com/ja-jp/windows/apps/windows-app-sdk/) の一部として提供されるネイティブ UI フレームワークです。.NET だけでなく、C++ Win32 や WinRT ABI からも使用可能で、[Fluent Design](https://fluent2.microsoft.design/) に対応したモダンなデスクトップ体験を実現できます。
+[WinUI 3](https://learn.microsoft.com/ja-jp/windows/apps/winui/winui3/) は [Windows App SDK](https://learn.microsoft.com/ja-jp/windows/apps/windows-app-sdk/) の一部として提供されるネイティブ UI フレームワークです。.NET だけでなく、C++ Win32 や WinRT ABI からも使用可能で、[Fluent Design](https://fluent2.microsoft.design/) に対応したモダンなデスクトップ体験を実現できます。
 
-NTTレゾナントテクノロジーは 7 月 23 日、Win UI 3 を Kotlin / Java から呼び出せるライブラリ [WinUI4K](https://github.com/nttr-tech/winui4k) をリリースしました。
+NTTレゾナントテクノロジーは 7 月 23 日、WinUI 3 を Kotlin / Java から呼び出せるライブラリ [WinUI4K](https://github.com/nttr-tech/winui4k) をリリースしました。
 
 > WinUI4K を使うと、ブリッジ DLL も C# も Visual Studio も使わずに、Kotlin や Java だけで WinUI を使った Windows ネイティブアプリを作れます。 WinUI4K は Java の FFI (Panama / JNA / JNR) から WinRT ABI (バイナリレベルの呼び出し規約) を直接呼び出すため、言語とランタイムの間の橋渡し用ネイティブ DLL を同梱する必要がありません。
 > NTTレゾナントテクノロジーが提供する、インターネット経由でスマートフォン実機を借りられるサービス「Remote TestKit」の PC クライアント向けに活かすことを一つの目的として試作したライブラリです。 Apache License 2.0 で公開しており、商用か非商用かを問わず自由に利用できます。[^1]
@@ -34,7 +34,7 @@ sbt assembly
 java -jar .\scala-winui4k-example-assembly.jar
 ```
 
-## コードのポイント
+## Scala で WinUI4K を利用する際のポイント
 
 WinUI4K の導入自体に難しいところはなく、`libraryDependencies` に追加してあげるだけです。
 
@@ -65,7 +65,7 @@ lazy val root = project
   )
 ```
 
-ただし、Kotlin 用のライブラリなのでそのままではうまく動きません。具体的には、Kotlin のユニットと Scala のユニットは違う型なので、そのままだと型エラーになりますが、[暗黙の型変換](https://docs.scala-lang.org/ja/tour/implicit-conversions.html)を用意してあげるとスマートに書けます。
+ただし、Kotlin 用のライブラリなのでそのままではうまく動きません。具体的には、Kotlin のユニットと Scala のユニットは違う型なので、そのままだと型エラーになります。ここで、[暗黙の型変換](https://docs.scala-lang.org/ja/tour/implicit-conversions.html)を用意してあげるとスマートに書けます。
 
 ```Scala:KotlinInterop.scala
 import scala.language.implicitConversions
@@ -129,7 +129,6 @@ import KotlinInterop.given
     textArea.setPlaceholderText("ここに入力してください...")
 
     // 中略...
-
     // [ファイル] メニューの各項目を構築
     val openItem = new WMenuFlyoutItem("開く", null)
     openItem.setKeyboardAcceleratorText("Ctrl+O")
@@ -167,6 +166,7 @@ import KotlinInterop.given
                   showErrorDialog(s"ファイル名が無効です。\n${e.getMessage}")
       )
 
+ 
     // [ファイル] メニューを組み立てる
     val fileMenu = new WMenuBarItem("ファイル")
     fileMenu.add(newItem)
@@ -202,7 +202,7 @@ Scala の書き味でネイティブ UI が構成されるのはなかなか斬�
 
 今回用意したサンプルアプリは、大部分を `Kimi-K2.7-Code` に作成してもらっています。WinUI4K 自体がまだマイナーなフレームワークということもあり、GitHub 上のドキュメントを渡すだけでは上手くコーディングしてくれませんでした。しかし、[Metals の MCP サーバ](https://scalameta.org/metals/docs/features/mcp/) を有効化したうえで、`compile-file` 等のツールを使用するよう指示を出すと、かなり手直しの箇所を減らすことができました。
 
-マイナーなフレームワークでも言語側の MCP サーバを設定してやれば効率が上がることを体験できたのは、技術選択の幅を広く保つという意味で僥倖です。まだメジャーになれていない技術にも面白いものはあるはずですし、それを生成 AI の力で気軽に試せるというのは現代ならではの醍醐味と言えそうです。生成 AI はプログラミングの楽しみを奪いかねないという主張は多くあり、私も賛同するものですが、新たな楽しみ方を探すこともできそうです。
+マイナーなフレームワークでも言語側の MCP サーバを設定してやれば効率が上がることを体験できたのは、技術選択の幅を広く保つという意味で僥倖です。まだメジャーになれていない技術にも面白いものはあるはずですし、それを生成 AI の力で気軽に試せるというのは現代ならではの醍醐味と言えそうです。
 
 ## 参考リンク
 
