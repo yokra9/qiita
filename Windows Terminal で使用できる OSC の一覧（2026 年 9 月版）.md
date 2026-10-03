@@ -1,4 +1,4 @@
-# Windows Terminal で使用できる OSC の一覧（2026 年 8 月版）
+# Windows Terminal で使用できる OSC の一覧（2026 年 9 月版）
 
 [Operating System Command (OSC)](https://www.terminfo.dev/osc) はエスケープシーケンスの一種です。CLI アプリから `Operating System`（この場合はターミナルアプリのこと）に対して命令を送信する際に利用します。OSC には標準化団体などが存在せず、各ターミナルアプリで自由に実装が進められています。
 
@@ -41,7 +41,7 @@ ESC ] Ps ; Pt ST
 |[OSC 633](#osc-633--vscode-拡張vscodeaction)|VSCode 拡張|||
 |[OSC 633;Completions](#osc-633completions--シェル補完)|シェル補完|[v1.19.2682.0](https://github.com/microsoft/terminal/releases/tag/v1.19.2682.0)|[#14938](https://github.com/microsoft/terminal/pull/14938)|
 |[OSC 777](#osc-777--urxvt-拡張urxvtaction)|urxvt 拡張|||
-|[OSC 777;notify](#osc-777notify--デスクトップ通知を送信する)|デスクトップ通知を送信する|-|[#20012](https://github.com/microsoft/terminal/pull/20012)|
+|[OSC 777;notify](#osc-777notify--デスクトップ通知を送信する)|デスクトップ通知を送信する|[v1.26.2734.0](https://github.com/microsoft/terminal/releases/tag/v1.26.2734.0)|[#20012](https://github.com/microsoft/terminal/pull/20012)|
 |[OSC 1337](#osc-1337--iterm2-拡張iterm2action)|iTerm2 拡張|-|-|
 |[OSC 1337;SetMark](#osc-1337setmark--スクロールマークを追加する)|スクロールバーにマークを追加する|[v1.15.186](https://github.com/microsoft/terminal/releases/tag/v1.15.1862.0)|[#12948](https://github.com/microsoft/terminal/pull/12948)|
 |[OSC 9001](#osc-9001--windows-terminal-拡張wtaction)|Windows Terminal 拡張|||
@@ -116,7 +116,7 @@ PowerShell プロファイル の `prompt` 関数で OSC 7 を使用すると、
 
 ```powershell:Profile.ps1
 function prompt {
-  $cwd = $executionContext.SessionState.Path.CurrentLocation.Path;
+  $cwd = $executionContext.SessionState.Path.CurrentLocation;
   $uri = [System.Uri]::new($cwd).AbsoluteUri;
 
   # OSC 7 で CWD を通知
@@ -182,7 +182,7 @@ PowerShell プロファイル の `prompt` 関数で OSC 9;9 を使用すると�
 
 ```powershell:Profile.ps1
 function prompt {
-  $cwd = $executionContext.SessionState.Path.CurrentLocation.Path;
+  $cwd = $executionContext.SessionState.Path.CurrentLocation;
 
   # OSC 9;9 で CWD を通知
   $out += "`e]9;9;`"$cwd`"`a";
@@ -611,7 +611,7 @@ Start-Sleep 2; Write-Host -NoNewline "`e]777;notify;タイトル;本文`a"
 
 同年、GNOME Bugzilla の [Notifications for long-running commands](https://gitlab.gnome.org/GNOME/gnome-terminal/-/work_items/7378) という Issue で Terminology での実装が紹介されます。この Issue に投稿されたパッチは [GNOME vte](https://gitlab.gnome.org/GNOME/vte) の [Fedora 版フォーク](https://src.fedoraproject.org/rpms/vte291/blob/f22/f/vte291-command-notify.patch)で取り込まれました。これはやがてダウンストリームの [CentOS 7.4.1708](https://vault.centos.org/7.4.1708/os/Source/SPackages/) にも取り込まれメジャーどころとなります。
 
-その後 [foot](https://codeberg.org/dnkl/foot/pulls/236) では 2020 年に、 [ghostty](https://github.com/ghostty-org/ghostty/issues/612) では 2023 年に実装され、[#20012](https://github.com/microsoft/terminal/pull/20012) で Windows Terminal にも実装されることになります。記事執筆時点では Canary で下記設定を有効化した場合に利用可能となります。
+その後 [foot](https://codeberg.org/dnkl/foot/pulls/236) では 2020 年に、 [ghostty](https://github.com/ghostty-org/ghostty/issues/612) では 2023 年に実装され、[v1.26.2734.0](https://github.com/microsoft/terminal/releases/tag/v1.26.2734.0) で Windows Terminal にも実装されることになります。
 
 ```json:settings.json
 {
@@ -672,9 +672,9 @@ Write-Host "`e]9001;CmdNotFound;見つからないコマンド`a"
 
 記事執筆時点では [Canary および Preview のみで有効](https://github.com/microsoft/terminal/issues/20484)となっています。
 
-## まとめと余談
+## まとめと余談 with さくらの AI Engine
 
-Initial Release で実装されていたものから Nightly Build にしか含まれないものまで、Windows Terminal は OSC のサポートを継続的に追加してきました。[`$PSStyle` 自動変数](https://learn.microsoft.com/ja-jp/powershell/module/microsoft.powershell.core/about/about_ansi_terminals?view=powershell-7.6)など OSC 以外の手段でも実現可能な機能も多いですが、古いコンソール技術は [Sixel](https://qiita.com/yokra9/items/14373111cc8ee765ff35) のように時代を超えて有用性が再浮上するケースもあります。現に、[Claude Code のような CLI ベースのエージェントからデスクトップ通知を送る方法として OSC 777;notify が取り上げられ](https://code.claude.com/docs/en/hooks#emit-terminal-notifications)ていますし、これらを記憶に留めて損はありません。本記事では Windows Terminal に実装されたものを中心に取り上げましたが、[vtdn](https://vtdn.dev/docs/category/osc-sequences) や [Terminfo.dev](https://www.terminfo.dev/osc) などを参照して残りの OSC を知るのも面白いでしょう。
+Initial Release で実装されていたものから Canary にしか含まれないものまで、Windows Terminal は OSC のサポートを継続的に追加してきました。[`$PSStyle` 自動変数](https://learn.microsoft.com/ja-jp/powershell/module/microsoft.powershell.core/about/about_ansi_terminals?view=powershell-7.6)など OSC 以外の手段でも実現可能な機能も多いですが、古いコンソール技術は [Sixel](https://qiita.com/yokra9/items/14373111cc8ee765ff35) のように時代を超えて有用性が再浮上するケースもあります。現に、[Claude Code のような CLI ベースのエージェントからデスクトップ通知を送る方法として OSC 777;notify が取り上げられ](https://code.claude.com/docs/en/hooks#emit-terminal-notifications)ていますし、これらを記憶に留めて損はありません。本記事では Windows Terminal に実装されたものを中心に取り上げましたが、[vtdn](https://vtdn.dev/docs/category/osc-sequences) や [Terminfo.dev](https://www.terminfo.dev/osc) などを参照して残りの OSC を知るのも面白いでしょう。
 
 <!-- markdownlint-disable-next-line MD033 -->
 <details><summary>クリックして余談を展開…</summary>
