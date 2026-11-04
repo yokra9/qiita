@@ -15,9 +15,15 @@ NTTレゾナントテクノロジーは 7 月 23 日、WinUI 3 を Kotlin / Java
 
 ## とりあえずサンプルを実行してみる
 
-WinUI4K でビルドしたアプリの実行には Windows App SDK 2.4 ランタイムのインストールが必要です。[最新の Windows アプリ SDK ダウンロード](https://learn.microsoft.com/ja-jp/windows/apps/windows-app-sdk/downloads) のページからダウンロードしてください。
+WinUI4K でビルドしたアプリの実行には Windows App SDK 2.4 ランタイムのインストールが必要です。クローンしたリポジトリ内で以下のコマンドを実行すると、カレントディレクトリにインストーラがダウンロードされます。
 
-あとはリポジトリをクローンし、以下のコマンドを実行すれば、Scala 製の WinUI 3 なメモ帳アプリが起動するはずです。
+```powershell
+sbt downloadInstallers
+```
+
+もしくは、[最新の Windows アプリ SDK ダウンロード](https://learn.microsoft.com/ja-jp/windows/apps/windows-app-sdk/downloads) のページからダウンロードしてください。
+
+あとは以下のコマンドを実行すれば、Scala 製の WinUI 3 なメモ帳アプリが起動するはずです。
 
 ```powershell
 sbt run
